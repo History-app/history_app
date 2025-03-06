@@ -1,0 +1,320 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'app_colors.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
+/// @nodoc/Users/taniguchitomoto/my_app/lib/Model/bottom_nav_state.dart
+mixin _$AppColors {
+  Color get primaryRed => throw _privateConstructorUsedError;
+  Color get primaryBlack => throw _privateConstructorUsedError;
+  Color get paleRed => throw _privateConstructorUsedError;
+  Color get paleGrey => throw _privateConstructorUsedError;
+  Color get grey => throw _privateConstructorUsedError;
+  Color get preRed => throw _privateConstructorUsedError;
+  Color get prePaleRed => throw _privateConstructorUsedError;
+  Color get preBlue => throw _privateConstructorUsedError;
+  Color get preGrey => throw _privateConstructorUsedError;
+
+  /// Create a copy of AppColors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AppColorsCopyWith<AppColors> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AppColorsCopyWith<$Res> {
+  factory $AppColorsCopyWith(AppColors value, $Res Function(AppColors) then) =
+      _$AppColorsCopyWithImpl<$Res, AppColors>;
+  @useResult
+  $Res call(
+      {Color primaryRed,
+      Color primaryBlack,
+      Color paleRed,
+      Color paleGrey,
+      Color grey,
+      Color preRed,
+      Color prePaleRed,
+      Color preBlue,
+      Color preGrey});
+}
+
+/// @nodoc
+class _$AppColorsCopyWithImpl<$Res, $Val extends AppColors>
+    implements $AppColorsCopyWith<$Res> {
+  _$AppColorsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of AppColors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? primaryRed = null,
+    Object? primaryBlack = null,
+    Object? paleRed = null,
+    Object? paleGrey = null,
+    Object? grey = null,
+    Object? preRed = null,
+    Object? prePaleRed = null,
+    Object? preBlue = null,
+    Object? preGrey = null,
+  }) {
+    return _then(_value.copyWith(
+      primaryRed: null == primaryRed
+          ? _value.primaryRed
+          : primaryRed // ignore: cast_nullable_to_non_nullable
+              as Color,
+      primaryBlack: null == primaryBlack
+          ? _value.primaryBlack
+          : primaryBlack // ignore: cast_nullable_to_non_nullable
+              as Color,
+      paleRed: null == paleRed
+          ? _value.paleRed
+          : paleRed // ignore: cast_nullable_to_non_nullable
+              as Color,
+      paleGrey: null == paleGrey
+          ? _value.paleGrey
+          : paleGrey // ignore: cast_nullable_to_non_nullable
+              as Color,
+      grey: null == grey
+          ? _value.grey
+          : grey // ignore: cast_nullable_to_non_nullable
+              as Color,
+      preRed: null == preRed
+          ? _value.preRed
+          : preRed // ignore: cast_nullable_to_non_nullable
+              as Color,
+      prePaleRed: null == prePaleRed
+          ? _value.prePaleRed
+          : prePaleRed // ignore: cast_nullable_to_non_nullable
+              as Color,
+      preBlue: null == preBlue
+          ? _value.preBlue
+          : preBlue // ignore: cast_nullable_to_non_nullable
+              as Color,
+      preGrey: null == preGrey
+          ? _value.preGrey
+          : preGrey // ignore: cast_nullable_to_non_nullable
+              as Color,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$AppColorsImplCopyWith<$Res>
+    implements $AppColorsCopyWith<$Res> {
+  factory _$$AppColorsImplCopyWith(
+          _$AppColorsImpl value, $Res Function(_$AppColorsImpl) then) =
+      __$$AppColorsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {Color primaryRed,
+      Color primaryBlack,
+      Color paleRed,
+      Color paleGrey,
+      Color grey,
+      Color preRed,
+      Color prePaleRed,
+      Color preBlue,
+      Color preGrey});
+}
+
+/// @nodoc
+class __$$AppColorsImplCopyWithImpl<$Res>
+    extends _$AppColorsCopyWithImpl<$Res, _$AppColorsImpl>
+    implements _$$AppColorsImplCopyWith<$Res> {
+  __$$AppColorsImplCopyWithImpl(
+      _$AppColorsImpl _value, $Res Function(_$AppColorsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AppColors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? primaryRed = null,
+    Object? primaryBlack = null,
+    Object? paleRed = null,
+    Object? paleGrey = null,
+    Object? grey = null,
+    Object? preRed = null,
+    Object? prePaleRed = null,
+    Object? preBlue = null,
+    Object? preGrey = null,
+  }) {
+    return _then(_$AppColorsImpl(
+      primaryRed: null == primaryRed
+          ? _value.primaryRed
+          : primaryRed // ignore: cast_nullable_to_non_nullable
+              as Color,
+      primaryBlack: null == primaryBlack
+          ? _value.primaryBlack
+          : primaryBlack // ignore: cast_nullable_to_non_nullable
+              as Color,
+      paleRed: null == paleRed
+          ? _value.paleRed
+          : paleRed // ignore: cast_nullable_to_non_nullable
+              as Color,
+      paleGrey: null == paleGrey
+          ? _value.paleGrey
+          : paleGrey // ignore: cast_nullable_to_non_nullable
+              as Color,
+      grey: null == grey
+          ? _value.grey
+          : grey // ignore: cast_nullable_to_non_nullable
+              as Color,
+      preRed: null == preRed
+          ? _value.preRed
+          : preRed // ignore: cast_nullable_to_non_nullable
+              as Color,
+      prePaleRed: null == prePaleRed
+          ? _value.prePaleRed
+          : prePaleRed // ignore: cast_nullable_to_non_nullable
+              as Color,
+      preBlue: null == preBlue
+          ? _value.preBlue
+          : preBlue // ignore: cast_nullable_to_non_nullable
+              as Color,
+      preGrey: null == preGrey
+          ? _value.preGrey
+          : preGrey // ignore: cast_nullable_to_non_nullable
+              as Color,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AppColorsImpl implements _AppColors {
+  const _$AppColorsImpl(
+      {this.primaryRed = const Color(0xFFF24326),
+      this.primaryBlack = const Color(0xFF302D58),
+      this.paleRed = const Color(0xFFFC917F),
+      this.paleGrey = const Color(0xFFFDFDFD),
+      this.grey = const Color(0xFFD6D6D6),
+      this.preRed = const Color(0xFFB41F06),
+      this.prePaleRed = const Color(0xFFE66650),
+      this.preBlue = const Color(0xFF2A3840),
+      this.preGrey = const Color(0xFFA7A8A7)});
+
+  @override
+  @JsonKey()
+  final Color primaryRed;
+  @override
+  @JsonKey()
+  final Color primaryBlack;
+  @override
+  @JsonKey()
+  final Color paleRed;
+  @override
+  @JsonKey()
+  final Color paleGrey;
+  @override
+  @JsonKey()
+  final Color grey;
+  @override
+  @JsonKey()
+  final Color preRed;
+  @override
+  @JsonKey()
+  final Color prePaleRed;
+  @override
+  @JsonKey()
+  final Color preBlue;
+  @override
+  @JsonKey()
+  final Color preGrey;
+
+  @override
+  String toString() {
+    return 'AppColors(primaryRed: $primaryRed, primaryBlack: $primaryBlack, paleRed: $paleRed, paleGrey: $paleGrey, grey: $grey, preRed: $preRed, prePaleRed: $prePaleRed, preBlue: $preBlue, preGrey: $preGrey)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AppColorsImpl &&
+            (identical(other.primaryRed, primaryRed) ||
+                other.primaryRed == primaryRed) &&
+            (identical(other.primaryBlack, primaryBlack) ||
+                other.primaryBlack == primaryBlack) &&
+            (identical(other.paleRed, paleRed) || other.paleRed == paleRed) &&
+            (identical(other.paleGrey, paleGrey) ||
+                other.paleGrey == paleGrey) &&
+            (identical(other.grey, grey) || other.grey == grey) &&
+            (identical(other.preRed, preRed) || other.preRed == preRed) &&
+            (identical(other.prePaleRed, prePaleRed) ||
+                other.prePaleRed == prePaleRed) &&
+            (identical(other.preBlue, preBlue) || other.preBlue == preBlue) &&
+            (identical(other.preGrey, preGrey) || other.preGrey == preGrey));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, primaryRed, primaryBlack,
+      paleRed, paleGrey, grey, preRed, prePaleRed, preBlue, preGrey);
+
+  /// Create a copy of AppColors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AppColorsImplCopyWith<_$AppColorsImpl> get copyWith =>
+      __$$AppColorsImplCopyWithImpl<_$AppColorsImpl>(this, _$identity);
+}
+
+abstract class _AppColors implements AppColors {
+  const factory _AppColors(
+      {final Color primaryRed,
+      final Color primaryBlack,
+      final Color paleRed,
+      final Color paleGrey,
+      final Color grey,
+      final Color preRed,
+      final Color prePaleRed,
+      final Color preBlue,
+      final Color preGrey}) = _$AppColorsImpl;
+
+  @override
+  Color get primaryRed;
+  @override
+  Color get primaryBlack;
+  @override
+  Color get paleRed;
+  @override
+  Color get paleGrey;
+  @override
+  Color get grey;
+  @override
+  Color get preRed;
+  @override
+  Color get prePaleRed;
+  @override
+  Color get preBlue;
+  @override
+  Color get preGrey;
+
+  /// Create a copy of AppColors
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AppColorsImplCopyWith<_$AppColorsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
