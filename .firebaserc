@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "history-app-fa0c5",
+    "dev": "history-app-dev-fce4a"
+  },
+  "targets": {},
+  "etags": {}
+}
