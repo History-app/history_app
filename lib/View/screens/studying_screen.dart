@@ -145,11 +145,30 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
     final answerCardKey =
         ref.read(tutorialProvider.notifier).getAnswerButtonKey();
 
-    final flds = duecard[0]['flds'];
-    final List<String> answerCardQuestionText = [
-      flds[1].toString(),
-      flds.length > 2 ? flds[2].toString() : '', // ← 安全に3番目を扱う
-    ];
+    // final flds = duecard[0]['flds'];
+    // final List<String> answerCardQuestionText = [
+    //   flds[1].toString(),
+    //   flds.length > 2 ? flds[2].toString() : '', // ← 安全に3番目を扱う
+    // ];
+
+    final List<String> answerCardQuestionText;
+
+    if (duecard.isNotEmpty &&
+        duecard[0]['flds'] != null &&
+        duecard[0]['flds'] is List) {
+      final flds = duecard[0]['flds'] as List;
+
+      print('flds');
+      print(flds);
+
+      answerCardQuestionText = [
+        flds.length > 1 ? flds[1].toString() : '',
+        flds.length > 2 ? flds[2].toString() : '',
+      ];
+    } else {
+      answerCardQuestionText = ['', ''];
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       //未実装の箇所はのちに実装予定
@@ -354,7 +373,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                 ),
               ),
             )
-          : SizedBox(
+          : Container(
               width: double.infinity, // 画面幅いっぱいに広げる
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
