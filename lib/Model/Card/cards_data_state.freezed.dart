@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'cards_data_state.dart';
 
@@ -12,7 +12,7 @@ part of 'cards_data_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$CardsDataState {
@@ -32,9 +32,7 @@ mixin _$CardsDataState {
   int get reviewCardCount => throw _privateConstructorUsedError;
   int get totalCardCount => throw _privateConstructorUsedError;
 
-  /// Create a copy of CardsDataState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $CardsDataStateCopyWith<CardsDataState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -69,8 +67,6 @@ class _$CardsDataStateCopyWithImpl<$Res, $Val extends CardsDataState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CardsDataState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,11 +132,11 @@ class _$CardsDataStateCopyWithImpl<$Res, $Val extends CardsDataState>
 }
 
 /// @nodoc
-abstract class _$$CardsDataStateImplCopyWith<$Res>
+abstract class _$$_CardsDataStateCopyWith<$Res>
     implements $CardsDataStateCopyWith<$Res> {
-  factory _$$CardsDataStateImplCopyWith(_$CardsDataStateImpl value,
-          $Res Function(_$CardsDataStateImpl) then) =
-      __$$CardsDataStateImplCopyWithImpl<$Res>;
+  factory _$$_CardsDataStateCopyWith(
+          _$_CardsDataState value, $Res Function(_$_CardsDataState) then) =
+      __$$_CardsDataStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -158,15 +154,13 @@ abstract class _$$CardsDataStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CardsDataStateImplCopyWithImpl<$Res>
-    extends _$CardsDataStateCopyWithImpl<$Res, _$CardsDataStateImpl>
-    implements _$$CardsDataStateImplCopyWith<$Res> {
-  __$$CardsDataStateImplCopyWithImpl(
-      _$CardsDataStateImpl _value, $Res Function(_$CardsDataStateImpl) _then)
+class __$$_CardsDataStateCopyWithImpl<$Res>
+    extends _$CardsDataStateCopyWithImpl<$Res, _$_CardsDataState>
+    implements _$$_CardsDataStateCopyWith<$Res> {
+  __$$_CardsDataStateCopyWithImpl(
+      _$_CardsDataState _value, $Res Function(_$_CardsDataState) _then)
       : super(_value, _then);
 
-  /// Create a copy of CardsDataState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -182,7 +176,7 @@ class __$$CardsDataStateImplCopyWithImpl<$Res>
     Object? reviewCardCount = null,
     Object? totalCardCount = null,
   }) {
-    return _then(_$CardsDataStateImpl(
+    return _then(_$_CardsDataState(
       cards: null == cards
           ? _value._cards
           : cards // ignore: cast_nullable_to_non_nullable
@@ -233,8 +227,8 @@ class __$$CardsDataStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CardsDataStateImpl implements _CardsDataState {
-  const _$CardsDataStateImpl(
+class _$_CardsDataState implements _CardsDataState {
+  const _$_CardsDataState(
       {final List<Map<String, dynamic>> cards = const [],
       final List<String> todaysReviewNoteRefs = const [],
       final List<Map<String, dynamic>> usersMultipleCards = const [],
@@ -258,7 +252,6 @@ class _$CardsDataStateImpl implements _CardsDataState {
   @override
   @JsonKey()
   List<Map<String, dynamic>> get cards {
-    if (_cards is EqualUnmodifiableListView) return _cards;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_cards);
   }
@@ -267,8 +260,6 @@ class _$CardsDataStateImpl implements _CardsDataState {
   @override
   @JsonKey()
   List<String> get todaysReviewNoteRefs {
-    if (_todaysReviewNoteRefs is EqualUnmodifiableListView)
-      return _todaysReviewNoteRefs;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_todaysReviewNoteRefs);
   }
@@ -277,8 +268,6 @@ class _$CardsDataStateImpl implements _CardsDataState {
   @override
   @JsonKey()
   List<Map<String, dynamic>> get usersMultipleCards {
-    if (_usersMultipleCards is EqualUnmodifiableListView)
-      return _usersMultipleCards;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_usersMultipleCards);
   }
@@ -287,7 +276,6 @@ class _$CardsDataStateImpl implements _CardsDataState {
   @override
   @JsonKey()
   List<Map<String, dynamic>> get notesByNoteRef {
-    if (_notesByNoteRef is EqualUnmodifiableListView) return _notesByNoteRef;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_notesByNoteRef);
   }
@@ -296,7 +284,6 @@ class _$CardsDataStateImpl implements _CardsDataState {
   @override
   @JsonKey()
   List<Map<String, dynamic>> get allNotes {
-    if (_allNotes is EqualUnmodifiableListView) return _allNotes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_allNotes);
   }
@@ -305,8 +292,6 @@ class _$CardsDataStateImpl implements _CardsDataState {
   @override
   @JsonKey()
   Map<dynamic, int> get leftValueDistribution {
-    if (_leftValueDistribution is EqualUnmodifiableMapView)
-      return _leftValueDistribution;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_leftValueDistribution);
   }
@@ -315,7 +300,6 @@ class _$CardsDataStateImpl implements _CardsDataState {
   @override
   @JsonKey()
   List<Map<String, dynamic>> get allLearnedCards {
-    if (_allLearnedCards is EqualUnmodifiableListView) return _allLearnedCards;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_allLearnedCards);
   }
@@ -339,10 +323,10 @@ class _$CardsDataStateImpl implements _CardsDataState {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CardsDataStateImpl &&
+            other is _$_CardsDataState &&
             const DeepCollectionEquality().equals(other._cards, _cards) &&
             const DeepCollectionEquality()
                 .equals(other._todaysReviewNoteRefs, _todaysReviewNoteRefs) &&
@@ -380,14 +364,11 @@ class _$CardsDataStateImpl implements _CardsDataState {
       reviewCardCount,
       totalCardCount);
 
-  /// Create a copy of CardsDataState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CardsDataStateImplCopyWith<_$CardsDataStateImpl> get copyWith =>
-      __$$CardsDataStateImplCopyWithImpl<_$CardsDataStateImpl>(
-          this, _$identity);
+  _$$_CardsDataStateCopyWith<_$_CardsDataState> get copyWith =>
+      __$$_CardsDataStateCopyWithImpl<_$_CardsDataState>(this, _$identity);
 }
 
 abstract class _CardsDataState implements CardsDataState {
@@ -402,7 +383,7 @@ abstract class _CardsDataState implements CardsDataState {
       final int newCardCount,
       final int learningCardCount,
       final int reviewCardCount,
-      final int totalCardCount}) = _$CardsDataStateImpl;
+      final int totalCardCount}) = _$_CardsDataState;
 
   @override
   List<Map<String, dynamic>> get cards;
@@ -426,11 +407,8 @@ abstract class _CardsDataState implements CardsDataState {
   int get reviewCardCount;
   @override
   int get totalCardCount;
-
-  /// Create a copy of CardsDataState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CardsDataStateImplCopyWith<_$CardsDataStateImpl> get copyWith =>
+  @JsonKey(ignore: true)
+  _$$_CardsDataStateCopyWith<_$_CardsDataState> get copyWith =>
       throw _privateConstructorUsedError;
 }

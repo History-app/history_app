@@ -31,7 +31,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
   // チュートリアルを初期化
   Future<void> initTutorial(BuildContext context) async {
     final isCompleted = await checkTutorialCompleted();
-
+    print('チュートリアル完了状態: $isCompleted');
     final tutorialMark = TutorialCoachMark(
       targets: _createHomeTargets(),
       colorShadow: AppColors().primaryRed,
@@ -284,7 +284,9 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
 
     // レイアウトが終わるまで 1 フレーム待つ
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      extraMark.show(context: context);
+      Future.delayed(Duration(seconds: 1), () {
+        extraMark.show(context: context);
+      });
     });
   }
 
@@ -308,9 +310,6 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
       },
     );
 
-    // Future.delayed(Duration(milliseconds: 500), () {
-    //   studyingTutorialMark.show(context: context);
-    // });
     studyingTutorialMark.show(context: context);
   }
 

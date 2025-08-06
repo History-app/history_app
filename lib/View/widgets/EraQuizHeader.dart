@@ -6,9 +6,11 @@ import '../../Model/Color/app_colors.dart';
 import '../screens/modal.dart';
 
 class EraQuizHeader extends StatelessWidget {
+  const EraQuizHeader({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 56,
       width: 360,
       child: Row(
@@ -22,7 +24,7 @@ class EraQuizHeader extends StatelessWidget {
               style: AppTextStyles.notoSansDisplay.copyWith(fontSize: 16),
             ),
           ),
-          Container(
+          SizedBox(
             height: 56,
             width: 104,
             child: Column(

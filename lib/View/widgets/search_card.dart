@@ -8,10 +8,10 @@ class SearchAppBarPage extends StatelessWidget {
   final VoidCallback? onBackPressed;
 
   const SearchAppBarPage({
-    Key? key,
+    super.key,
     required this.controller,
     this.onBackPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class SearchAppBarPage extends StatelessWidget {
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                SizedBox(
                   width: 150,
                   child: Text(
                     data[index][0],

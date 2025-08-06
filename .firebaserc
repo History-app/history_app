@@ -1,7 +1,10 @@
 {
   "projects": {
     "default": "history-app-fa0c5",
-    "dev": "history-app-dev-fce4a"
+    "dev": "history-app-dev-fce4a",
+    "e.g.staging": "history-app-dev-fce4a",
+    " e.g. staging": "history-app-fa0c5",
+    "yes": "history-app-dev-fce4a"
   },
   "targets": {},
   "etags": {}

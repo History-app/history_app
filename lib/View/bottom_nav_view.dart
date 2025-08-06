@@ -8,7 +8,7 @@ import './screens/profile_screen.dart'; // ← 追加（プロフィール画面
 import './screens/data.dart';
 
 class BottomNavView extends ConsumerWidget {
-  const BottomNavView({Key? key}) : super(key: key);
+  const BottomNavView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +16,7 @@ class BottomNavView extends ConsumerWidget {
     final state = ref.watch(bottomNavProvider);
 
     // 一度だけインスタンスを作るように保持
-    final List<Widget> _screens = [
+    final List<Widget> screens = [
       HomeScreen(),
       DataScreen(),
       ProfileScreen(),
@@ -25,7 +25,7 @@ class BottomNavView extends ConsumerWidget {
     return Scaffold(
       body: IndexedStack(
         index: state.selectedIndex,
-        children: _screens,
+        children: screens,
       ),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(

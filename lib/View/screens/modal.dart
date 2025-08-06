@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AccountDeletedModal extends StatelessWidget {
-  const AccountDeletedModal({Key? key}) : super(key: key);
+  const AccountDeletedModal({super.key});
 
   @override
   Widget build(BuildContext context) {

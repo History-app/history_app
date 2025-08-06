@@ -17,7 +17,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
               children: [
                 Divider(height: 0.5, thickness: 0.5, color: AppColors().grey),
                 Gap(13),
-                Container(
+                SizedBox(
                   width: 104,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +56,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                 Gap(5),
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Container(
+                  child: SizedBox(
                     height: 36,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,26 +69,30 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final timestamp1Min = Timestamp.fromDate(
                                   DateTime.now().add(Duration(minutes: 1)));
 
-                              updateLearnedCardsData(
-                                duecards[0]['noteRef'],
-                                1,
-                                1,
-                                dueTimestamp: timestamp1Min,
-                                left: 2002,
-                              );
+                              ref
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                    duecards[0]['noteRef'],
+                                    1,
+                                    1,
+                                    dueTimestamp: timestamp1Min,
+                                    left: 2002,
+                                  );
                             }
                             if ([2001].contains(carddata[0]['left'])) {
                               // 1分後のタイムスタンプを作成
                               final timestamp10Min = Timestamp.fromDate(
                                   DateTime.now().add(Duration(minutes: 10)));
 
-                              updateLearnedCardsData(
-                                duecards[0]['noteRef'],
-                                1,
-                                1,
-                                dueTimestamp: timestamp10Min,
-                                left: 2001,
-                              );
+                              ref
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                    duecards[0]['noteRef'],
+                                    1,
+                                    1,
+                                    dueTimestamp: timestamp10Min,
+                                    left: 2001,
+                                  );
                             }
                             if (carddata[0]['left'] == 0) {
                               final timestamp10Min = Timestamp.fromDate(
@@ -96,23 +100,24 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
 
                               final factor = duecards[0]['factor'];
                               final newfactor = factor - 200;
-
-                              updateLearnedCardsData(
-                                  duecards[0]['noteRef'], 3, 1,
-                                  left: 2001,
-                                  dueTimestamp: timestamp10Min,
-                                  factor: newfactor);
+                              ref
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                      duecards[0]['noteRef'], 3, 1,
+                                      left: 2001,
+                                      dueTimestamp: timestamp10Min,
+                                      factor: newfactor);
                             }
                             ref
-                                .read(cardsDataNotifierProvider.notifier)
+                                .read(cardsDataNewNotifierProvider.notifier)
                                 .moveCardBetweenCategories(
                                     carddata[0]['type'], 1);
 
                             ref
-                                .read(cardsDataNotifierProvider.notifier)
+                                .read(cardsDataNewNotifierProvider.notifier)
                                 .decrementLeftValueCount(carddata[0]['left']);
                             ref
-                                .read(cardsDataNotifierProvider.notifier)
+                                .read(cardsDataNewNotifierProvider.notifier)
                                 .removeFirstCard();
 
                             setState(() {
@@ -124,6 +129,10 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                           child: Container(
                             width: 80,
                             height: 36,
+                            decoration: BoxDecoration(
+                              color: AppColors().primaryRed,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
                             child: Center(
                               child: Column(
                                 // または Row、Stack などを使用
@@ -166,10 +175,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                 ],
                               ),
                             ),
-                            decoration: BoxDecoration(
-                              color: AppColors().primaryRed,
-                              borderRadius: BorderRadius.circular(40),
-                            ),
                           ),
                         ),
                         GestureDetector(
@@ -178,15 +183,17 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final timestamp10Min = Timestamp.fromDate(
                                   DateTime.now().add(Duration(minutes: 10)));
 
-                              updateLearnedCardsData(
-                                duecards[0]['noteRef'],
-                                1,
-                                1,
-                                left: 1001,
-                                dueTimestamp: timestamp10Min,
-                              );
                               ref
-                                  .read(cardsDataNotifierProvider.notifier)
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                    duecards[0]['noteRef'],
+                                    1,
+                                    1,
+                                    left: 1001,
+                                    dueTimestamp: timestamp10Min,
+                                  );
+                              ref
+                                  .read(cardsDataNewNotifierProvider.notifier)
                                   .moveCardBetweenCategories(
                                       carddata[0]['type'], 1);
 
@@ -196,15 +203,17 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final timestamp18Hours = Timestamp.fromDate(
                                   DateTime.now().add(Duration(hours: 18)));
 
-                              updateLearnedCardsData(
-                                duecards[0]['noteRef'],
-                                2,
-                                2,
-                                left: 0,
-                                dueTimestamp: timestamp18Hours,
-                              );
                               ref
-                                  .read(cardsDataNotifierProvider.notifier)
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                    duecards[0]['noteRef'],
+                                    2,
+                                    2,
+                                    left: 0,
+                                    dueTimestamp: timestamp18Hours,
+                                  );
+                              ref
+                                  .read(cardsDataNewNotifierProvider.notifier)
                                   .moveCardBetweenCategories(
                                       carddata[0]['type'], 2);
                             }
@@ -231,19 +240,21 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                           .toInt() // 日数を時間に変換
                                       )));
 
-                              updateLearnedCardsData(
-                                  duecards[0]['noteRef'], 2, 2,
-                                  left: 0,
-                                  dueTimestamp: dueTimestamp,
-                                  newivl: newivl,
-                                  factor: newfactor);
                               ref
-                                  .read(cardsDataNotifierProvider.notifier)
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                      duecards[0]['noteRef'], 2, 2,
+                                      left: 0,
+                                      dueTimestamp: dueTimestamp,
+                                      ivl: newivl,
+                                      factor: newfactor);
+                              ref
+                                  .read(cardsDataNewNotifierProvider.notifier)
                                   .moveCardBetweenCategories(
                                       carddata[0]['type'], 2);
                             }
                             ref
-                                .read(cardsDataNotifierProvider.notifier)
+                                .read(cardsDataNewNotifierProvider.notifier)
                                 .removeFirstCard();
                             setState(() {
                               // duecard.removeAt(0);
@@ -256,6 +267,10 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                           child: Container(
                               width: 80,
                               height: 36,
+                              decoration: BoxDecoration(
+                                color: Colors.yellow,
+                                borderRadius: BorderRadius.circular(40),
+                              ),
                               child: Center(
                                 child: Column(
                                   // または Row、Stack などを使用
@@ -321,10 +336,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     ),
                                   ],
                                 ),
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.yellow,
-                                borderRadius: BorderRadius.circular(40),
                               )),
                         ),
                         GestureDetector(
@@ -333,15 +344,17 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final timestamp10Min = Timestamp.fromDate(
                                   DateTime.now().add(Duration(minutes: 10)));
 
-                              updateLearnedCardsData(
-                                duecards[0]['noteRef'],
-                                1,
-                                1,
-                                left: 1001,
-                                dueTimestamp: timestamp10Min,
-                              );
                               ref
-                                  .read(cardsDataNotifierProvider.notifier)
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                    duecards[0]['noteRef'],
+                                    1,
+                                    1,
+                                    left: 1001,
+                                    dueTimestamp: timestamp10Min,
+                                  );
+                              ref
+                                  .read(cardsDataNewNotifierProvider.notifier)
                                   .moveCardBetweenCategories(
                                       carddata[0]['type'], 1);
                               _loadNoteData();
@@ -349,15 +362,17 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                             if ([1001, 2001].contains(carddata[0]['left'])) {
                               final timestamp18Hours = Timestamp.fromDate(
                                   DateTime.now().add(Duration(hours: 24)));
-                              updateLearnedCardsData(
-                                duecards[0]['noteRef'],
-                                2,
-                                2,
-                                left: 0,
-                                dueTimestamp: timestamp18Hours,
-                              );
                               ref
-                                  .read(cardsDataNotifierProvider.notifier)
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                    duecards[0]['noteRef'],
+                                    2,
+                                    2,
+                                    left: 0,
+                                    dueTimestamp: timestamp18Hours,
+                                  );
+                              ref
+                                  .read(cardsDataNewNotifierProvider.notifier)
                                   .moveCardBetweenCategories(
                                       carddata[0]['type'], 2);
                             }
@@ -377,19 +392,21 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                           (newivlDays * 24).toInt() // 日数を時間に変換
                                       )));
 
-                              updateLearnedCardsData(
-                                  duecards[0]['noteRef'], 2, 2,
-                                  left: 0,
-                                  dueTimestamp: dueTimestamp,
-                                  newivl: newivl);
                               ref
-                                  .read(cardsDataNotifierProvider.notifier)
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                      duecards[0]['noteRef'], 2, 2,
+                                      left: 0,
+                                      dueTimestamp: dueTimestamp,
+                                      ivl: newivl);
+                              ref
+                                  .read(cardsDataNewNotifierProvider.notifier)
                                   .moveCardBetweenCategories(
                                       carddata[0]['type'], 2);
                             }
 
                             ref
-                                .read(cardsDataNotifierProvider.notifier)
+                                .read(cardsDataNewNotifierProvider.notifier)
                                 .removeFirstCard();
                             setState(() {
                               // duecard.removeAt(0);
@@ -402,6 +419,10 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                           child: Container(
                               width: 80,
                               height: 36,
+                              decoration: BoxDecoration(
+                                color: AppColors().green,
+                                borderRadius: BorderRadius.circular(40),
+                              ),
                               child: Center(
                                 child: Column(
                                   // または Row、Stack などを使用
@@ -461,10 +482,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     ),
                                   ],
                                 ),
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors().green,
-                                borderRadius: BorderRadius.circular(40),
                               )),
                         ),
                         GestureDetector(
@@ -474,15 +491,17 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final timestamp4Days = Timestamp.fromDate(
                                   DateTime.now().add(Duration(days: 4)));
 
-                              updateLearnedCardsData(
-                                duecards[0]['noteRef'],
-                                1,
-                                1,
-                                left: 0,
-                                dueTimestamp: timestamp4Days,
-                              );
                               ref
-                                  .read(cardsDataNotifierProvider.notifier)
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                    duecards[0]['noteRef'],
+                                    1,
+                                    1,
+                                    left: 0,
+                                    dueTimestamp: timestamp4Days,
+                                  );
+                              ref
+                                  .read(cardsDataNewNotifierProvider.notifier)
                                   .moveCardBetweenCategories(
                                       carddata[0]['type'], 2);
                             }
@@ -503,18 +522,20 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                           (newivlDays * 24).toInt() // 日数を時間に変換
                                       )));
 
-                              updateLearnedCardsData(
-                                  duecards[0]['noteRef'], 2, 2,
-                                  left: 0,
-                                  dueTimestamp: dueTimestamp,
-                                  newivl: newivl);
                               ref
-                                  .read(cardsDataNotifierProvider.notifier)
+                                  .read(studyingScreenProvider)
+                                  .updateCardOnFirestore(
+                                      duecards[0]['noteRef'], 2, 2,
+                                      left: 0,
+                                      dueTimestamp: dueTimestamp,
+                                      ivl: newivl);
+                              ref
+                                  .read(cardsDataNewNotifierProvider.notifier)
                                   .moveCardBetweenCategories(
                                       carddata[0]['type'], 2);
                             }
                             ref
-                                .read(cardsDataNotifierProvider.notifier)
+                                .read(cardsDataNewNotifierProvider.notifier)
                                 .removeFirstCard();
                             setState(() {
                               print(carddata);
@@ -526,6 +547,10 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                           child: Container(
                               width: 80,
                               height: 36,
+                              decoration: BoxDecoration(
+                                color: AppColors().blue,
+                                borderRadius: BorderRadius.circular(40),
+                              ),
                               child: Center(
                                 child: Column(
                                   // または Row、Stack などを使用
@@ -577,10 +602,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     ),
                                   ],
                                 ),
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors().blue,
-                                borderRadius: BorderRadius.circular(40),
                               )),
                         ),
                       ],

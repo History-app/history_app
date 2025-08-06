@@ -6,7 +6,8 @@ import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
 // import '../widgets/custom_card.dart';
 import '../widgets/EraQuizHeader.dart';
-import '../../Model/firebases/firebase.dart';
+// import '../../Model/firebases/firebase.dart';
+import '../../providers/card_provider.dart';
 import '../widgets/svg_container_list.dart';
 import '../widgets/EraNoteHeader.dart';
 import '../widgets/svg_container_note_list.dart';
@@ -17,7 +18,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // StatelessWidgetからStatefulWidgetに変更
 class DataScreen extends ConsumerStatefulWidget {
-  const DataScreen({Key? key}) : super(key: key);
+  const DataScreen({super.key});
 
   @override
   ConsumerState<DataScreen> createState() => _DataScreenState();
@@ -84,7 +85,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cardStats = ref.watch(cardsDataNotifierProvider);
+    final cardStats = ref.watch(cardsDataNewNotifierProvider);
 
     print('これがcardStatsです$cardStats');
 
@@ -132,7 +133,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                   child: Column(
                     children: [
                       Gap(10),
-                      Container(
+                      SizedBox(
                           width: 300,
                           height: 38,
                           child: Column(
@@ -161,7 +162,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                             ],
                           )),
                       Gap(22),
-                      Container(
+                      SizedBox(
                           width: 214,
                           height: 214,
                           child: PieChart(
@@ -195,7 +196,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                             ),
                           )),
                       Gap(12),
-                      Container(
+                      SizedBox(
                           width: 184,
                           height: 16,
                           child: Row(
@@ -215,7 +216,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 ),
                               ),
                               Gap(30),
-                              Container(
+                              SizedBox(
                                 width: 30,
                                 child: Text(
                                   '$NewCard',
@@ -227,7 +228,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 ),
                               ),
                               Gap(30),
-                              Container(
+                              SizedBox(
                                 width: 40,
                                 child: Text(
                                   totalCards > 0
@@ -243,7 +244,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                             ],
                           )),
                       Gap(1),
-                      Container(
+                      SizedBox(
                           width: 184,
                           height: 16,
                           child: Row(
@@ -263,7 +264,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 ),
                               ),
                               Gap(20),
-                              Container(
+                              SizedBox(
                                 width: 30,
                                 child: Text(
                                   '$LearningCard',
@@ -275,7 +276,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 ),
                               ),
                               Gap(30),
-                              Container(
+                              SizedBox(
                                 width: 40,
                                 child: Text(
                                   totalCards > 0
@@ -291,7 +292,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                             ],
                           )),
                       Gap(1),
-                      Container(
+                      SizedBox(
                           width: 184,
                           height: 16,
                           child: Row(
@@ -311,7 +312,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 ),
                               ),
                               Gap(30),
-                              Container(
+                              SizedBox(
                                 width: 30,
                                 child: Text(
                                   '$ReviewCard',
@@ -323,7 +324,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 ),
                               ),
                               Gap(30),
-                              Container(
+                              SizedBox(
                                 width: 40,
                                 child: Text(
                                   totalCards > 0
@@ -339,13 +340,13 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                             ],
                           )),
                       Gap(1),
-                      Container(
+                      SizedBox(
                           width: 184,
                           height: 16,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
+                              SizedBox(
                                 width: 10,
                                 height: 10,
                               ),
@@ -358,7 +359,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 ),
                               ),
                               Gap(30),
-                              Container(
+                              SizedBox(
                                 width: 30,
                                 child: Text(
                                   '$totalCards',
@@ -370,7 +371,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 ),
                               ),
                               Gap(30),
-                              Container(
+                              SizedBox(
                                 width: 40,
                                 child: Text(
                                   '',

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'note.dart';
 
@@ -12,16 +12,14 @@ part of 'note.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$Note {
   List<String> get flds => throw _privateConstructorUsedError; // 文字列のリスト
   String get sfld => throw _privateConstructorUsedError;
 
-  /// Create a copy of Note
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $NoteCopyWith<Note> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -43,8 +41,6 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Note
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -65,31 +61,27 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
 }
 
 /// @nodoc
-abstract class _$$NoteImplCopyWith<$Res> implements $NoteCopyWith<$Res> {
-  factory _$$NoteImplCopyWith(
-          _$NoteImpl value, $Res Function(_$NoteImpl) then) =
-      __$$NoteImplCopyWithImpl<$Res>;
+abstract class _$$_NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
+  factory _$$_NoteCopyWith(_$_Note value, $Res Function(_$_Note) then) =
+      __$$_NoteCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<String> flds, String sfld});
 }
 
 /// @nodoc
-class __$$NoteImplCopyWithImpl<$Res>
-    extends _$NoteCopyWithImpl<$Res, _$NoteImpl>
-    implements _$$NoteImplCopyWith<$Res> {
-  __$$NoteImplCopyWithImpl(_$NoteImpl _value, $Res Function(_$NoteImpl) _then)
+class __$$_NoteCopyWithImpl<$Res> extends _$NoteCopyWithImpl<$Res, _$_Note>
+    implements _$$_NoteCopyWith<$Res> {
+  __$$_NoteCopyWithImpl(_$_Note _value, $Res Function(_$_Note) _then)
       : super(_value, _then);
 
-  /// Create a copy of Note
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? flds = null,
     Object? sfld = null,
   }) {
-    return _then(_$NoteImpl(
+    return _then(_$_Note(
       flds: null == flds
           ? _value._flds
           : flds // ignore: cast_nullable_to_non_nullable
@@ -104,14 +96,13 @@ class __$$NoteImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$NoteImpl implements _Note {
-  const _$NoteImpl({required final List<String> flds, required this.sfld})
+class _$_Note implements _Note {
+  const _$_Note({required final List<String> flds, required this.sfld})
       : _flds = flds;
 
   final List<String> _flds;
   @override
   List<String> get flds {
-    if (_flds is EqualUnmodifiableListView) return _flds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_flds);
   }
@@ -126,10 +117,10 @@ class _$NoteImpl implements _Note {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NoteImpl &&
+            other is _$_Note &&
             const DeepCollectionEquality().equals(other._flds, _flds) &&
             (identical(other.sfld, sfld) || other.sfld == sfld));
   }
@@ -138,29 +129,22 @@ class _$NoteImpl implements _Note {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_flds), sfld);
 
-  /// Create a copy of Note
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$NoteImplCopyWith<_$NoteImpl> get copyWith =>
-      __$$NoteImplCopyWithImpl<_$NoteImpl>(this, _$identity);
+  _$$_NoteCopyWith<_$_Note> get copyWith =>
+      __$$_NoteCopyWithImpl<_$_Note>(this, _$identity);
 }
 
 abstract class _Note implements Note {
   const factory _Note(
-      {required final List<String> flds,
-      required final String sfld}) = _$NoteImpl;
+      {required final List<String> flds, required final String sfld}) = _$_Note;
 
   @override
-  List<String> get flds; // 文字列のリスト
-  @override
+  List<String> get flds;
+  @override // 文字列のリスト
   String get sfld;
-
-  /// Create a copy of Note
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NoteImplCopyWith<_$NoteImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$_NoteCopyWith<_$_Note> get copyWith => throw _privateConstructorUsedError;
 }

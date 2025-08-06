@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-<uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="これだけ日本史"
+        android:label="japanese_history_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

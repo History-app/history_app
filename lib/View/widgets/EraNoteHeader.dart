@@ -7,9 +7,11 @@ import '../../Model/Color/app_colors.dart';
 import '../screens/modal.dart';
 
 class EraNoteHeader extends StatelessWidget {
+  const EraNoteHeader({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 56,
       width: 360,
       child: Row(
@@ -23,7 +25,7 @@ class EraNoteHeader extends StatelessWidget {
               style: AppTextStyles.notoSansDisplay.copyWith(fontSize: 16),
             ),
           ),
-          Container(
+          SizedBox(
             height: 56,
             width: 104,
             child: Column(

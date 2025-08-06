@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import '../../ViewModel/studying_screen/studying_screen.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Model/Color/app_colors.dart';
@@ -7,26 +8,27 @@ import '../../Model/text_styles.dart';
 import '../widgets/question_card.dart';
 import '../widgets/answer_card.dart';
 import '../widgets/memo_card.dart';
+
+import '../../ViewModel/studying_screen/studying_screen.dart';
+import '../../providers/card_provider.dart';
 import '../../View/screens/home_screen.dart';
-import '../../Model/firebases/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/studying_note.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import '../../ViewModel/tutorial/home_tutorial.dart';
 import '../widgets/search_card.dart';
-// import '../widgets/edit_card.dart';
 import '../screens/modal.dart';
+
 part '../widgets/edit_card.dart';
 part '../bottom_navigation/studying_screen_bottom_bar.dart';
 
 class StudyingScreen extends ConsumerStatefulWidget {
-  const StudyingScreen({Key? key}) : super(key: key);
+  const StudyingScreen({super.key});
   @override
   ConsumerState<StudyingScreen> createState() => _StudyingScreenState();
 }
 
 class _StudyingScreenState extends ConsumerState<StudyingScreen> {
-  // 追加ウィジェットを表示するかどうかの状態
   final TextEditingController _searchController = TextEditingController();
   bool showAdditionalWidgets = false;
   final ScrollController _scrollController = ScrollController();
@@ -44,13 +46,12 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
 
     // 画面構築後にチュートリアルを初期化
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // または通常のチェックを行う
       ref
           .read(tutorialProvider.notifier)
           .checkTutorialCompleted()
           .then((completed) async {
         if (!completed) {
-          await Future.delayed(Duration(seconds: 1)); // 1秒待機
+          await Future.delayed(Duration(seconds: 1));
           ref.read(tutorialProvider.notifier).showStudyingTutorial(
                 context,
                 revealCallback: _revealAnswerSection,
@@ -89,16 +90,14 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
     }
     print('Left値の分布: $distribution');
 
-    // ローカル状態の更新
     setState(() {
       leftValueDistribution = distribution;
     });
 
-    // プロバイダー更新を遅延させる
     Future(() {
       if (mounted) {
         ref
-            .read(cardsDataNotifierProvider.notifier)
+            .read(cardsDataNewNotifierProvider.notifier)
             .setLeftValueDistribution(distribution);
       }
     });
@@ -106,19 +105,17 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
 
   Future<void> _loadNoteData() async {
     try {
-      final data2 = ref.read(cardsDataNotifierProvider).cards;
+      final data2 = ref.read(cardsDataNewNotifierProvider).cards;
       print('これがdata2です$data2');
 
-      final noteRefs = ref.read(cardsDataNotifierProvider).todaysReviewNoteRefs;
-      print('これがnoteRefsです$noteRefs');
-
-      final DueCards = ref.read(cardsDataNotifierProvider).usersMultipleCards;
+      final DueCards =
+          ref.read(cardsDataNewNotifierProvider).usersMultipleCards;
 
       print('これがdata2です$data2');
-      print('これがnoteRefsです$noteRefs');
+
       print('これがDueCardsです$DueCards');
 
-      final allNotes = ref.read(cardsDataNotifierProvider).allNotes;
+      final allNotes = ref.read(cardsDataNewNotifierProvider).allNotes;
       print('これがallNotesです$allNotes');
       // 一度にステートを更新
       setState(() {
@@ -139,17 +136,11 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final DueCards = ref.watch(cardsDataNotifierProvider).usersMultipleCards;
+    final DueCards = ref.watch(cardsDataNewNotifierProvider).usersMultipleCards;
     final questionCardKey =
         ref.read(tutorialProvider.notifier).getQuestionCardKey();
     final answerCardKey =
         ref.read(tutorialProvider.notifier).getAnswerButtonKey();
-
-    // final flds = duecard[0]['flds'];
-    // final List<String> answerCardQuestionText = [
-    //   flds[1].toString(),
-    //   flds.length > 2 ? flds[2].toString() : '', // ← 安全に3番目を扱う
-    // ];
 
     final List<String> answerCardQuestionText;
 
@@ -203,19 +194,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                   ),
                 );
               },
-              // exLeadingPressed: () {},
-              // exActionPressed: () {
-              //   print('タップされました');
-              //   print('これがduecards[0]です$duecards');
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => SearchAppBarPage(
-              //         controller: _searchController, // コントローラーを渡す
-              //       ),
-              //     ),
-              //   );
-              // },
             )
           : CommonAppBar(
               title: 'これだけ日本史',
@@ -246,7 +224,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                   showAdditionalWidgets = true;
                 });
 
-                // 常にスクロール処理を実行
                 Future.delayed(Duration(milliseconds: 100), () {
                   _scrollController.animateTo(
                     200.0,
@@ -285,10 +262,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                         Gap(8),
                         Center(
                           child: AnswerCard(
-                              // questionText: duecard.isNotEmpty &&
-                              //         duecard[0]['flds'] != null
-                              //     ? answerCardQuestionText
-                              //     : 'No data',
                               questionText: answerCardQuestionText,
                               starImagePath:
                                   'assets/star_${duecard[0]['star']}.png',
@@ -307,7 +280,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                             color: AppColors().grey,
                             indent: 8,
                             endIndent: 8),
-                        Container(
+                        SizedBox(
                           height: 300,
                           child: Column(children: [
                             Gap(20),
@@ -344,11 +317,10 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                                       borderRadius: BorderRadius.circular(40),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black
-                                              .withOpacity(0.25), // 25%の黒
-                                          offset: Offset(0, 2), // X=0, Y=2
-                                          blurRadius: 1, // Blur=1
-                                          spreadRadius: 0, // Spread=0
+                                          color: Colors.black.withOpacity(0.25),
+                                          offset: Offset(0, 2),
+                                          blurRadius: 1,
+                                          spreadRadius: 0,
                                         ),
                                       ],
                                     ),
@@ -373,8 +345,8 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                 ),
               ),
             )
-          : Container(
-              width: double.infinity, // 画面幅いっぱいに広げる
+          : SizedBox(
+              width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -391,8 +363,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Gap(40), // テキストと画像の間に適切な余白を追加
-
+                  Gap(40),
                   Expanded(
                     child: Stack(
                       children: [

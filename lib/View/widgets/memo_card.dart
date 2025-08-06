@@ -7,9 +7,9 @@ class MemoCard extends StatelessWidget {
   final String? memoText;
 
   const MemoCard({
-    Key? key,
+    super.key,
     this.memoText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class MemoCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
+              SizedBox(
                   width: 260,
                   height: 39,
                   child: Column(

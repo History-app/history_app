@@ -10,11 +10,11 @@ class AnswerCard extends StatelessWidget {
   final String theme;
 
   const AnswerCard({
-    Key? key,
+    super.key,
     required this.questionText,
     required this.starImagePath,
     required this.theme,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,13 @@ class AnswerCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 width: 68.04,
                 height: 24.8,
                 child: Image.asset(starImagePath),
               ),
               Gap(42),
-              Container(
+              SizedBox(
                   width: 243,
                   height: 39,
                   child: Column(

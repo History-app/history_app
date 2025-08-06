@@ -1,5 +1,4 @@
 import * as admin from "firebase-admin";
-// import { createNoteData } from "../models/noteModel";
 
 export async function seedNotes(chapterId: string, notes: any[]) {
   const db = admin.firestore();
