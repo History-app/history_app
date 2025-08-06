@@ -18,3 +18,5 @@ class CardsDataState with _$CardsDataState {
     @Default(0) int totalCardCount,
   }) = _CardsDataState;
 }
+
+CardsDataState CardsDataStateInitial() => const CardsDataState();

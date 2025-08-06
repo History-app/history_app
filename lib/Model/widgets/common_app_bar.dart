@@ -14,7 +14,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? exactionIconPath;
 
   const CommonAppBar({
-    Key? key,
+    super.key,
     this.title,
     this.leadingIconPath,
     this.exLeadingPressed,
@@ -24,7 +24,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onActionPressed,
     this.exleadingIconPath,
     this.exactionIconPath,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

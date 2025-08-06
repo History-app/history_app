@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../screens/modal.dart';
 
 class SvgContainerList extends StatelessWidget {
-  const SvgContainerList({Key? key}) : super(key: key);
+  const SvgContainerList({super.key});
 
   // 画像アイテムを生成する共通メソッド
   Widget _buildImageItem(BuildContext context, String imagePath,
@@ -12,7 +12,7 @@ class SvgContainerList extends StatelessWidget {
       onTap: () {
         AccountDeletedModal.show(context);
       },
-      child: Container(
+      child: SizedBox(
         width: 100,
         height: 149,
         child: isSvg
@@ -30,7 +30,7 @@ class SvgContainerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 176,
       child: Column(

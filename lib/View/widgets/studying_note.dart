@@ -4,7 +4,7 @@ import '../../Model/widgets/common_app_bar.dart';
 class StudyingNotePage extends StatelessWidget {
   final String noteId; // 遷移元から渡されるパラメータ
 
-  const StudyingNotePage({Key? key, required this.noteId}) : super(key: key);
+  const StudyingNotePage({super.key, required this.noteId});
 
   @override
   Widget build(BuildContext context) {

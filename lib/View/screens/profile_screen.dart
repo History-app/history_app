@@ -7,6 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../screens/modal.dart';
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,12 +46,6 @@ class ProfileScreen extends StatelessWidget {
                         children: <Widget>[
                           Gap(25),
                           Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(40),
-                              child: Image.asset(
-                                'assets/Frame 18.png',
-                              ),
-                            ),
                             width: 80,
                             height: 80,
                             decoration: BoxDecoration(
@@ -59,6 +55,12 @@ class ProfileScreen extends StatelessWidget {
                               ),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(40),
+                              child: Image.asset(
+                                'assets/Frame 18.png',
+                              ),
                             ),
                           ),
                           Container(
@@ -89,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 26,
                             width: 26,
                             // child: Icon(
@@ -260,12 +262,12 @@ class ProfileScreen extends StatelessWidget {
                         // }
                       }
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: 326,
                       height: 40,
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 40,
                             height: 40,
                             child: Icon(
@@ -283,7 +285,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 393,
                   height: 140,
                   child: SingleChildScrollView(
@@ -296,7 +298,7 @@ class ProfileScreen extends StatelessWidget {
                             // タップ時の処理
                             // AccountDeletedModal.show(context);
                           },
-                          child: Container(
+                          child: SizedBox(
                             width: 186,
                             height: 92,
                             child: Image.asset(
@@ -311,7 +313,7 @@ class ProfileScreen extends StatelessWidget {
                             // タップ時の処理
                             // AccountDeletedModal.show(context);
                           },
-                          child: Container(
+                          child: SizedBox(
                             width: 186,
                             height: 92,
                             child: Image.asset(
@@ -345,7 +347,7 @@ class ProfileScreen extends StatelessWidget {
                         }
                       }
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: 108,
                       height: 40,
                       child: Text(
@@ -378,7 +380,7 @@ class ProfileScreen extends StatelessWidget {
                         }
                       }
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: 139,
                       height: 40,
                       child: Text(

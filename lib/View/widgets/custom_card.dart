@@ -1,12 +1,12 @@
 part of '../screens/home_screen.dart';
 
 class CustomCard extends ConsumerWidget {
-  const CustomCard({Key? key}) : super(key: key);
+  const CustomCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final distribution =
-        ref.watch(cardsDataNotifierProvider).leftValueDistribution;
+        ref.watch(cardsDataNewNotifierProvider).leftValueDistribution;
     print('これがdistributionです$distribution');
     final nullCount = distribution[null] ?? 0;
     final learningCount = (distribution[2001] ?? 0) +
@@ -31,7 +31,7 @@ class CustomCard extends ConsumerWidget {
               color: AppColors().preRed,
               child: Center(
                 //元の画像コンテナ
-                child: Container(
+                child: SizedBox(
                   width: 120,
                   height: 180,
                   child: Stack(
@@ -87,18 +87,18 @@ class CustomCard extends ConsumerWidget {
                   Row(
                     children: [
                       Gap(12),
-                      Container(
+                      SizedBox(
                         width: 40,
                         height: 40,
                       ),
                       Gap(8),
-                      Container(
+                      SizedBox(
                         width: 183,
                         height: 36,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               height: 18,
                               child: Text(
                                 '日本史探究 一問一答',
@@ -107,7 +107,7 @@ class CustomCard extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 18,
                               child: Row(
                                 children: [

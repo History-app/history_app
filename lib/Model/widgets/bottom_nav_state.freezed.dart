@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'bottom_nav_state.dart';
 
@@ -12,15 +12,13 @@ part of 'bottom_nav_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$BottomNavState {
   int get selectedIndex => throw _privateConstructorUsedError;
 
-  /// Create a copy of BottomNavState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BottomNavStateCopyWith<BottomNavState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,8 +42,6 @@ class _$BottomNavStateCopyWithImpl<$Res, $Val extends BottomNavState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of BottomNavState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -61,32 +57,30 @@ class _$BottomNavStateCopyWithImpl<$Res, $Val extends BottomNavState>
 }
 
 /// @nodoc
-abstract class _$$BottomNavStateImplCopyWith<$Res>
+abstract class _$$_BottomNavStateCopyWith<$Res>
     implements $BottomNavStateCopyWith<$Res> {
-  factory _$$BottomNavStateImplCopyWith(_$BottomNavStateImpl value,
-          $Res Function(_$BottomNavStateImpl) then) =
-      __$$BottomNavStateImplCopyWithImpl<$Res>;
+  factory _$$_BottomNavStateCopyWith(
+          _$_BottomNavState value, $Res Function(_$_BottomNavState) then) =
+      __$$_BottomNavStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int selectedIndex});
 }
 
 /// @nodoc
-class __$$BottomNavStateImplCopyWithImpl<$Res>
-    extends _$BottomNavStateCopyWithImpl<$Res, _$BottomNavStateImpl>
-    implements _$$BottomNavStateImplCopyWith<$Res> {
-  __$$BottomNavStateImplCopyWithImpl(
-      _$BottomNavStateImpl _value, $Res Function(_$BottomNavStateImpl) _then)
+class __$$_BottomNavStateCopyWithImpl<$Res>
+    extends _$BottomNavStateCopyWithImpl<$Res, _$_BottomNavState>
+    implements _$$_BottomNavStateCopyWith<$Res> {
+  __$$_BottomNavStateCopyWithImpl(
+      _$_BottomNavState _value, $Res Function(_$_BottomNavState) _then)
       : super(_value, _then);
 
-  /// Create a copy of BottomNavState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? selectedIndex = null,
   }) {
-    return _then(_$BottomNavStateImpl(
+    return _then(_$_BottomNavState(
       selectedIndex: null == selectedIndex
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
@@ -97,8 +91,8 @@ class __$$BottomNavStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$BottomNavStateImpl implements _BottomNavState {
-  const _$BottomNavStateImpl({required this.selectedIndex});
+class _$_BottomNavState implements _BottomNavState {
+  const _$_BottomNavState({required this.selectedIndex});
 
   @override
   final int selectedIndex;
@@ -109,10 +103,10 @@ class _$BottomNavStateImpl implements _BottomNavState {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BottomNavStateImpl &&
+            other is _$_BottomNavState &&
             (identical(other.selectedIndex, selectedIndex) ||
                 other.selectedIndex == selectedIndex));
   }
@@ -120,27 +114,21 @@ class _$BottomNavStateImpl implements _BottomNavState {
   @override
   int get hashCode => Object.hash(runtimeType, selectedIndex);
 
-  /// Create a copy of BottomNavState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BottomNavStateImplCopyWith<_$BottomNavStateImpl> get copyWith =>
-      __$$BottomNavStateImplCopyWithImpl<_$BottomNavStateImpl>(
-          this, _$identity);
+  _$$_BottomNavStateCopyWith<_$_BottomNavState> get copyWith =>
+      __$$_BottomNavStateCopyWithImpl<_$_BottomNavState>(this, _$identity);
 }
 
 abstract class _BottomNavState implements BottomNavState {
   const factory _BottomNavState({required final int selectedIndex}) =
-      _$BottomNavStateImpl;
+      _$_BottomNavState;
 
   @override
   int get selectedIndex;
-
-  /// Create a copy of BottomNavState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BottomNavStateImplCopyWith<_$BottomNavStateImpl> get copyWith =>
+  @JsonKey(ignore: true)
+  _$$_BottomNavStateCopyWith<_$_BottomNavState> get copyWith =>
       throw _privateConstructorUsedError;
 }

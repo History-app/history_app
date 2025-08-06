@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../Model/Color/app_colors.dart';
+import '../Color/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // StatelessWidgetからStatefulWidgetに変更
@@ -8,10 +8,10 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback? onBackPressed;
 
   const SearchAppBar({
-    Key? key,
+    super.key,
     required this.controller,
     this.onBackPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<SearchAppBar> createState() => _SearchAppBarState();

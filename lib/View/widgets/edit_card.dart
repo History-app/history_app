@@ -21,14 +21,11 @@ class EditCard extends ConsumerStatefulWidget {
 }
 
 class _EditCardState extends ConsumerState<EditCard> {
-  // メモ編集用の状態変数
   late TextEditingController _memoController;
   bool _isEditingMemo = false;
   final FocusNode _memoFocusNode = FocusNode();
-  //元のメモを保持する変数
   late String _originalMemo;
 
-  // メモが変更されたかチェックするメソッド
   bool _isMemoChanged() {
     return _memoController.text != _originalMemo;
   }
@@ -38,17 +35,16 @@ class _EditCardState extends ConsumerState<EditCard> {
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            // Dialog/AlertDialogを使わず、直接UnconstrainedBoxを返す
             return UnconstrainedBox(
               child: Container(
-                width: 360, // ここで幅を固定
+                width: 360,
                 padding: const EdgeInsets.fromLTRB(24, 30, 24, 20),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0x80374142), // 半透明のグレー
+                      color: const Color(0x80374142),
                       offset: Offset(0, 4),
                       blurRadius: 12,
                       spreadRadius: 0,
@@ -68,11 +64,9 @@ class _EditCardState extends ConsumerState<EditCard> {
                       ),
                     ),
                     const SizedBox(height: 24),
-// ボタンをRowで並べる
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // 編集を続けるボタン
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(false),
                           child: Container(
@@ -95,8 +89,6 @@ class _EditCardState extends ConsumerState<EditCard> {
                             ),
                           ),
                         ),
-
-                        // 破棄するボタン
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(true),
                           child: Container(
@@ -121,7 +113,6 @@ class _EditCardState extends ConsumerState<EditCard> {
                         ),
                       ],
                     )
-                    // ボタンをRowで並べる
                   ],
                 ),
               ),
@@ -131,30 +122,25 @@ class _EditCardState extends ConsumerState<EditCard> {
         false;
   }
 
-// 戻るボタンの処理を変更
   void _handleBackButton() async {
-    // 編集中ならキーボードを閉じる
     if (_isEditingMemo) {
       setState(() {
         _isEditingMemo = false;
       });
       FocusScope.of(context).unfocus();
-      return; // 編集モードを終了するだけで戻らない
+      return;
     }
 
-    // メモが変更されている場合
     if (_isMemoChanged()) {
       final shouldDiscard = await _showConfirmationDialog();
       if (!shouldDiscard) {
-        return; // キャンセルされた場合は戻らない
+        return;
       }
     }
 
-    // 変更がないか、破棄が確認された場合は戻る
     Navigator.pop(context);
   }
 
-  // _EditCardState クラスに追加
   KeyboardActionsConfig _buildKeyboardActionsConfig(BuildContext context) {
     return KeyboardActionsConfig(
       keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
@@ -172,7 +158,7 @@ class _EditCardState extends ConsumerState<EditCard> {
                   });
 
                   print('メモが保存されました: ${_memoController.text}');
-                  node.unfocus(); // キーボードを閉じる
+                  node.unfocus();
                 },
                 child: Container(
                   padding:
@@ -197,7 +183,6 @@ class _EditCardState extends ConsumerState<EditCard> {
   @override
   void initState() {
     super.initState();
-    // 初期値を保存（比較用）
     _originalMemo = widget.memo ?? '';
     _memoController = TextEditingController(text: _originalMemo);
   }
@@ -219,7 +204,7 @@ class _EditCardState extends ConsumerState<EditCard> {
         actionIconPath: 'assets/保存.svg',
         onActionPressed: () {
           final memo = _memoController.text;
-          ref.read(cardsDataNotifierProvider.notifier).saveMemo(
+          ref.read(studyingScreenProvider).updateMemo(
                 cardId: widget.cardId,
                 memo: memo,
               );
@@ -228,9 +213,7 @@ class _EditCardState extends ConsumerState<EditCard> {
 
           Navigator.pop(context);
         },
-        onLeadingPressed: _handleBackButton
-        // Navigator.pop(context);
-        ,
+        onLeadingPressed: _handleBackButton,
       ),
       body: KeyboardActions(
         config: _buildKeyboardActionsConfig(context),
@@ -239,7 +222,6 @@ class _EditCardState extends ConsumerState<EditCard> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    // 問題文セクション（変更なし）
                     Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 14,
@@ -287,8 +269,6 @@ class _EditCardState extends ConsumerState<EditCard> {
                             )
                           ],
                         )),
-
-                    // 答えセクション（変更なし）
                     Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 14,
@@ -336,8 +316,6 @@ class _EditCardState extends ConsumerState<EditCard> {
                             )
                           ],
                         )),
-
-                    // メモセクション（編集可能に変更）
                     Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 14,
@@ -361,11 +339,9 @@ class _EditCardState extends ConsumerState<EditCard> {
                               ),
                               child: GestureDetector(
                                 onTap: () {
-                                  // タップ時に編集モードに切り替え
                                   setState(() {
                                     _isEditingMemo = true;
                                   });
-                                  // キーボードを表示
                                   Future.delayed(Duration(milliseconds: 50),
                                       () {
                                     FocusScope.of(context)
@@ -395,21 +371,18 @@ class _EditCardState extends ConsumerState<EditCard> {
                                             color: Colors.black87,
                                           ),
                                           onSubmitted: (text) {
-                                            // 入力完了時の処理
                                             setState(() {
-                                              _isEditingMemo =
-                                                  false; // 編集モードを終了
+                                              _isEditingMemo = false;
                                             });
                                             print('メモが保存されました: $text');
-                                            // キーボードを閉じる
+
                                             FocusScope.of(context).unfocus();
                                           },
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
                                             hintText: 'メモを入力...',
-                                            contentPadding:
-                                                EdgeInsets.zero, // パディングを0に設定
-                                            isDense: true, // より密集したレイアウト
+                                            contentPadding: EdgeInsets.zero,
+                                            isDense: true,
                                             hintStyle: AppTextStyles
                                                 .notoSansDisplay
                                                 .copyWith(
@@ -418,7 +391,6 @@ class _EditCardState extends ConsumerState<EditCard> {
                                             ),
                                           ),
                                         )
-                                      // 通常時はテキスト表示
                                       : Text(
                                           _memoController.text.isNotEmpty
                                               ? _memoController.text

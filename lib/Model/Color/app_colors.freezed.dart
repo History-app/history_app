@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'app_colors.dart';
 
@@ -12,7 +12,7 @@ part of 'app_colors.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$AppColors {
@@ -32,9 +32,7 @@ mixin _$AppColors {
   Color get pale_profile_grey => throw _privateConstructorUsedError;
   Color get skyBlue => throw _privateConstructorUsedError;
 
-  /// Create a copy of AppColors
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $AppColorsCopyWith<AppColors> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -72,8 +70,6 @@ class _$AppColorsCopyWithImpl<$Res, $Val extends AppColors>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AppColors
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -159,11 +155,10 @@ class _$AppColorsCopyWithImpl<$Res, $Val extends AppColors>
 }
 
 /// @nodoc
-abstract class _$$AppColorsImplCopyWith<$Res>
-    implements $AppColorsCopyWith<$Res> {
-  factory _$$AppColorsImplCopyWith(
-          _$AppColorsImpl value, $Res Function(_$AppColorsImpl) then) =
-      __$$AppColorsImplCopyWithImpl<$Res>;
+abstract class _$$_AppColorsCopyWith<$Res> implements $AppColorsCopyWith<$Res> {
+  factory _$$_AppColorsCopyWith(
+          _$_AppColors value, $Res Function(_$_AppColors) then) =
+      __$$_AppColorsCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -185,15 +180,13 @@ abstract class _$$AppColorsImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AppColorsImplCopyWithImpl<$Res>
-    extends _$AppColorsCopyWithImpl<$Res, _$AppColorsImpl>
-    implements _$$AppColorsImplCopyWith<$Res> {
-  __$$AppColorsImplCopyWithImpl(
-      _$AppColorsImpl _value, $Res Function(_$AppColorsImpl) _then)
+class __$$_AppColorsCopyWithImpl<$Res>
+    extends _$AppColorsCopyWithImpl<$Res, _$_AppColors>
+    implements _$$_AppColorsCopyWith<$Res> {
+  __$$_AppColorsCopyWithImpl(
+      _$_AppColors _value, $Res Function(_$_AppColors) _then)
       : super(_value, _then);
 
-  /// Create a copy of AppColors
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -213,7 +206,7 @@ class __$$AppColorsImplCopyWithImpl<$Res>
     Object? pale_profile_grey = null,
     Object? skyBlue = null,
   }) {
-    return _then(_$AppColorsImpl(
+    return _then(_$_AppColors(
       primaryRed: null == primaryRed
           ? _value.primaryRed
           : primaryRed // ignore: cast_nullable_to_non_nullable
@@ -280,8 +273,8 @@ class __$$AppColorsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AppColorsImpl implements _AppColors {
-  const _$AppColorsImpl(
+class _$_AppColors implements _AppColors {
+  const _$_AppColors(
       {this.primaryRed = const Color(0xFFF24326),
       this.primaryBlack = const Color(0xFF302D58),
       this.paleRed = const Color(0xFFFC917F),
@@ -350,10 +343,10 @@ class _$AppColorsImpl implements _AppColors {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AppColorsImpl &&
+            other is _$_AppColors &&
             (identical(other.primaryRed, primaryRed) ||
                 other.primaryRed == primaryRed) &&
             (identical(other.primaryBlack, primaryBlack) ||
@@ -397,13 +390,11 @@ class _$AppColorsImpl implements _AppColors {
       pale_profile_grey,
       skyBlue);
 
-  /// Create a copy of AppColors
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AppColorsImplCopyWith<_$AppColorsImpl> get copyWith =>
-      __$$AppColorsImplCopyWithImpl<_$AppColorsImpl>(this, _$identity);
+  _$$_AppColorsCopyWith<_$_AppColors> get copyWith =>
+      __$$_AppColorsCopyWithImpl<_$_AppColors>(this, _$identity);
 }
 
 abstract class _AppColors implements AppColors {
@@ -422,7 +413,7 @@ abstract class _AppColors implements AppColors {
       final Color accentYellow,
       final Color menu_Grey,
       final Color pale_profile_grey,
-      final Color skyBlue}) = _$AppColorsImpl;
+      final Color skyBlue}) = _$_AppColors;
 
   @override
   Color get primaryRed;
@@ -454,11 +445,8 @@ abstract class _AppColors implements AppColors {
   Color get pale_profile_grey;
   @override
   Color get skyBlue;
-
-  /// Create a copy of AppColors
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AppColorsImplCopyWith<_$AppColorsImpl> get copyWith =>
+  @JsonKey(ignore: true)
+  _$$_AppColorsCopyWith<_$_AppColors> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -4,7 +4,7 @@ import '../screens/modal.dart';
 import 'showing_note.dart';
 
 class SvgNoteList extends StatelessWidget {
-  const SvgNoteList({Key? key}) : super(key: key);
+  const SvgNoteList({super.key});
 
   // 画像アイテムを生成する共通メソッド
   Widget _buildImageItem(BuildContext context, String imagePath) {
@@ -17,7 +17,7 @@ class SvgNoteList extends StatelessWidget {
           ),
         );
       },
-      child: Container(
+      child: SizedBox(
         width: 100,
         height: 149,
         child: SvgPicture.asset(
@@ -30,7 +30,7 @@ class SvgNoteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 176,
       child: Column(

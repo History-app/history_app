@@ -8,10 +8,10 @@ class QuestionCard extends StatelessWidget {
   final String starImagePath;
 
   const QuestionCard({
-    Key? key,
+    super.key,
     required this.questionText,
     required this.starImagePath,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class QuestionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             width: 68.04,
             height: 24.8,
             child: Image.asset(starImagePath),

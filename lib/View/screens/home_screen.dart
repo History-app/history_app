@@ -2,28 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
+import 'dart:convert';
+import '../../repositories/card_repository.dart';
 import 'package:rive/rive.dart' as rive;
-import 'package:intl/intl.dart';
 import 'package:gap/gap.dart';
-import '../widgets/EraQuizHeader.dart';
-import '../widgets/svg_container_list.dart';
 import '../widgets/EraNoteHeader.dart';
 import '../widgets/svg_container_note_list.dart';
-import '../../Model/firebases/firebase.dart';
 import '../../ViewModel/random_text_viewmodel.dart';
-import './modal.dart';
-// import '../../ViewModel/tutorial_viewmodel.dart';
+import '../../providers/user_provider.dart';
+import 'package:intl/intl.dart';
+import '../../View/screens/studying_screen.dart';
 import '../../ViewModel/tutorial/home_tutorial.dart';
 import '../../Model/Color/app_colors.dart';
-import './studying_screen.dart';
 import '../../View/widgets/update.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
+import './settings.dart';
+import '../../ViewModel/home_screen/home_screen.dart';
+import '../../providers/card_provider.dart';
+
 part '../widgets/custom_card.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
@@ -34,51 +33,51 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<Map<String, dynamic>> duecards = [];
   Map<dynamic, int> leftValueDistribution = {};
 
-  void _updateLeftValueDistribution() {
-    Map<dynamic, int> distribution = {};
-
-    for (var card in duecards) {
-      if (card.containsKey('left')) {
-        final leftValue = card['left'];
-        distribution[leftValue] = (distribution[leftValue] ?? 0) + 1;
-      }
-    }
-    ref
-        .read(cardsDataNotifierProvider.notifier)
-        .updateLeftValueDistribution(distribution);
-  }
-
   Future<void> _onRefresh() async {
-    await ref.read(cardsDataNotifierProvider.notifier).fetchCardsData();
+    final user = await ref.read(userProvider.future);
+    final nullCount = user.nullCount;
     await ref
-        .read(cardsDataNotifierProvider.notifier)
+        .read(cardsDataNewNotifierProvider.notifier)
+        .fetchCardsData(nullCount);
+    await ref
+        .read(cardsDataNewNotifierProvider.notifier)
         .fetchTodaysReviewNoteRefs();
 
     final todaysReviewNoteRefs =
-        ref.read(cardsDataNotifierProvider).todaysReviewNoteRefs;
+        ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;
+
     await _loadNoteData(todaysReviewNoteRefs);
   }
 
   // _loadNoteDataをcardsDataからではなく、provider経由で取得したreviewデータを使うように変更
   Future<void> _loadNoteData(List<String> noteRefs) async {
     try {
-      await ref
-          .read(cardsDataNotifierProvider.notifier)
-          .fetchUsersMultipleCards();
-      final DueCards = ref.read(cardsDataNotifierProvider).usersMultipleCards;
-      print('これがDueCardsです$DueCards');
+      await ref.read(homescreenProvider).fetchUsersMultipleCards(noteRefs);
+      final DueCards =
+          ref.watch(cardsDataNewNotifierProvider).usersMultipleCards;
+
       List<Map<String, dynamic>> allNotes = [];
       for (String noteRef in noteRefs) {
-        final cards = await getNotesByNoteRef(noteRef);
+        final cards =
+            await ref.read(homescreenProvider).getNotesByNoteRef(noteRef);
+
         allNotes.addAll(cards);
       }
+      // final cardRepository = ref.read(cardRepositoryProvider);
 
-      ref.read(cardsDataNotifierProvider.notifier).updateNotes(allNotes);
+      // final allNote = await cardRepository.getAllNotes();
+
+      // await ref
+      //     .read(cardsDataNewNotifierProvider.notifier)
+      //     .saveNotesToDownloads(allNote);
+
+      ref.read(homescreenProvider).updateNotes(allNotes);
       setState(() {
         duecard = allNotes;
         duecards = DueCards;
       });
-      _updateLeftValueDistribution();
+
+      ref.read(homescreenProvider).updateLeftValueDistribution(duecards);
     } catch (e) {
       print('Error loading note data: $e');
     }
@@ -87,30 +86,39 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // ref.read(tutorialProvider.notifier).resetTutorial();
-    _isLoading = true; // ← ここでtrueにする
+
+    _isLoading = true;
+
     Future.microtask(() async {
+      print('nullCountだよ');
       ref.read(randomTextProvider.notifier).generateRandomText();
-      await ref.read(cardsDataNotifierProvider.notifier).fetchCardsData();
+      ref.read(userProvider.future);
+      print('ユーザーデータを取得中...');
+      final user = await ref.read(userProvider.future);
+      final nullCount = await user.nullCount;
+      print('nullCountだよ: $nullCount');
+      await ref
+          .read(cardsDataNewNotifierProvider.notifier)
+          .fetchCardsData(nullCount);
 
       await ref
-          .read(cardsDataNotifierProvider.notifier)
+          .read(cardsDataNewNotifierProvider.notifier)
           .fetchTodaysReviewNoteRefs();
       final todaysReviewNoteRefs =
-          ref.read(cardsDataNotifierProvider).todaysReviewNoteRefs;
-      print('これがtodaysReviewNoteRefsです$todaysReviewNoteRefs');
+          ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;
+      print('今日の復習ノート: $todaysReviewNoteRefs');
       await _loadNoteData(todaysReviewNoteRefs);
       setState(() {
-        _isLoading = false; // ← データ取得完了でfalseに
+        _isLoading = false;
       });
 
-      final needsUpdate = await versionCheck();
+      final needsUpdate =
+          await ref.read(homescreenProvider).checkCurrentVersion();
 
       if (needsUpdate) {
-        // BuildContextが有効なスコープ内でダイアログを表示
         showUpdateDialog(context);
       } else {
-        // チュートリアル処理をViewModelに移行
+        print('バージョンチェックは問題ありませんでした');
         await ref.read(tutorialProvider.notifier).initTutorial(context);
       }
     });
@@ -118,26 +126,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final randomText = ref.watch(randomTextProvider); // 状態の監視
-    final cardState = ref.watch(cardsDataNotifierProvider);
+    final randomText = ref.watch(randomTextProvider);
+    final cardState = ref.watch(cardsDataNewNotifierProvider);
     return Scaffold(
         backgroundColor: Colors.white,
         //コメントアウト部分の機能はいずれ実装する予定
         appBar: CommonAppBar(
           title: 'これだけ日本史',
           // leadingIconPath: 'assets/add_to_home_screen.svg',
-          // actionIconPath: 'assets/tab_search.svg',
+          actionIconPath: 'assets/setting.svg',
           // onLeadingPressed: () {},
-          // onActionPressed: () {},
+          onActionPressed: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SettingsScreen(),
+              ),
+            );
+          },
         ),
         body: _isLoading
             ? Center(
                 child: Stack(
-                  alignment: Alignment.center, // Stack内の要素を中央揃え
+                  alignment: Alignment.center,
                   children: [
-                    Container(
-                      width:
-                          MediaQuery.of(context).size.width * 0.9, // 画面サイズに対応
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.width * 0.9,
                       child: rive.RiveAnimation.asset(
                         'assets/bounce_animation.riv',
