@@ -11,65 +11,6 @@ class CardRepository {
 
   void initState() {}
 
-  Future<List<Map<String, dynamic>>> getNotesByNoteRef(String noteRef) async {
-    final List<String> chapters = [
-      'chapter1',
-      'chapter2',
-      'chapter3',
-      'chapter4',
-      'chapter5',
-      'chapter6',
-    ];
-
-    try {
-      for (String chapter in chapters) {
-        final docSnapshot = await FirebaseFirestore.instance
-            .collection('books')
-            .doc('book1')
-            .collection('chapters')
-            .doc(chapter)
-            .collection('notes')
-            .doc(noteRef)
-            .get();
-
-        if (docSnapshot.exists) {
-          return [docSnapshot.data()!];
-        }
-      }
-
-      return [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  Future<List<Map<String, dynamic>>> getAllNotes() async {
-    List<Map<String, dynamic>> allNotes = [];
-
-    try {
-      final notesSnapshot = await FirebaseFirestore.instance
-          .collection('books')
-          .doc('book1')
-          .collection('chapters')
-          .doc('chapter4') // ← ここで直接 chapter1 を指定
-          .collection('notes')
-          .get();
-
-      for (final noteDoc in notesSnapshot.docs) {
-        final noteData = noteDoc.data();
-        noteData['id'] = noteDoc.id;
-        noteData['chapter'] = 'chapter4'; // ← 固定で chapter1 を入れる
-        allNotes.add(noteData);
-      }
-
-      print('✅ chapter1 のノート取得が完了しました: ${allNotes.length} 件');
-    } catch (e) {
-      print('❌ ノート取得中のエラー: $e');
-    }
-
-    return allNotes;
-  }
-
   Future<List<Map<String, dynamic>>> getAllUserLearnedCards() async {
     try {
       if (uid == null) {

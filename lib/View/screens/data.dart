@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
-// import '../widgets/custom_card.dart';
+
 import '../widgets/EraQuizHeader.dart';
-// import '../../Model/firebases/firebase.dart';
+
 import '../../providers/card_provider.dart';
 import '../widgets/svg_container_list.dart';
 import '../widgets/EraNoteHeader.dart';

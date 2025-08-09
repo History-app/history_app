@@ -1,6 +1,5 @@
 part of '../screens/studying_screen.dart';
 
-// このメソッドは_StudyingScreenStateクラスの拡張として扱われる
 extension StudyingScreenBottomBarExtension on _StudyingScreenState {
   Widget _buildBottomNavigationBar() {
     final nullCount = leftValueDistribution[null] ?? 0;
@@ -258,7 +257,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                 .removeFirstCard();
                             setState(() {
                               // duecard.removeAt(0);
-                              print(carddata);
                               showAdditionalWidgets = false;
                             });
                             _updateLeftValueDistribution();
@@ -273,7 +271,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               ),
                               child: Center(
                                 child: Column(
-                                  // または Row、Stack などを使用
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     if ([2002, null]
@@ -298,18 +295,15 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                           color: Colors.white,
                                         ),
                                       )
-                                    else if (carddata[0]['left'] ==
-                                        0) // 例: leftが0の場合
+                                    else if (carddata[0]['left'] == 0)
                                       (() {
-                                        // ここでローカル変数を宣言して計算できます
                                         final ivl =
                                             duecards[0]['ivl'].toDouble();
 
                                         final double newivlDays = ivl * 1.2;
-                                        // 小数点以下を保持
+
                                         final double newivlDays2 = ivl + 1;
 
-                                        // 大きい方を抽出
                                         final double maxNewIvlDays =
                                             newivlDays > newivlDays2
                                                 ? newivlDays
@@ -382,15 +376,12 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
 
                               final newivl = ivl * duecards[0]['factor'] / 1000;
 
-                              final double newivlDays = ivl *
-                                  duecards[0]['factor'] /
-                                  1000; // 小数点以下を保持
+                              final double newivlDays =
+                                  ivl * duecards[0]['factor'] / 1000;
 
                               final dueTimestamp = Timestamp.fromDate(
                                   DateTime.now().add(Duration(
-                                      hours:
-                                          (newivlDays * 24).toInt() // 日数を時間に変換
-                                      )));
+                                      hours: (newivlDays * 24).toInt())));
 
                               ref
                                   .read(studyingScreenProvider)
@@ -409,7 +400,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                 .read(cardsDataNewNotifierProvider.notifier)
                                 .removeFirstCard();
                             setState(() {
-                              // duecard.removeAt(0);
                               print(carddata);
                               showAdditionalWidgets = false;
                             });
@@ -425,7 +415,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               ),
                               child: Center(
                                 child: Column(
-                                  // または Row、Stack などを使用
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     if ([2002, null]
@@ -450,10 +439,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                           color: Colors.white,
                                         ),
                                       )
-                                    else if (carddata[0]['left'] ==
-                                        0) // 例: leftが0の場合
+                                    else if (carddata[0]['left'] == 0)
                                       (() {
-                                        // ここでローカル変数を宣言して計算できます
                                         final ivl = duecards[0]['ivl'];
 
                                         final double newivlDays =
@@ -468,9 +455,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                           ),
                                         );
                                       })(),
-
-                                    // 必要に応じて SizedBox で間隔を追加
-
                                     Text(
                                       '正解',
                                       style: AppTextStyles.sfProSemibold24
@@ -511,16 +495,12 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
 
                               final newivl = ivl * duecards[0]['factor'] / 1000;
 
-                              final double newivlDays = ivl *
-                                  duecards[0]['factor'] /
-                                  1000 *
-                                  1.3; // 小数点以下を保持
+                              final double newivlDays =
+                                  ivl * duecards[0]['factor'] / 1000 * 1.3;
 
                               final dueTimestamp = Timestamp.fromDate(
                                   DateTime.now().add(Duration(
-                                      hours:
-                                          (newivlDays * 24).toInt() // 日数を時間に変換
-                                      )));
+                                      hours: (newivlDays * 24).toInt())));
 
                               ref
                                   .read(studyingScreenProvider)
@@ -553,7 +533,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               ),
                               child: Center(
                                 child: Column(
-                                  // または Row、Stack などを使用
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     if ([2002, null, 1001, 2001]
@@ -567,10 +546,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                           color: Colors.white,
                                         ),
                                       )
-                                    else if (carddata[0]['left'] ==
-                                        0) // 例: leftが0の場合
+                                    else if (carddata[0]['left'] == 0)
                                       (() {
-                                        // ここでローカル変数を宣言して計算できます
                                         final ivl = duecards[0]['ivl'];
 
                                         final newivl = ivl *
@@ -588,9 +565,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                           ),
                                         );
                                       })(),
-
-                                    // 必要に応じて SizedBox で間隔を追加
-
                                     Text(
                                       '簡単',
                                       style: AppTextStyles.sfProSemibold24
