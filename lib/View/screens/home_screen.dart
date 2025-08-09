@@ -49,7 +49,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     await _loadNoteData(todaysReviewNoteRefs);
   }
 
-  // _loadNoteDataをcardsDataからではなく、provider経由で取得したreviewデータを使うように変更
   Future<void> _loadNoteData(List<String> noteRefs) async {
     try {
       await ref.read(homescreenProvider).fetchUsersMultipleCards(noteRefs);
@@ -63,13 +62,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
         allNotes.addAll(cards);
       }
-      // final cardRepository = ref.read(cardRepositoryProvider);
-
-      // final allNote = await cardRepository.getAllNotes();
-
-      // await ref
-      //     .read(cardsDataNewNotifierProvider.notifier)
-      //     .saveNotesToDownloads(allNote);
 
       ref.read(homescreenProvider).updateNotes(allNotes);
       setState(() {
@@ -90,13 +82,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     _isLoading = true;
 
     Future.microtask(() async {
-      print('nullCountだよ');
       ref.read(randomTextProvider.notifier).generateRandomText();
       ref.read(userProvider.future);
-      print('ユーザーデータを取得中...');
+
       final user = await ref.read(userProvider.future);
       final nullCount = await user.nullCount;
-      print('nullCountだよ: $nullCount');
       await ref
           .read(cardsDataNewNotifierProvider.notifier)
           .fetchCardsData(nullCount);
@@ -106,7 +96,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           .fetchTodaysReviewNoteRefs();
       final todaysReviewNoteRefs =
           ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;
-      print('今日の復習ノート: $todaysReviewNoteRefs');
       await _loadNoteData(todaysReviewNoteRefs);
       setState(() {
         _isLoading = false;

@@ -8,7 +8,6 @@ class StudyingNotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // noteIdに基づいて表示内容を決定
     final imagePath = 'assets/notes/$noteId.png';
 
     return Scaffold(

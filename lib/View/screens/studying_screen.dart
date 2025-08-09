@@ -8,17 +8,13 @@ import '../../Model/text_styles.dart';
 import '../widgets/question_card.dart';
 import '../widgets/answer_card.dart';
 import '../widgets/memo_card.dart';
-
-import '../../ViewModel/studying_screen/studying_screen.dart';
+import '../../providers/user_provider.dart';
 import '../../providers/card_provider.dart';
-import '../../View/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/studying_note.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import '../../ViewModel/tutorial/home_tutorial.dart';
-import '../widgets/search_card.dart';
 import '../screens/modal.dart';
-
 part '../widgets/edit_card.dart';
 part '../bottom_navigation/studying_screen_bottom_bar.dart';
 
@@ -78,7 +74,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
 
   // duecards内のleft値の分布を計算する関数
   void _updateLeftValueDistribution() {
-    // 分布マップを初期化
     Map<dynamic, int> distribution = {};
 
     // 各カードのleft値をカウント
@@ -88,7 +83,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
         distribution[leftValue] = (distribution[leftValue] ?? 0) + 1;
       }
     }
-    print('Left値の分布: $distribution');
 
     setState(() {
       leftValueDistribution = distribution;
@@ -106,28 +100,19 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
   Future<void> _loadNoteData() async {
     try {
       final data2 = ref.read(cardsDataNewNotifierProvider).cards;
-      print('これがdata2です$data2');
-
       final DueCards =
           ref.read(cardsDataNewNotifierProvider).usersMultipleCards;
-
-      print('これがdata2です$data2');
-
-      print('これがDueCardsです$DueCards');
-
       final allNotes = ref.read(cardsDataNewNotifierProvider).allNotes;
-      print('これがallNotesです$allNotes');
-      // 一度にステートを更新
+      print("allNotes: $allNotes");
       setState(() {
         carddata = data2;
         duecard = allNotes;
         isLoading = false;
         duecards = DueCards;
       });
-      // left値の分布を更新
+
       _updateLeftValueDistribution();
     } catch (e) {
-      print('Error loading note data: $e');
       setState(() {
         isLoading = false;
       });
@@ -148,9 +133,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
         duecard[0]['flds'] != null &&
         duecard[0]['flds'] is List) {
       final flds = duecard[0]['flds'] as List;
-
-      print('flds');
-      print(flds);
 
       answerCardQuestionText = [
         flds.length > 1 ? flds[1].toString() : '',
@@ -180,8 +162,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                 // );
               },
               onActionPressed: () {
-                print('タップされました');
-                print('これがduecards[0]です$duecards');
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -199,7 +179,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
               title: 'これだけ日本史',
               leadingIconPath: 'assets/Mask.svg',
               onLeadingPressed: () {
-                Navigator.pop(context); // 前のページに戻る
+                Navigator.pop(context);
               },
             ),
       body: duecard.isNotEmpty
@@ -214,7 +194,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                 if (showAdditionalWidgets) {
                   Future.delayed(Duration(milliseconds: 100), () {
                     _scrollController.animateTo(
-                      200.0, // スクロール位置（必要に応じて調整）
+                      200.0,
                       duration: Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                     );
@@ -231,7 +211,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                     curve: Curves.easeInOut,
                   );
                 });
-                // _revealAnswerSection();
               },
               child: SingleChildScrollView(
                 controller: _scrollController,
@@ -291,12 +270,9 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                                     .read(tutorialProvider.notifier)
                                     .noteSearchKey,
                                 onTap: () {
-                                  print('これが${duecard[0]['hnref']}です');
-
                                   final noteId = duecard[0]['hnref'].toString();
 
                                   if (noteId != "null") {
-                                    print('ここ');
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -305,7 +281,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                                       ),
                                     );
                                   } else {
-                                    print('ここ');
                                     AccountDeletedModal.show(context);
                                   }
                                 },

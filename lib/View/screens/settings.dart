@@ -12,7 +12,6 @@ class SettingsScreen extends ConsumerWidget {
     final user = ref.watch(settingsNotifierProvider);
     final TextEditingController _controller =
         TextEditingController(text: user.nullCount.toString());
-    print('現在のnullCount: ${user.nullCount}');
     final nullCount = user.nullCount;
     final FocusNode _focusNode = FocusNode();
 
@@ -136,6 +135,7 @@ class SettingsScreen extends ConsumerWidget {
                         ref.read(settingsNotifierProvider.notifier);
                     final newCount =
                         int.tryParse(_controller.text) ?? nullCount;
+                    await notifier.updateTodayCard(newCount);
 
                     node.unfocus();
                     Navigator.pop(context);

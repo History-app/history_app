@@ -6,7 +6,6 @@ import '../../repositories/sqlite_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart'; // OK！
 
 final currentUser = FirebaseAuth.instance.currentUser;
 
@@ -73,11 +72,7 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
       final jsonString =
           const JsonEncoder.withIndent('  ').convert(convertedData);
       await file.writeAsString(jsonString);
-
-      print('✅ ノートデータを保存しました: ${file.path}');
-    } catch (e) {
-      print('❌ ダウンロードフォルダへの保存に失敗: $e');
-    }
+    } catch (e) {}
   }
 
   void updateNotes(List<Map<String, dynamic>> allNotes) {
@@ -89,15 +84,12 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
   }
 
   Future<void> fetchCardsData(int nullCount) async {
-    //ここで全てのカードデータを取得する
-    print('カードデータを取得中... nullCount: $nullCount');
     await fetchAllLearnedCards();
-    print('おけーい');
+
     final cardRepository = ref.read(cardRepositoryProvider);
     final cardsData = await cardRepository.getUsersCardsData(
         allLearnedCards: state.allLearnedCards, nullCount: nullCount);
 
-    print('取得したカード$cardsData');
     state = state.copyWith(cards: cardsData);
     calculateCardStats();
   }
@@ -112,7 +104,6 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
     final allCards = state.allLearnedCards;
     if (allCards.isEmpty) return;
 
-    // 分布情報を計算
     final distribution = <dynamic, int>{};
 
     for (var card in allCards) {
@@ -121,7 +112,6 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
         distribution[leftValue] = (distribution[leftValue] ?? 0) + 1;
       }
     }
-    print('分布情報: $distribution');
 
     // 各タイプのカード数を計算
     final newCardCount = distribution[null] ?? 0;
@@ -141,9 +131,7 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
   Future<void> fetchTodaysReviewNoteRefs() async {
     final todaysReviewRefs = await getTodaysReviewData(state.cards);
-    print('これがstate.cardsです');
-    print(state.cards);
-    print('取得した今日のレビュー用ノートの参照: $todaysReviewRefs');
+
     state = state.copyWith(todaysReviewNoteRefs: todaysReviewRefs);
   }
 
@@ -170,7 +158,6 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
       return results;
     } catch (e) {
-      print('復習データのフィルタリング中にエラーが発生しました: $e');
       return [];
     }
   }
@@ -188,13 +175,10 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
       // 状態を更新
       state = state.copyWith(usersMultipleCards: updatedCards);
-    } catch (e) {
-      // エラー処理をここに追加（UIへの通知など）
-    }
+    } catch (e) {}
   }
 
   void decrementLeftValueCount(dynamic key, [int decrement = 1]) {
-    // 現在のマップをコピー
     final currentDistribution =
         Map<dynamic, int>.from(state.leftValueDistribution);
     // キーが存在し、減らしても0以上になる場合のみ減算
@@ -211,12 +195,10 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
   }
 
   void moveCardBetweenCategories(int from, int to) {
-    // 現在の値を取得
     int newCount = state.newCardCount;
     int learningCount = state.learningCardCount;
     int reviewCount = state.reviewCardCount;
 
-    // 移動元からカードを減らす
     switch (from) {
       case 0: // 新規カード
         if (newCount > 0) {
@@ -260,12 +242,10 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
         return;
     }
 
-    // 状態を更新
     state = state.copyWith(
       newCardCount: newCount,
       learningCardCount: learningCount,
       reviewCardCount: reviewCount,
-      // 合計は変わらないので更新不要
     );
   }
 
