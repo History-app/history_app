@@ -8,6 +8,7 @@ class CustomCard extends ConsumerWidget {
     final distribution =
         ref.watch(cardsDataNewNotifierProvider).leftValueDistribution;
     print('これがdistributionです$distribution');
+
     final nullCount = distribution[null] ?? 0;
     final learningCount = (distribution[2001] ?? 0) +
         (distribution[1001] ?? 0) +
