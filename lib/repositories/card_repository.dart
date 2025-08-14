@@ -172,7 +172,7 @@ class CardRepository {
           transaction.set(limitsRef, {
             'lastFetchDate': today,
             'todayFetchCount': todayFetchCount + fetchCount,
-            'todaysNullCardIds': updatedCardIds, // 表示済みカードIDを保存
+            'todaysNullCardIds': updatedCardIds,
             'updatedAt': FieldValue.serverTimestamp()
           });
         }

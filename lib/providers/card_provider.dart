@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../repositories/card_repository.dart';
 import '../../repositories/sqlite_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'dart:io';
 
 final currentUser = FirebaseAuth.instance.currentUser;
 
@@ -43,36 +41,8 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
   }
 
   Future getNotesByNoteRef(String noteRef) async {
-    // final cardRepository = ref.read(cardRepositoryProvider);
     final notesData = await SQLiteRepository().getNotesByNoteRef(noteRef);
-    // final notesData = await cardRepository.getNotesByNoteRef(noteRef);
     return notesData;
-  }
-
-  Future<void> saveNotesToDownloads(dynamic notesData) async {
-    try {
-      // Timestamp → DateTime に変換する再帰関数
-      dynamic convertTimestamps(dynamic value) {
-        if (value is Timestamp) {
-          return value.toDate().toIso8601String();
-        } else if (value is Map) {
-          return value.map((key, val) => MapEntry(key, convertTimestamps(val)));
-        } else if (value is List) {
-          return value.map(convertTimestamps).toList();
-        } else {
-          return value;
-        }
-      }
-
-      final convertedData = convertTimestamps(notesData);
-
-      final downloadsDir = Directory('/Users/taniguchitomoto/Downloads');
-      final file = File('${downloadsDir.path}/notes_data.json');
-
-      final jsonString =
-          const JsonEncoder.withIndent('  ').convert(convertedData);
-      await file.writeAsString(jsonString);
-    } catch (e) {}
   }
 
   void updateNotes(List<Map<String, dynamic>> allNotes) {
@@ -121,7 +91,6 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
     final reviewCardCount = distribution[0] ?? 0;
     final totalCardCount = allCards.length;
 
-    // 状態を更新
     state = state.copyWith(
         newCardCount: newCardCount,
         learningCardCount: learningCardCount,
@@ -172,8 +141,6 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
           break;
         }
       }
-
-      // 状態を更新
       state = state.copyWith(usersMultipleCards: updatedCards);
     } catch (e) {}
   }

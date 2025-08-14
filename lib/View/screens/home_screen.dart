@@ -15,7 +15,8 @@ import '../../View/screens/studying_screen.dart';
 import '../../ViewModel/tutorial/home_tutorial.dart';
 import '../../Model/Color/app_colors.dart';
 import '../../View/widgets/update.dart';
-import './settings.dart';
+
+import '../screens/settings/settings.dart';
 import '../../ViewModel/home_screen/home_screen.dart';
 import '../../providers/card_provider.dart';
 

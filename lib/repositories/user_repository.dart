@@ -24,6 +24,7 @@ class UserRepository {
         }
 
         final data = doc.data()!;
+
         return app_user.User.fromJson({
           'uid': doc.id,
           'nullCount': data['nullCount'] ?? 5,
