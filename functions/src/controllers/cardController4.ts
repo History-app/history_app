@@ -18,7 +18,7 @@ export async function addMissingCardsToUsers4() {
       const existingIds = new Set(existingSnap.docs.map((d) => d.id));
 
       const batch = db.batch();
-      for (let i = 456; i <= 636; i++) {
+      for (let i = 637; i <= 743; i++) {
         const padded = i.toString().padStart(i <= 52 ? 2 : 3, "0");
         const cardId = `Card${padded}`;
         if (existingIds.has(cardId)) continue;
