@@ -57,6 +57,7 @@ class CardRepository {
   }) async {
     try {
       final cards = allLearnedCards ?? [];
+
       final limitsRef = FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -139,6 +140,8 @@ class CardRepository {
           }
         }
 
+        //ここでtodaysDisplayedNullCardsの順番を変えてみる
+        todaysDisplayedNullCards.sort(_startPurposeEra);
         List<Map<String, dynamic>> newNullCards = [];
         List<String> newNullCardIds = [];
 
@@ -154,7 +157,6 @@ class CardRepository {
               ? orderedNullLeft.length
               : remainingFetchCount;
           newNullCards = orderedNullLeft.sublist(0, actualFetchCount);
-          print('newNullCards: $newNullCards');
 
           // 3) ID リストの更新（既存 + 新規）
 
@@ -162,17 +164,11 @@ class CardRepository {
           newNullCardIds =
               newNullCards.map((card) => card['id'].toString()).toList();
 
-          // 更新するカードIDリスト（既存のものと新しいもの）
-          List<String> updatedCardIds = [
-            ...todaysNullCardIds,
-            ...newNullCardIds
-          ];
-
           // 制限情報を更新
           transaction.set(limitsRef, {
             'lastFetchDate': today,
             'todayFetchCount': todayFetchCount + fetchCount,
-            'todaysNullCardIds': updatedCardIds,
+            'todaysNullCardIds': newNullCardIds,
             'updatedAt': FieldValue.serverTimestamp()
           });
         }
@@ -192,22 +188,24 @@ class CardRepository {
 
   List<Map<String, dynamic>> _orderNullLeftCards(
       List<Map<String, dynamic>> cards) {
-    final group1 = <Map<String, dynamic>>[]; // 1～52
-    final group2 = <Map<String, dynamic>>[]; // 53～
+    int extractNumber(String? id) =>
+        int.tryParse(RegExp(r'\d+').firstMatch(id ?? '')?.group(0) ?? '') ?? 0;
 
-    for (var c in cards) {
-      final num = _extractNumber(c['id'] as String);
-      if (num >= 1 && num <= 52) {
-        group1.add(c);
-      } else {
-        group2.add(c);
-      }
-    }
-    group1.sort(
-        (a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
-    group2.sort(
-        (a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
-    return [...group1, ...group2];
+    cards.sort((a, b) => extractNumber(a['id']?.toString())
+        .compareTo(extractNumber(b['id']?.toString())));
+
+    return cards;
+  }
+
+//　時代別に始める
+  int _startPurposeEra(Map<String, dynamic> a, Map<String, dynamic> b) {
+    final idA = a['id']?.toString() ?? '';
+    final idB = b['id']?.toString() ?? '';
+    final numA =
+        int.tryParse(RegExp(r'\d+').firstMatch(idA)?.group(0) ?? '') ?? 0;
+    final numB =
+        int.tryParse(RegExp(r'\d+').firstMatch(idB)?.group(0) ?? '') ?? 0;
+    return numB.compareTo(numA); // 昇順（降順なら return numB.compareTo(numA)）
   }
 
   int _extractNumber(String id) {

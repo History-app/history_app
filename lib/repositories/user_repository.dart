@@ -28,6 +28,7 @@ class UserRepository {
         return app_user.User.fromJson({
           'uid': doc.id,
           'nullCount': data['nullCount'] ?? 5,
+          'startEra': data['startEra'] ?? null,
         });
       });
     }
@@ -39,6 +40,16 @@ class UserRepository {
 
     return _firestore.collection('users').doc(uid).set(
       {'nullCount': value},
+      SetOptions(merge: true),
+    );
+  }
+
+  Future<void> setStartEra(String era) {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return Future.error('未ログイン');
+
+    return _firestore.collection('users').doc(uid).set(
+      {'startEra': era},
       SetOptions(merge: true),
     );
   }
