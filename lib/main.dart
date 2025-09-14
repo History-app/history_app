@@ -12,7 +12,9 @@ import '/View/bottom_nav_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // const flavor = String.fromEnvironment('FLAVOR'); // dart-define で指定
   // final isProd = flavor.isEmpty || flavor == 'prod';
