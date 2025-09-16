@@ -17,8 +17,8 @@ KeyboardActionsConfig _buildKeyboardActionsConfig(
             return GestureDetector(
               onTap: () async {
                 final notifier = ref.read(settingsNotifierProvider.notifier);
-                final newCount =
-                    int.tryParse(controller.text) ?? fallbackNullCount;
+                final newCount = int.tryParse(controller.text);
+                print('newcount, $newCount');
                 await notifier.updateTodayCard(newCount);
 
                 node.unfocus();

@@ -37,15 +37,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Future<void> _onRefresh() async {
     final user = await ref.read(userProvider.future);
     final nullCount = user.nullCount;
-    await ref
-        .read(cardsDataNewNotifierProvider.notifier)
-        .fetchCardsData(nullCount);
-    await ref
-        .read(cardsDataNewNotifierProvider.notifier)
-        .fetchTodaysReviewNoteRefs();
+    await ref.read(cardsDataNewNotifierProvider.notifier).fetchCardsData(nullCount);
+    await ref.read(cardsDataNewNotifierProvider.notifier).fetchTodaysReviewNoteRefs();
 
-    final todaysReviewNoteRefs =
-        ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;
+    final todaysReviewNoteRefs = ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;
 
     await _loadNoteData(todaysReviewNoteRefs);
   }
@@ -53,13 +48,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Future<void> _loadNoteData(List<String> noteRefs) async {
     try {
       await ref.read(homescreenProvider).fetchUsersMultipleCards(noteRefs);
-      final DueCards =
-          ref.watch(cardsDataNewNotifierProvider).usersMultipleCards;
+      final DueCards = ref.watch(cardsDataNewNotifierProvider).usersMultipleCards;
 
       List<Map<String, dynamic>> allNotes = [];
       for (String noteRef in noteRefs) {
-        final cards =
-            await ref.read(homescreenProvider).getNotesByNoteRef(noteRef);
+        final cards = await ref.read(homescreenProvider).getNotesByNoteRef(noteRef);
 
         allNotes.addAll(cards);
       }
@@ -88,22 +81,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
       final user = await ref.read(userProvider.future);
       final nullCount = await user.nullCount;
-      await ref
-          .read(cardsDataNewNotifierProvider.notifier)
-          .fetchCardsData(nullCount);
+      await ref.read(cardsDataNewNotifierProvider.notifier).fetchCardsData(nullCount);
 
-      await ref
-          .read(cardsDataNewNotifierProvider.notifier)
-          .fetchTodaysReviewNoteRefs();
-      final todaysReviewNoteRefs =
-          ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;
+      await ref.read(cardsDataNewNotifierProvider.notifier).fetchTodaysReviewNoteRefs();
+      final todaysReviewNoteRefs = ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;
       await _loadNoteData(todaysReviewNoteRefs);
       setState(() {
         _isLoading = false;
       });
 
-      final needsUpdate =
-          await ref.read(homescreenProvider).checkCurrentVersion();
+      final needsUpdate = await ref.read(homescreenProvider).checkCurrentVersion();
 
       if (needsUpdate) {
         showUpdateDialog(context);
@@ -186,8 +173,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         const Gap(16),
                         Text(
                           '続きから学習',
-                          style:
-                              AppTextStyles.hiraginoW6.copyWith(fontSize: 20),
+                          style: AppTextStyles.hiraginoW6.copyWith(fontSize: 20),
                         ),
                       ],
                     ),

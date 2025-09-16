@@ -26,7 +26,7 @@ class SQLiteRepository {
 
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, "jap_his.db");
-    const int currentDbVersion = 4;
+    const int currentDbVersion = 6;
     // バージョンが違うなら既存DB削除
     if (savedDbVersion != currentDbVersion) {
       final exists = await databaseExists(path);
@@ -39,8 +39,7 @@ class SQLiteRepository {
     if (!existsAfter) {
       try {
         ByteData data = await rootBundle.load("assets/db/jap_his.db");
-        List<int> bytes =
-            data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+        List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
         await File(path).writeAsBytes(bytes, flush: true);
 
         // バージョン保存
