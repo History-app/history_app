@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../Model/ era/ eras.dart';
 
 class CardRepository {
   final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -51,12 +52,19 @@ class CardRepository {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getUsersCardsData({
-    List<Map<String, dynamic>>? allLearnedCards,
-    required int nullCount,
-  }) async {
+  Future<List<Map<String, dynamic>>> getUsersCardsData(
+      {List<Map<String, dynamic>>? allLearnedCards, required int nullCount, startEraLabel}) async {
     try {
+      //ここの時点で、cardsを篩にかける(いつの時代からそのcardsを勉強しているかで篩にかける)
+
+      // 元リストを安全にコピー
+      // Dart
+      // 元リストを安全にコピー
       final cards = allLearnedCards ?? [];
+
+      // // left が null の要素を抽出して id の数値部分でソート
+
+      print('cards[0]: ${cards[0]}');
       final limitsRef = FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -78,9 +86,9 @@ class CardRepository {
 
           if (lastFetchDate == today) {
             todayFetchCount = limitsDoc.data()?['todayFetchCount'] ?? 0;
+            print('todayFetchCount: $todayFetchCount');
 
-            todaysNullCardIds =
-                List<String>.from(limitsDoc.data()?['todaysNullCardIds'] ?? []);
+            todaysNullCardIds = List<String>.from(limitsDoc.data()?['todaysNullCardIds'] ?? []);
           }
         }
 
@@ -88,7 +96,7 @@ class CardRepository {
           todayFetchCount = 0;
           todaysNullCardIds = [];
         }
-
+        print('nullCount! $nullCount');
         final remainingFetchCount = (nullCount) - todayFetchCount;
 
         List<Map<String, dynamic>> nullLeftCards = [];
@@ -121,10 +129,16 @@ class CardRepository {
           int needed = nullCount - todayFetchCount;
           final orderedNullLeft = _orderNullLeftCards(nullLeftCards);
 
-          List<Map<String, dynamic>> toAdd =
-              orderedNullLeft.take(needed).toList();
+          // orderedNullLeft.sort(_startPurposeEra);
+          // print('orderdNullLeft,$orderedNullLeft');
+          List<Map<String, dynamic>> toAdd = orderedNullLeft.take(needed).toList();
 
           todaysDisplayedNullCards.addAll(toAdd);
+          print('todaysDisplayedNullCards,$todaysDisplayedNullCards');
+
+          // todaysDisplayedNullCards.sort(_startPurposeEra);
+          // print('todaysDisplayednullCards,$todaysDisplayedNullCards');
+          print('ここだ');
         }
         if (nullCount < todayFetchCount) {
           int needed = todayFetchCount - nullCount;
@@ -139,6 +153,8 @@ class CardRepository {
           }
         }
 
+        //ここでtodaysDisplayedNullCardsの順番を変えてみる
+        // todaysDisplayedNullCards.sort(_startPurposeEra);
         List<Map<String, dynamic>> newNullCards = [];
         List<String> newNullCardIds = [];
 
@@ -146,43 +162,52 @@ class CardRepository {
           int fetchCount = nullLeftCards.length < remainingFetchCount
               ? nullLeftCards.length
               : remainingFetchCount;
-
           final orderedNullLeft = _orderNullLeftCards(nullLeftCards);
+
+          if (startEraLabel != null) {
+            print('こここ');
+            final startId = minIdStringForEraByMapping(cards, startEraLabel);
+            if (startId != null) {
+              final startNum = _extractNumber(startId);
+              orderedNullLeft
+                  .sort((a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
+              final high = orderedNullLeft
+                  .where((c) => _extractNumber(c['id'].toString()) >= startNum)
+                  .toList();
+              final low = orderedNullLeft
+                  .where((c) => _extractNumber(c['id'].toString()) < startNum)
+                  .toList();
+              final rotated = [...high, ...low];
+              orderedNullLeft
+                ..clear()
+                ..addAll(rotated);
+            }
+          }
 
           // 2) 取得数だけ先頭から抜き出す
           final actualFetchCount = orderedNullLeft.length < remainingFetchCount
               ? orderedNullLeft.length
               : remainingFetchCount;
           newNullCards = orderedNullLeft.sublist(0, actualFetchCount);
-          print('newNullCards: $newNullCards');
 
           // 3) ID リストの更新（既存 + 新規）
 
           // 新たに表示するカードのIDを記録
-          newNullCardIds =
-              newNullCards.map((card) => card['id'].toString()).toList();
+          newNullCardIds = newNullCards.map((card) => card['id'].toString()).toList();
 
-          // 更新するカードIDリスト（既存のものと新しいもの）
-          List<String> updatedCardIds = [
-            ...todaysNullCardIds,
-            ...newNullCardIds
-          ];
+          List<String> updatedCardIds = [...todaysNullCardIds, ...newNullCardIds];
 
           // 制限情報を更新
           transaction.set(limitsRef, {
             'lastFetchDate': today,
             'todayFetchCount': todayFetchCount + fetchCount,
-            'todaysNullCardIds': updatedCardIds, // 表示済みカードIDを保存
+            'todaysNullCardIds': updatedCardIds,
             'updatedAt': FieldValue.serverTimestamp()
           });
         }
 
         // 結果を返す - 今日既に表示したカード + 新しく表示するカード + 通常カード
-        return [
-          ...todaysDisplayedNullCards,
-          ...newNullCards,
-          ...nonNullLeftCards
-        ];
+        return [...todaysDisplayedNullCards, ...newNullCards, ...nonNullLeftCards];
       });
     } catch (e) {
       print('Error fetching cards: $e');
@@ -190,10 +215,9 @@ class CardRepository {
     }
   }
 
-  List<Map<String, dynamic>> _orderNullLeftCards(
-      List<Map<String, dynamic>> cards) {
-    final group1 = <Map<String, dynamic>>[]; // 1～52
-    final group2 = <Map<String, dynamic>>[]; // 53～
+  List<Map<String, dynamic>> _orderNullLeftCards(List<Map<String, dynamic>> cards) {
+    final group1 = <Map<String, dynamic>>[];
+    final group2 = <Map<String, dynamic>>[];
 
     for (var c in cards) {
       final num = _extractNumber(c['id'] as String);
@@ -203,16 +227,88 @@ class CardRepository {
         group2.add(c);
       }
     }
-    group1.sort(
-        (a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
-    group2.sort(
-        (a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
+    group1.sort((a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
+    group2.sort((a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
     return [...group1, ...group2];
+  }
+
+  //lastFetchDateをリセットする関数
+  Future<void> resetLastFetchDate() async {
+    if (uid == null) {
+      // ユーザー未ログイン時は何もしない
+      return;
+    }
+
+    try {
+      final limitsRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('settings')
+          .doc('cardLimits');
+
+      await limitsRef.set({
+        'lastFetchDate': '',
+      }, SetOptions(merge: true));
+    } catch (e) {
+      // 必要ならエラーハンドリングを追加
+      print('resetLastFetchDate error: $e');
+    }
+  }
+
+//　時代別に始める
+  int _startPurposeEra(Map<String, dynamic> a, Map<String, dynamic> b) {
+    final idA = a['id']?.toString() ?? '';
+    final idB = b['id']?.toString() ?? '';
+    final numA = int.tryParse(RegExp(r'\d+').firstMatch(idA)?.group(0) ?? '') ?? 0;
+    final numB = int.tryParse(RegExp(r'\d+').firstMatch(idB)?.group(0) ?? '') ?? 0;
+    return numB.compareTo(numA); // 昇順（降順なら return numB.compareTo(numA)）
   }
 
   int _extractNumber(String id) {
     final m = RegExp(r'\d+').firstMatch(id);
     return m != null ? int.parse(m.group(0)!) : 0;
+  }
+
+  // 指定時代の次の時代開始数（存在しなければ大きな値）
+  int _nextEraStartNumber(String eraLabel) {
+    final idx = kEras.indexOf(eraLabel);
+    if (idx == -1) return 1 << 30;
+    // kEras の順序に従って次の時代の開始数を返す
+    for (int i = idx + 1; i < kEras.length; i++) {
+      final next = eraStartNumbers[kEras[i]];
+      if (next != null) return next;
+    }
+    return 1 << 30;
+  }
+
+  String? minIdStringForEraByMapping(List<Map<String, dynamic>> cards, String eraLabel) {
+    String? minId;
+    int? minNum;
+    for (final c in cards) {
+      try {
+        if (_cardInEraByMapping(c, eraLabel)) {
+          final idStr = c['id']?.toString() ?? '';
+          final n = _extractNumber(idStr);
+          if (n <= 0) continue;
+          if (minNum == null || n < minNum) {
+            minNum = n;
+            minId = idStr;
+          }
+        }
+      } catch (_) {}
+    }
+    return minId;
+  }
+
+  // カードがマップに基づいて指定時代に属するか判定
+  bool _cardInEraByMapping(Map<String, dynamic> c, String eraLabel) {
+    final idStr = c['id']?.toString() ?? '';
+    if (idStr.isEmpty) return false;
+    final n = _extractNumber(idStr);
+    final start = eraStartNumbers[eraLabel];
+    if (start == null) return false;
+    final nextStart = _nextEraStartNumber(eraLabel);
+    return n >= start && n < nextStart;
   }
 
   Future<void> saveMemoToFirestore({
@@ -249,8 +345,8 @@ class CardRepository {
           .where('noteRef', isEqualTo: noteRef)
           .get();
 
-      final Timestamp dueDate = dueTimestamp ??
-          Timestamp.fromDate(DateTime.now().add(Duration(days: 1)));
+      final Timestamp dueDate =
+          dueTimestamp ?? Timestamp.fromDate(DateTime.now().add(Duration(days: 1)));
 
       // 更新データを作成してからnull値を除外
       Map<String, dynamic> updateData = removeNullFields({

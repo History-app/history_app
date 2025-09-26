@@ -39,8 +39,7 @@ class SQLiteRepository {
     if (!existsAfter) {
       try {
         ByteData data = await rootBundle.load("assets/db/jap_his.db");
-        List<int> bytes =
-            data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+        List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
         await File(path).writeAsBytes(bytes, flush: true);
 
         // バージョン保存
@@ -61,7 +60,6 @@ class SQLiteRepository {
       final String ref = noteRef.trim();
 
       // 大文字小文字を区別したくない場合は COLLATE NOCASE を付ける
-      // ※不要なら削って OK
       final rows = await db.rawQuery(
         'SELECT * FROM notes WHERE id = ? COLLATE NOCASE',
         [ref],
@@ -91,10 +89,8 @@ class SQLiteRepository {
         return note;
       }).toList();
 
-      print('✅ SQLite 取得成功: ${notes.length} 件');
       return notes;
     } catch (e) {
-      print('❌ SQLite 取得失敗: $e');
       return [];
     }
   }

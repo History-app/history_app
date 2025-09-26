@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../repositories/card_repository.dart';
 import '../../repositories/sqlite_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'dart:io';
 
 final currentUser = FirebaseAuth.instance.currentUser;
 
@@ -34,45 +32,15 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
         if (card['noteRef'] != null) card['noteRef']: card
     };
 
-    final orderedCards = noteRefs
-        .map((noteRef) => cardMap[noteRef])
-        .whereType<Map<String, dynamic>>()
-        .toList();
+    final orderedCards =
+        noteRefs.map((noteRef) => cardMap[noteRef]).whereType<Map<String, dynamic>>().toList();
 
     state = state.copyWith(usersMultipleCards: orderedCards);
   }
 
   Future getNotesByNoteRef(String noteRef) async {
-    // final cardRepository = ref.read(cardRepositoryProvider);
     final notesData = await SQLiteRepository().getNotesByNoteRef(noteRef);
-    // final notesData = await cardRepository.getNotesByNoteRef(noteRef);
     return notesData;
-  }
-
-  Future<void> saveNotesToDownloads(dynamic notesData) async {
-    try {
-      // Timestamp → DateTime に変換する再帰関数
-      dynamic convertTimestamps(dynamic value) {
-        if (value is Timestamp) {
-          return value.toDate().toIso8601String();
-        } else if (value is Map) {
-          return value.map((key, val) => MapEntry(key, convertTimestamps(val)));
-        } else if (value is List) {
-          return value.map(convertTimestamps).toList();
-        } else {
-          return value;
-        }
-      }
-
-      final convertedData = convertTimestamps(notesData);
-
-      final downloadsDir = Directory('/Users/taniguchitomoto/Downloads');
-      final file = File('${downloadsDir.path}/notes_data.json');
-
-      final jsonString =
-          const JsonEncoder.withIndent('  ').convert(convertedData);
-      await file.writeAsString(jsonString);
-    } catch (e) {}
   }
 
   void updateNotes(List<Map<String, dynamic>> allNotes) {
@@ -83,12 +51,26 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
     state = state.copyWith(leftValueDistribution: distribution);
   }
 
-  Future<void> fetchCardsData(int nullCount) async {
+  Future<void> fetchCardsData(int nullCount, String? startEraLabel) async {
     await fetchAllLearnedCards();
 
     final cardRepository = ref.read(cardRepositoryProvider);
     final cardsData = await cardRepository.getUsersCardsData(
-        allLearnedCards: state.allLearnedCards, nullCount: nullCount);
+        allLearnedCards: state.allLearnedCards, nullCount: nullCount, startEraLabel: startEraLabel);
+
+    state = state.copyWith(cards: cardsData);
+    calculateCardStats();
+  }
+
+  Future<void> fetchCardsDatainEra(int nullCount, String? startEraLabel) async {
+    print('start');
+    final cardRepository = ref.read(cardRepositoryProvider);
+    await cardRepository.resetLastFetchDate();
+    print('個ここ');
+    await fetchAllLearnedCards();
+    print('ここ');
+    final cardsData = await cardRepository.getUsersCardsData(
+        allLearnedCards: state.allLearnedCards, nullCount: nullCount, startEraLabel: startEraLabel);
 
     state = state.copyWith(cards: cardsData);
     calculateCardStats();
@@ -115,13 +97,11 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
     // 各タイプのカード数を計算
     final newCardCount = distribution[null] ?? 0;
-    final learningCardCount = (distribution[2001] ?? 0) +
-        (distribution[1001] ?? 0) +
-        (distribution[2002] ?? 0);
+    final learningCardCount =
+        (distribution[2001] ?? 0) + (distribution[1001] ?? 0) + (distribution[2002] ?? 0);
     final reviewCardCount = distribution[0] ?? 0;
     final totalCardCount = allCards.length;
 
-    // 状態を更新
     state = state.copyWith(
         newCardCount: newCardCount,
         learningCardCount: learningCardCount,
@@ -139,8 +119,7 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
     state = state.copyWith(leftValueDistribution: distribution);
   }
 
-  Future<List<String>> getTodaysReviewData(
-      List<Map<String, dynamic>> cardsData) async {
+  Future<List<String>> getTodaysReviewData(List<Map<String, dynamic>> cardsData) async {
     try {
       final now = DateTime.now();
 
@@ -153,8 +132,7 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
         }
       }).toList();
 
-      List<String> results =
-          filteredCards.map((card) => card['noteRef'] as String).toList();
+      List<String> results = filteredCards.map((card) => card['noteRef'] as String).toList();
 
       return results;
     } catch (e) {
@@ -164,26 +142,21 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
   Future<void> saveMemo({required String cardId, required String memo}) async {
     try {
-      final updatedCards =
-          List<Map<String, dynamic>>.from(state.usersMultipleCards);
+      final updatedCards = List<Map<String, dynamic>>.from(state.usersMultipleCards);
       for (int i = 0; i < updatedCards.length; i++) {
         if (updatedCards[i]['id'] == cardId) {
           updatedCards[i]['memo'] = memo;
           break;
         }
       }
-
-      // 状態を更新
       state = state.copyWith(usersMultipleCards: updatedCards);
     } catch (e) {}
   }
 
   void decrementLeftValueCount(dynamic key, [int decrement = 1]) {
-    final currentDistribution =
-        Map<dynamic, int>.from(state.leftValueDistribution);
+    final currentDistribution = Map<dynamic, int>.from(state.leftValueDistribution);
     // キーが存在し、減らしても0以上になる場合のみ減算
-    if (currentDistribution.containsKey(key) &&
-        currentDistribution[key]! >= decrement) {
+    if (currentDistribution.containsKey(key) && currentDistribution[key]! >= decrement) {
       currentDistribution[key] = currentDistribution[key]! - decrement;
 
       // 0になったら削除するオプション（必要に応じて）
@@ -251,12 +224,10 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
   void removeFirstCard() {
     final updatedCards = List<Map<String, dynamic>>.from(state.cards.skip(1));
-    final updatedtodaysReviewNoteRefs =
-        List<String>.from(state.todaysReviewNoteRefs.skip(1));
+    final updatedtodaysReviewNoteRefs = List<String>.from(state.todaysReviewNoteRefs.skip(1));
     final updatedUsersMultipleCards =
         List<Map<String, dynamic>>.from(state.usersMultipleCards.skip(1));
-    final updatedAllNotes =
-        List<Map<String, dynamic>>.from(state.allNotes.skip(1));
+    final updatedAllNotes = List<Map<String, dynamic>>.from(state.allNotes.skip(1));
     state = state.copyWith(cards: updatedCards);
     state = state.copyWith(todaysReviewNoteRefs: updatedtodaysReviewNoteRefs);
     state = state.copyWith(usersMultipleCards: updatedUsersMultipleCards);

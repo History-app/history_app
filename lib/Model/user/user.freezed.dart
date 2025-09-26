@@ -22,6 +22,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   String get uid => throw _privateConstructorUsedError;
   int get nullCount => throw _privateConstructorUsedError;
+  String get startEra => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +34,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String uid, int nullCount});
+  $Res call({String uid, int nullCount, String startEra});
 }
 
 /// @nodoc
@@ -51,6 +52,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? uid = null,
     Object? nullCount = null,
+    Object? startEra = null,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -61,6 +63,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.nullCount
           : nullCount // ignore: cast_nullable_to_non_nullable
               as int,
+      startEra: null == startEra
+          ? _value.startEra
+          : startEra // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -71,7 +77,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid, int nullCount});
+  $Res call({String uid, int nullCount, String startEra});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   $Res call({
     Object? uid = null,
     Object? nullCount = null,
+    Object? startEra = null,
   }) {
     return _then(_$_User(
       uid: null == uid
@@ -95,6 +102,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.nullCount
           : nullCount // ignore: cast_nullable_to_non_nullable
               as int,
+      startEra: null == startEra
+          ? _value.startEra
+          : startEra // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -103,7 +114,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 
 @JsonSerializable(explicitToJson: true)
 class _$_User implements _User {
-  const _$_User({required this.uid, this.nullCount = 5});
+  const _$_User({required this.uid, this.nullCount = 5, this.startEra = "旧石器"});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -112,10 +123,13 @@ class _$_User implements _User {
   @override
   @JsonKey()
   final int nullCount;
+  @override
+  @JsonKey()
+  final String startEra;
 
   @override
   String toString() {
-    return 'User(uid: $uid, nullCount: $nullCount)';
+    return 'User(uid: $uid, nullCount: $nullCount, startEra: $startEra)';
   }
 
   @override
@@ -125,12 +139,14 @@ class _$_User implements _User {
             other is _$_User &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.nullCount, nullCount) ||
-                other.nullCount == nullCount));
+                other.nullCount == nullCount) &&
+            (identical(other.startEra, startEra) ||
+                other.startEra == startEra));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, nullCount);
+  int get hashCode => Object.hash(runtimeType, uid, nullCount, startEra);
 
   @JsonKey(ignore: true)
   @override
@@ -147,8 +163,10 @@ class _$_User implements _User {
 }
 
 abstract class _User implements User {
-  const factory _User({required final String uid, final int nullCount}) =
-      _$_User;
+  const factory _User(
+      {required final String uid,
+      final int nullCount,
+      final String startEra}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -156,6 +174,8 @@ abstract class _User implements User {
   String get uid;
   @override
   int get nullCount;
+  @override
+  String get startEra;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
