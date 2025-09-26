@@ -32,10 +32,8 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
         if (card['noteRef'] != null) card['noteRef']: card
     };
 
-    final orderedCards = noteRefs
-        .map((noteRef) => cardMap[noteRef])
-        .whereType<Map<String, dynamic>>()
-        .toList();
+    final orderedCards =
+        noteRefs.map((noteRef) => cardMap[noteRef]).whereType<Map<String, dynamic>>().toList();
 
     state = state.copyWith(usersMultipleCards: orderedCards);
   }
@@ -53,12 +51,26 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
     state = state.copyWith(leftValueDistribution: distribution);
   }
 
-  Future<void> fetchCardsData(int nullCount) async {
+  Future<void> fetchCardsData(int nullCount, String? startEraLabel) async {
     await fetchAllLearnedCards();
 
     final cardRepository = ref.read(cardRepositoryProvider);
     final cardsData = await cardRepository.getUsersCardsData(
-        allLearnedCards: state.allLearnedCards, nullCount: nullCount);
+        allLearnedCards: state.allLearnedCards, nullCount: nullCount, startEraLabel: startEraLabel);
+
+    state = state.copyWith(cards: cardsData);
+    calculateCardStats();
+  }
+
+  Future<void> fetchCardsDatainEra(int nullCount, String? startEraLabel) async {
+    print('start');
+    final cardRepository = ref.read(cardRepositoryProvider);
+    await cardRepository.resetLastFetchDate();
+    print('個ここ');
+    await fetchAllLearnedCards();
+    print('ここ');
+    final cardsData = await cardRepository.getUsersCardsData(
+        allLearnedCards: state.allLearnedCards, nullCount: nullCount, startEraLabel: startEraLabel);
 
     state = state.copyWith(cards: cardsData);
     calculateCardStats();
@@ -85,9 +97,8 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
     // 各タイプのカード数を計算
     final newCardCount = distribution[null] ?? 0;
-    final learningCardCount = (distribution[2001] ?? 0) +
-        (distribution[1001] ?? 0) +
-        (distribution[2002] ?? 0);
+    final learningCardCount =
+        (distribution[2001] ?? 0) + (distribution[1001] ?? 0) + (distribution[2002] ?? 0);
     final reviewCardCount = distribution[0] ?? 0;
     final totalCardCount = allCards.length;
 
@@ -108,8 +119,7 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
     state = state.copyWith(leftValueDistribution: distribution);
   }
 
-  Future<List<String>> getTodaysReviewData(
-      List<Map<String, dynamic>> cardsData) async {
+  Future<List<String>> getTodaysReviewData(List<Map<String, dynamic>> cardsData) async {
     try {
       final now = DateTime.now();
 
@@ -122,8 +132,7 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
         }
       }).toList();
 
-      List<String> results =
-          filteredCards.map((card) => card['noteRef'] as String).toList();
+      List<String> results = filteredCards.map((card) => card['noteRef'] as String).toList();
 
       return results;
     } catch (e) {
@@ -133,8 +142,7 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
   Future<void> saveMemo({required String cardId, required String memo}) async {
     try {
-      final updatedCards =
-          List<Map<String, dynamic>>.from(state.usersMultipleCards);
+      final updatedCards = List<Map<String, dynamic>>.from(state.usersMultipleCards);
       for (int i = 0; i < updatedCards.length; i++) {
         if (updatedCards[i]['id'] == cardId) {
           updatedCards[i]['memo'] = memo;
@@ -146,11 +154,9 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
   }
 
   void decrementLeftValueCount(dynamic key, [int decrement = 1]) {
-    final currentDistribution =
-        Map<dynamic, int>.from(state.leftValueDistribution);
+    final currentDistribution = Map<dynamic, int>.from(state.leftValueDistribution);
     // キーが存在し、減らしても0以上になる場合のみ減算
-    if (currentDistribution.containsKey(key) &&
-        currentDistribution[key]! >= decrement) {
+    if (currentDistribution.containsKey(key) && currentDistribution[key]! >= decrement) {
       currentDistribution[key] = currentDistribution[key]! - decrement;
 
       // 0になったら削除するオプション（必要に応じて）
@@ -218,12 +224,10 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
   void removeFirstCard() {
     final updatedCards = List<Map<String, dynamic>>.from(state.cards.skip(1));
-    final updatedtodaysReviewNoteRefs =
-        List<String>.from(state.todaysReviewNoteRefs.skip(1));
+    final updatedtodaysReviewNoteRefs = List<String>.from(state.todaysReviewNoteRefs.skip(1));
     final updatedUsersMultipleCards =
         List<Map<String, dynamic>>.from(state.usersMultipleCards.skip(1));
-    final updatedAllNotes =
-        List<Map<String, dynamic>>.from(state.allNotes.skip(1));
+    final updatedAllNotes = List<Map<String, dynamic>>.from(state.allNotes.skip(1));
     state = state.copyWith(cards: updatedCards);
     state = state.copyWith(todaysReviewNoteRefs: updatedtodaysReviewNoteRefs);
     state = state.copyWith(usersMultipleCards: updatedUsersMultipleCards);

@@ -5,7 +5,7 @@ KeyboardActionsConfig _buildKeyboardActionsConfig(
   TextEditingController controller,
   BuildContext context,
   WidgetRef ref,
-  int fallbackNullCount,
+  // int fallbackNullCount,
 ) {
   return KeyboardActionsConfig(
     keyboardBarColor: Colors.grey[200],
@@ -17,13 +17,13 @@ KeyboardActionsConfig _buildKeyboardActionsConfig(
             return GestureDetector(
               onTap: () async {
                 final notifier = ref.read(settingsNotifierProvider.notifier);
-                final newCount = int.tryParse(controller.text);
-                print('newcount, $newCount');
-                await notifier.updateTodayCard(newCount);
+                final controller_text = int.parse(controller.text);
 
+                await notifier.updateTodayCard(controller_text);
                 node.unfocus();
+
+                await notifier.updateNullCount(controller_text);
                 Navigator.pop(context);
-                await notifier.updateNullCount(newCount);
               },
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -47,15 +47,19 @@ KeyboardActionsConfig _buildKeyboardActionsConfig(
 void _handleBackButton(
   BuildContext context,
   TextEditingController controller,
-  int originalNullCount,
-) async {
-  final isTextChanged = controller.text != originalNullCount.toString();
-
-  if (isTextChanged) {
+  int originalNullCount, {
+  TextEditingController? eraController,
+  String? originalEra,
+}) async {
+  final isCountChanged = controller.text != originalNullCount.toString();
+  final isEraChanged =
+      eraController != null && originalEra != null && eraController.text != originalEra;
+  if (isCountChanged || isEraChanged) {
     final shouldDiscard = await _showConfirmationDialog(context);
     if (!shouldDiscard) return;
 
-    controller.clear();
+    if (isCountChanged) controller.clear();
+    if (isEraChanged) eraController!.clear();
   }
 
   Navigator.pop(context);

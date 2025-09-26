@@ -37,7 +37,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Future<void> _onRefresh() async {
     final user = await ref.read(userProvider.future);
     final nullCount = user.nullCount;
-    await ref.read(cardsDataNewNotifierProvider.notifier).fetchCardsData(nullCount);
+    final startEraLabel = user.startEra;
+    await ref.read(cardsDataNewNotifierProvider.notifier).fetchCardsData(nullCount, startEraLabel);
     await ref.read(cardsDataNewNotifierProvider.notifier).fetchTodaysReviewNoteRefs();
 
     final todaysReviewNoteRefs = ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;
@@ -81,7 +82,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
       final user = await ref.read(userProvider.future);
       final nullCount = await user.nullCount;
-      await ref.read(cardsDataNewNotifierProvider.notifier).fetchCardsData(nullCount);
+      final startEra = await user.startEra;
+      await ref.read(cardsDataNewNotifierProvider.notifier).fetchCardsData(nullCount, startEra);
 
       await ref.read(cardsDataNewNotifierProvider.notifier).fetchTodaysReviewNoteRefs();
       final todaysReviewNoteRefs = ref.read(cardsDataNewNotifierProvider).todaysReviewNoteRefs;

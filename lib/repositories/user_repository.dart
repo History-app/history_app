@@ -17,17 +17,11 @@ class UserRepository {
     if (uid == null) {
       userStream = Stream.error('未ログイン');
     } else {
-      userStream =
-          _firestore.collection('users').doc(uid).snapshots().map((doc) {
-        if (!doc.exists || doc.data() == null) {
-          return app_user.User(uid: uid, nullCount: 5);
-        }
-
+      userStream = _firestore.collection('users').doc(uid).snapshots().map((doc) {
         final data = doc.data()!;
-
         return app_user.User.fromJson({
           'uid': doc.id,
-          'nullCount': data['nullCount'] ?? 5,
+          'nullCount': data['nullCount'],
           'startEra': data['startEra'] ?? null,
         });
       });

@@ -5,17 +5,14 @@ class CustomCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final distribution =
-        ref.watch(cardsDataNewNotifierProvider).leftValueDistribution;
+    final distribution = ref.watch(cardsDataNewNotifierProvider).leftValueDistribution;
     print('これがdistributionです$distribution');
 
     final nullCount = distribution[null] ?? 0;
-    final learningCount = (distribution[2001] ?? 0) +
-        (distribution[1001] ?? 0) +
-        (distribution[2002] ?? 0);
+    final learningCount =
+        (distribution[2001] ?? 0) + (distribution[1001] ?? 0) + (distribution[2002] ?? 0);
     final reviewCount = distribution[0] ?? 0;
-    final studyButtonKey =
-        ref.watch(tutorialProvider.notifier).getStudyButtonKey();
+    final studyButtonKey = ref.watch(tutorialProvider.notifier).getStudyButtonKey();
     return SizedBox(
       width: 370,
       child: Card(
@@ -61,9 +58,8 @@ class CustomCard extends ConsumerWidget {
                                 child: Center(
                                   child: Text(
                                     DateFormat('M/d').format(DateTime.now()),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600),
+                                    style:
+                                        TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                                   ),
                                 ),
                               ),
