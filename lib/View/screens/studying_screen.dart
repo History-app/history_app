@@ -28,6 +28,7 @@ class StudyingScreen extends ConsumerStatefulWidget {
 class _StudyingScreenState extends ConsumerState<StudyingScreen> {
   final TextEditingController _searchController = TextEditingController();
   bool showAdditionalWidgets = false;
+  bool allowMoving = false;
   final ScrollController _scrollController = ScrollController();
   Map<String, dynamic>? noteData;
   List<Map<String, dynamic>> carddata = [];
@@ -43,10 +44,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
 
     // 画面構築後にチュートリアルを初期化
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(tutorialProvider.notifier)
-          .checkTutorialCompleted()
-          .then((completed) async {
+      ref.read(tutorialProvider.notifier).checkTutorialCompleted().then((completed) async {
         if (!completed) {
           await Future.delayed(Duration(seconds: 1));
           ref.read(tutorialProvider.notifier).showStudyingTutorial(
@@ -91,9 +89,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
 
     Future(() {
       if (mounted) {
-        ref
-            .read(cardsDataNewNotifierProvider.notifier)
-            .setLeftValueDistribution(distribution);
+        ref.read(cardsDataNewNotifierProvider.notifier).setLeftValueDistribution(distribution);
       }
     });
   }
@@ -101,8 +97,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
   Future<void> _loadNoteData() async {
     try {
       final data2 = ref.read(cardsDataNewNotifierProvider).cards;
-      final DueCards =
-          ref.read(cardsDataNewNotifierProvider).usersMultipleCards;
+      final DueCards = ref.read(cardsDataNewNotifierProvider).usersMultipleCards;
       final allNotes = ref.read(cardsDataNewNotifierProvider).allNotes;
       print("allNotes: $allNotes");
       setState(() {
@@ -123,16 +118,12 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
   @override
   Widget build(BuildContext context) {
     final DueCards = ref.watch(cardsDataNewNotifierProvider).usersMultipleCards;
-    final questionCardKey =
-        ref.read(tutorialProvider.notifier).getQuestionCardKey();
-    final answerCardKey =
-        ref.read(tutorialProvider.notifier).getAnswerButtonKey();
+    final questionCardKey = ref.read(tutorialProvider.notifier).getQuestionCardKey();
+    final answerCardKey = ref.read(tutorialProvider.notifier).getAnswerButtonKey();
 
     final List<String> answerCardQuestionText;
 
-    if (duecard.isNotEmpty &&
-        duecard[0]['flds'] != null &&
-        duecard[0]['flds'] is List) {
+    if (duecard.isNotEmpty && duecard[0]['flds'] != null && duecard[0]['flds'] is List) {
       final flds = duecard[0]['flds'] as List;
 
       answerCardQuestionText = [
@@ -190,9 +181,10 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                 if (!showAdditionalWidgets) {
                   setState(() {
                     showAdditionalWidgets = true;
+                    allowMoving = true;
                   });
                 }
-                if (showAdditionalWidgets) {
+                if (allowMoving) {
                   Future.delayed(Duration(milliseconds: 100), () {
                     _scrollController.animateTo(
                       200.0,
@@ -200,18 +192,10 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                       curve: Curves.easeInOut,
                     );
                   });
+                  setState(() {
+                    allowMoving = false;
+                  });
                 }
-                setState(() {
-                  showAdditionalWidgets = true;
-                });
-
-                Future.delayed(Duration(milliseconds: 100), () {
-                  _scrollController.animateTo(
-                    200.0,
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                });
               },
               child: SingleChildScrollView(
                 controller: _scrollController,
@@ -223,12 +207,10 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                         alignment: Alignment.center,
                         key: questionCardKey,
                         child: QuestionCard(
-                          questionText:
-                              duecard.isNotEmpty && duecard[0]['flds'] != null
-                                  ? duecard[0]['flds'][0].toString()
-                                  : 'No data',
-                          starImagePath:
-                              'assets/star_${duecard[0]['star']}.png',
+                          questionText: duecard.isNotEmpty && duecard[0]['flds'] != null
+                              ? duecard[0]['flds'][0].toString()
+                              : 'No data',
+                          starImagePath: 'assets/star_${duecard[0]['star']}.png',
                         ),
                       ),
                       if (showAdditionalWidgets) ...[
@@ -243,8 +225,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                         Center(
                           child: AnswerCard(
                               questionText: answerCardQuestionText,
-                              starImagePath:
-                                  'assets/star_${duecard[0]['star']}.png',
+                              starImagePath: 'assets/star_${duecard[0]['star']}.png',
                               theme: duecard[0]['theme']),
                         ),
                         Gap(36),
@@ -267,9 +248,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                             Row(children: [
                               Gap(25.5),
                               GestureDetector(
-                                key: ref
-                                    .read(tutorialProvider.notifier)
-                                    .noteSearchKey,
+                                key: ref.read(tutorialProvider.notifier).noteSearchKey,
                                 onTap: () {
                                   final noteId = duecard[0]['hnref'].toString();
 
@@ -277,8 +256,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            StudyingNotePage(noteId: noteId),
+                                        builder: (context) => StudyingNotePage(noteId: noteId),
                                       ),
                                     );
                                   } else {
@@ -303,9 +281,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                                     child: Center(
                                       child: Text('ノート検索',
                                           style: AppTextStyles.sfProSemibold24
-                                              .copyWith(
-                                                  fontSize: 13,
-                                                  color: Colors.white)),
+                                              .copyWith(fontSize: 13, color: Colors.white)),
                                     )),
                               )
                             ]),
@@ -313,8 +289,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                         ),
                       ] else ...[
                         Container(
-                            key: answerCardKey,
-                            height: MediaQuery.of(context).size.height - 330),
+                            key: answerCardKey, height: MediaQuery.of(context).size.height - 330),
                       ],
                     ],
                   ),
