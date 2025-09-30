@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:japanese_history_app/util/number_formatter.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'dart:convert';
 import '../../repositories/card_repository.dart';
 import 'package:rive/rive.dart' as rive;

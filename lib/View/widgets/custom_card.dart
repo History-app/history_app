@@ -6,13 +6,16 @@ class CustomCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final distribution = ref.watch(cardsDataNewNotifierProvider).leftValueDistribution;
-    print('これがdistributionです$distribution');
-
     final nullCount = distribution[null] ?? 0;
     final learningCount =
         (distribution[2001] ?? 0) + (distribution[1001] ?? 0) + (distribution[2002] ?? 0);
     final reviewCount = distribution[0] ?? 0;
     final studyButtonKey = ref.watch(tutorialProvider.notifier).getStudyButtonKey();
+    final asyncUser = ref.watch(userProvider);
+    final user = asyncUser.value;
+    final int total = user?.nullCount ?? 5;
+    final int part = nullCount;
+
     return SizedBox(
       width: 370,
       child: Card(
@@ -28,33 +31,25 @@ class CustomCard extends ConsumerWidget {
               height: 180,
               color: AppColors().preRed,
               child: Center(
-                //元の画像コンテナ
                 child: SizedBox(
                   width: 120,
                   height: 180,
                   child: Stack(
                     children: [
-                      // 元の画像
                       Image.asset('assets/text_date.png'),
-
-                      // Column使用して51pxの位置に配置
                       Column(
                         children: [
-                          // 上部の空白スペース（51px）
                           Gap(51),
-
-                          // 追加したいContainer
                           Row(
                             children: [
                               Gap(4),
                               Container(
-                                width: 55.2, // 必要な幅
-                                height: 20.8, // 必要な高さ
+                                width: 55.2,
+                                height: 20.8,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(60),
                                   color: Colors.black,
                                 ),
-                                // 必要なコンテンツ
                                 child: Center(
                                   child: Text(
                                     DateFormat('M/d').format(DateTime.now()),
@@ -72,8 +67,6 @@ class CustomCard extends ConsumerWidget {
                 ),
               ),
             ),
-
-            // タイトル
             Container(
               width: double.infinity,
               height: 72,
@@ -84,9 +77,18 @@ class CustomCard extends ConsumerWidget {
                   Row(
                     children: [
                       Gap(12),
-                      SizedBox(
-                        width: 40,
-                        height: 40,
+                      CircularPercentIndicator(
+                        radius: 20.0,
+                        lineWidth: 6.0,
+                        percent: part.toPercentOf(total),
+                        animation: true,
+                        center: new Text(
+                          "$nullCount",
+                          style: AppTextStyles.hiraginoW7
+                              .copyWith(fontSize: 14, color: AppColors().primaryRed),
+                        ),
+                        progressColor: AppColors().primaryRed,
+                        backgroundColor: AppColors().grey,
                       ),
                       Gap(8),
                       SizedBox(
@@ -166,7 +168,6 @@ class CustomCard extends ConsumerWidget {
                               builder: (context) => StudyingScreen(),
                             ),
                           );
-                          print('学習ボタンがタップされました');
                         },
                         child: Container(
                           width: 72,
