@@ -45,16 +45,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<void> _forceResetAuth() async {
-  try {
-    // 現在のユーザー情報をプリント
-    print('現在のユーザー: ${FirebaseAuth.instance.currentUser?.uid}');
+// Future<void> _forceResetAuth() async {
+//   try {
+//     // 現在のユーザー情報をプリント
+//     print('現在のユーザー: ${FirebaseAuth.instance.currentUser?.uid}');
 
-    // 強制的にトークンを無効化
-    await FirebaseAuth.instance.signOut();
+//     // 強制的にトークンを無効化
+//     await FirebaseAuth.instance.signOut();
 
-    print('認証状態をリセットしました');
-  } catch (e) {
-    print('認証リセット中にエラー: $e');
-  }
-}
+//     print('認証状態をリセットしました');
+//   } catch (e) {
+//     print('認証リセット中にエラー: $e');
+//   }
+// }
