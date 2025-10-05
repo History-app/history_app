@@ -8,6 +8,7 @@ import { chapter5Notes } from "../data/chapter5Notes";
 import { chapter6Notes } from "../data/chapter6Notes";
 import { chapter7Notes } from "../data/chapter7Notes";
 import { chapter7_1Notes } from "../data/chapter7Notes_1";
+import { chapter8Notes } from "../data/chapter8Notes";
 
 export const seedSampleNotesToChapter1 = functions.https.onRequest(
   async (req, res) => {
@@ -118,6 +119,18 @@ export const seedNotesToChapter7_1 = functions.https.onRequest(
     } catch (err) {
       console.error(err);
       res.status(500).send("Error seeding Chapter 7_1 notes.");
+    }
+  }
+);
+
+export const seedNotesToChapter8 = functions.https.onRequest(
+  async (req, res) => {
+    try {
+      await seedNotes("chapter8", chapter8Notes);
+      res.status(200).send("Chapter 8 notes seeded.");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error seeding Chapter 8 notes.");
     }
   }
 );

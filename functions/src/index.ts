@@ -11,6 +11,7 @@ import {
   seedNotesToChapter6,
   seedNotesToChapter7,
   seedNotesToChapter7_1,
+  seedNotesToChapter8,
 } from "./routes/noteRoutes";
 
 admin.initializeApp();
@@ -27,4 +28,5 @@ export {
   seedNotesToChapter6,
   seedNotesToChapter7,
   seedNotesToChapter7_1,
+  seedNotesToChapter8,
 };
