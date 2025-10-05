@@ -12,7 +12,7 @@ export async function handleAnonymousUserCreation(user: admin.auth.UserRecord) {
     await db.collection("users").doc(user.uid).set(userData);
 
     const batch = db.batch();
-    for (let i = 1; i <= 862; i++) {
+    for (let i = 1; i <= 976; i++) {
       const padded = i.toString().padStart(i <= 52 ? 2 : 3, "0");
       const cardId = `Card${padded}`;
       const cardData = createCardData(cardId, `note${padded}`);
