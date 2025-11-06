@@ -165,7 +165,6 @@ class CardRepository {
           final orderedNullLeft = _orderNullLeftCards(nullLeftCards);
 
           if (startEraLabel != null) {
-            print('こここ');
             final startId = minIdStringForEraByMapping(cards, startEraLabel);
             if (startId != null) {
               final startNum = _extractNumber(startId);
@@ -218,18 +217,22 @@ class CardRepository {
   List<Map<String, dynamic>> _orderNullLeftCards(List<Map<String, dynamic>> cards) {
     final group1 = <Map<String, dynamic>>[];
     final group2 = <Map<String, dynamic>>[];
+    final group3 = <Map<String, dynamic>>[];
 
     for (var c in cards) {
       final num = _extractNumber(c['id'] as String);
       if (num >= 1 && num <= 52) {
         group1.add(c);
-      } else {
+      } else if (num >= 53 && num < 1000) {
         group2.add(c);
+      } else {
+        group3.add(c);
       }
     }
     group1.sort((a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
     group2.sort((a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
-    return [...group1, ...group2];
+    group3.sort((a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
+    return [...group1, ...group2, ...group3];
   }
 
   //lastFetchDateをリセットする関数
