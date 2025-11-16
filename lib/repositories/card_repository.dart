@@ -18,35 +18,19 @@ class CardRepository {
         return [];
       }
 
-      int maxRetries = 10;
-      int currentRetry = 0;
+      final col =
+          FirebaseFirestore.instance.collection('users').doc(uid).collection('learnedCards');
+      final snap = await col.snapshots().firstWhere((s) => s.docs.isNotEmpty);
 
-      while (currentRetry < maxRetries) {
-        final querySnapshot = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .collection('learnedCards')
-            .get();
-
-        if (querySnapshot.docs.isNotEmpty) {
-          List<Map<String, dynamic>> results = querySnapshot.docs.map((doc) {
-            Map<String, dynamic> data = doc.data();
+      final results = snap.docs.map((doc) {
+        final data = doc.data();
             data['id'] = doc.id;
             return data;
           }).toList();
 
-          return results;
-        } else {
-          currentRetry++;
 
-          if (currentRetry < maxRetries) {
-            int delaySeconds = currentRetry * 2;
-            await Future.delayed(Duration(seconds: delaySeconds));
-          }
-        }
-      }
-
-      return [];
+      
+      return results;
     } catch (e) {
       return [];
     }
