@@ -75,7 +75,7 @@ export async function addMissingCardsToUsers4() {
 
       const batch = db.batch();
       // TODO(Taniguchi): アプリ用のリリースでは、977から始まるようにしておく
-      for (let i = 977; i <= 1176; i++) {
+      for (let i = 1973; i <= 3289; i++) {
         const padded = i.toString().padStart(i <= 52 ? 2 : 3, "0");
         const cardId = `Card${padded}`;
         if (existingIds.has(cardId)) continue;
