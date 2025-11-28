@@ -39,12 +39,16 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
+        manifestPlaceholders["supportsLargeHeaps"] = "true"
+
+        
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         ndk {
-            abiFilters.clear()
-            abiFilters += listOf("arm64-v8a")   
+            abiFilters += listOf("arm64-v8a")
+        
+
         }
     
     }
