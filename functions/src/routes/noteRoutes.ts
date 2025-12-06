@@ -10,7 +10,11 @@ import { chapter7Notes } from "../data/chapter7Notes";
 import { chapter7_1Notes } from "../data/chapter7Notes_1";
 import { chapter8Notes } from "../data/chapter8Notes";
 import { chapter8_1Notes } from "../data/chapter8_1Notes";
-
+import { chapter9Notes } from "../data/chapter9Notes";
+import { chapter10Notes } from "../data/chapter10Notes";
+import { chapter11Notes } from "../data/chapter11Notes";
+import { chapter12Notes } from "../data/chapter12Notes";
+// import { chapter12_1Notes } from "../data/chapter12_1Notes";
 export const seedSampleNotesToChapter1 = functions.https.onRequest(
   async (req, res) => {
     try {
@@ -147,3 +151,63 @@ export const seedNotesToChapter8_1 = functions.https.onRequest(
     }
   }
 );
+
+export const seedNotesToChapter9 = functions.https.onRequest(
+  async (req, res) => {
+    try {
+      await seedNotes("chapter9", chapter9Notes);
+      res.status(200).send("Chapter 8 notes seeded.");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error seeding Chapter 8 notes.");
+    }
+  }
+);
+
+export const seedNotesToChapter10 = functions.https.onRequest(
+  async (req, res) => {
+    try {
+      await seedNotes("chapter10", chapter10Notes);
+      res.status(200).send("Chapter 10 notes seeded.");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error seeding Chapter 10 notes.");
+    }
+  }
+);
+
+export const seedNotesToChapter11 = functions.https.onRequest(
+  async (req, res) => {
+    try {
+      await seedNotes("chapter11", chapter11Notes);
+      res.status(200).send("Chapter 10 notes seeded.");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error seeding Chapter 10 notes.");
+    }
+  }
+);
+
+export const seedNotesToChapter12 = functions.https.onRequest(
+  async (req, res) => {
+    try {
+      await seedNotes("chapter12", chapter12Notes);
+      res.status(200).send("Chapter 10 notes seeded.");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error seeding Chapter 10 notes.");
+    }
+  }
+);
+
+// export const seedNotesToChapter13 = functions.https.onRequest(
+//   async (req, res) => {
+//     try {
+//       await seedNotes("chapter13", chapter12_1Notes);
+//       res.status(200).send("Chapter 10 notes seeded.");
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).send("Error seeding Chapter 10 notes.");
+//     }
+//   }
+// );

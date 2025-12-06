@@ -14,17 +14,23 @@ val keystoreProperties = Properties().apply {
 }
 
 android {
-    namespace = "com.example.japanese_history_app"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.0.12077973"
+    namespace = "io.github.yutotaniguchi.japanesehistoryapp"
+    compileSdk = 35
+    ndkVersion = "28.2.13676358"
+    packaging {
+        jniLibs {
+            // 16KB page-size 対応のための必須設定（AGP 8.1+）
+            useLegacyPackaging = false
+        }
+    }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     defaultConfig {
@@ -33,9 +39,18 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
+        manifestPlaceholders["supportsLargeHeaps"] = "true"
+
+        
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        ndk {
+            abiFilters += listOf("arm64-v8a")
+        
+
+        }
+    
     }
 
     signingConfigs {
@@ -56,6 +71,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+    // ★★ ここから追加 ★★
+    flavorDimensions += "env"
+
+    productFlavors {
+        create("prod") {
+            dimension = "env"
         }
     }
 }

@@ -157,7 +157,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(
-                      width: 50,
+                      width: 80,
                       height: 36,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(8),

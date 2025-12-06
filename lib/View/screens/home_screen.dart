@@ -56,7 +56,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       List<Map<String, dynamic>> allNotes = [];
       for (String noteRef in noteRefs) {
         final cards = await ref.read(homescreenProvider).getNotesByNoteRef(noteRef);
-
+        print('cards,$cards');
         allNotes.addAll(cards);
       }
 
@@ -146,6 +146,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         children: [
                           Text(
                             'データ読み込み中...', // 表示するテキスト
+                            style: AppTextStyles.hiraginoW6.copyWith(
+                              fontSize: 24,
+                              color: AppColors().primaryRed,
+                            ),
+                          ),
+                          Text(
+                            '初回起動時は時間がかかります', // 表示するテキスト
                             style: AppTextStyles.hiraginoW6.copyWith(
                               fontSize: 24,
                               color: AppColors().primaryRed,

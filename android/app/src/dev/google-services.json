@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "492249576098",
+    "project_id": "history-app-dev-fce4a",
+    "storage_bucket": "history-app-dev-fce4a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492249576098:android:f8dc64884ee5a22d631dfb",
+        "android_client_info": {
+          "package_name": "com.example.japanese_history_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPMUaVq37kdBcMrVXjK7865WMWXbL2u9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492249576098:android:5577f1f0ad73422b631dfb",
+        "android_client_info": {
+          "package_name": "io.github.yutotaniguchi.japanesehistoryapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPMUaVq37kdBcMrVXjK7865WMWXbL2u9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

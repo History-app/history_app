@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 const appStoreURL = 'https://apps.apple.com/jp/app/id6744389554?mt=8';
+const androidStore =
+    'https://play.google.com/store/apps/details?id=io.github.yutotaniguchi.japanesehistoryapp&hl=ja';
 
 /// ダイアログを表示
 void showUpdateDialog(BuildContext context) {
@@ -23,15 +27,14 @@ void showUpdateDialog(BuildContext context) {
               style: TextStyle(color: Colors.red),
             ),
             onPressed: () async {
-              if (await canLaunch(appStoreURL)) {
-                await launch(
-                  appStoreURL,
-                  forceSafariVC: true,
-                  forceWebView: true,
-                );
-              } else {
-                throw Error();
-              }
+              try {
+                final isAndroid = !kIsWeb && Platform.isAndroid;
+                final url = isAndroid ? androidStore : appStoreURL;
+                final uri = Uri.parse(url);
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri, mode: LaunchMode.externalApplication);
+                } else {}
+              } catch (e) {}
             },
           ),
         ],

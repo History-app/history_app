@@ -26,7 +26,7 @@ class SQLiteRepository {
 
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, "jap_his.db");
-    const int currentDbVersion = 9;
+    const int currentDbVersion = 22;
     // バージョンが違うなら既存DB削除
     if (savedDbVersion != currentDbVersion) {
       final exists = await databaseExists(path);
