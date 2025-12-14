@@ -30,11 +30,7 @@ Future<void> main() async {
 
   final app = Firebase.app();
 
-  try {
-    final userCredential = await FirebaseAuth.instance.signInAnonymously();
-    // _forceResetAuth();
-  } catch (e) {}
-
+  FirebaseAuth.instance.signInAnonymously();
   runApp(const ProviderScope(child: MyApp()));
 }
 
