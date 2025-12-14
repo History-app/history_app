@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="${applicationName}"
         android:label="これだけ日本史一問一答"
         android:icon="@mipmap/ic_launcher">
 

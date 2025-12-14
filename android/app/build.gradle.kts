@@ -77,10 +77,16 @@ android {
     flavorDimensions += "env"
 
     productFlavors {
-        create("prod") {
-            dimension = "env"
-        }
+    create("prod") {
+        dimension = "env"
+        applicationIdSuffix = ""
     }
+    create("dev") {
+        dimension = "env"
+        applicationIdSuffix = ""
+    }
+}
+
 }
 
 flutter {
