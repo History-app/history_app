@@ -42,7 +42,7 @@ android {
         manifestPlaceholders["supportsLargeHeaps"] = "true"
 
         
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         ndk {

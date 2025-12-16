@@ -6,7 +6,9 @@
 	<integer>11</integer>
 	<key>logs</key>
 	<dict>
-		<key>167697EF-7085-4795-A8D9-73A26B3F8A04</key>
+
+		<key>92F4B308-E597-4D44-93E9-B88AE43DC5AC</key>
+
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +17,9 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>167697EF-7085-4795-A8D9-73A26B3F8A04.xcactivitylog</string>
+
+			<string>92F4B308-E597-4D44-93E9-B88AE43DC5AC.xcactivitylog</string>
+
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -40,15 +44,17 @@
 			<key>signature</key>
 			<string>Cleaning workspace Runner with scheme Flutter Assemble</string>
 			<key>timeStartedRecording</key>
-			<real>786050292.47984004</real>
+
+			<real>787385814.80084503</real>
 			<key>timeStoppedRecording</key>
-			<real>786050292.70629895</real>
+			<real>787385815.02865005</real>
 			<key>title</key>
 			<string>Cleaning workspace Runner with scheme Flutter Assemble</string>
 			<key>uniqueIdentifier</key>
-			<string>167697EF-7085-4795-A8D9-73A26B3F8A04</string>
+			<string>92F4B308-E597-4D44-93E9-B88AE43DC5AC</string>
 		</dict>
-		<key>4B493B3B-85DF-4C2D-A4E9-94F6F0C2C4E7</key>
+		<key>C544A5D8-6281-4E52-A812-A33FF2CC8575</key>
+
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -57,7 +63,9 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>4B493B3B-85DF-4C2D-A4E9-94F6F0C2C4E7.xcactivitylog</string>
+
+			<string>C544A5D8-6281-4E52-A812-A33FF2CC8575.xcactivitylog</string>
+
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -82,13 +90,15 @@
 			<key>signature</key>
 			<string>Cleaning workspace Runner with scheme Runner</string>
 			<key>timeStartedRecording</key>
-			<real>786050293.15928602</real>
+
+			<real>787385815.49812102</real>
 			<key>timeStoppedRecording</key>
-			<real>786050293.38465405</real>
+			<real>787385815.73805201</real>
 			<key>title</key>
 			<string>Cleaning workspace Runner with scheme Runner</string>
 			<key>uniqueIdentifier</key>
-			<string>4B493B3B-85DF-4C2D-A4E9-94F6F0C2C4E7</string>
+			<string>C544A5D8-6281-4E52-A812-A33FF2CC8575</string>
+
 		</dict>
 	</dict>
 </dict>

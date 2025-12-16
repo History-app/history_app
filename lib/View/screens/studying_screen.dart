@@ -35,6 +35,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
   List<Map<String, dynamic>> duecard = [];
   List<Map<String, dynamic>> duecards = [];
   Map<dynamic, int> leftValueDistribution = {};
+  List<String> answerCardQuestionText = [];
   bool isLoading = true;
   @override
   void initState() {
@@ -121,8 +122,6 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
     final questionCardKey = ref.read(tutorialProvider.notifier).getQuestionCardKey();
     final answerCardKey = ref.read(tutorialProvider.notifier).getAnswerButtonKey();
 
-    final List<String> answerCardQuestionText;
-
     if (duecard.isNotEmpty && duecard[0]['flds'] != null && duecard[0]['flds'] is List) {
       final flds = duecard[0]['flds'] as List;
 
@@ -133,6 +132,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
     } else {
       answerCardQuestionText = ['', ''];
     }
+    print('answerCardQuestionText,$answerCardQuestionText');
 
     return Scaffold(
       backgroundColor: Colors.white,
