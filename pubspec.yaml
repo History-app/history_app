@@ -39,6 +39,7 @@ dependencies:
   ruby_text:
     git:
       url: https://github.com/Taniguchiyuto/RubyText.git
+  flutter_native_splash: ^2.4.7
 
 flutter_launcher_icons:
   android: true
