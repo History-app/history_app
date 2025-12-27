@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japanese_history_app/util/number_formatter.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'dart:convert';
 import '../../repositories/card_repository.dart';
@@ -79,6 +80,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     _isLoading = true;
 
     Future.microtask(() async {
+      //一旦ここに仮設定
+      FlutterNativeSplash.remove();
       ref.read(randomTextProvider.notifier).generateRandomText();
       ref.read(userProvider.future);
 
