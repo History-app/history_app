@@ -1,4 +1,4 @@
-part of '../screens/home_screen.dart';
+part of '../Screens/home_screen.dart';
 
 class CustomCard extends ConsumerWidget {
   const CustomCard({super.key});
