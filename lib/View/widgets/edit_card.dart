@@ -200,7 +200,18 @@ class _EditCardState extends ConsumerState<EditCard> {
       backgroundColor: Colors.white,
       appBar: CommonAppBar(
         title: '編集',
-        leadingIconPath: 'assets/arrow_back_ios.svg',
+        icon: SizedBox(
+          width: 40,
+          height: 40,
+          child: IconButton(
+            icon: Icon(
+              Icons.chevron_left,
+              size: 32,
+              color: AppColors().primaryRed,
+            ),
+            onPressed: _handleBackButton,
+          ),
+        ),
         actionIconPath: 'assets/保存.svg',
         onActionPressed: () {
           final memo = _memoController.text;
@@ -213,7 +224,6 @@ class _EditCardState extends ConsumerState<EditCard> {
 
           Navigator.pop(context);
         },
-        onLeadingPressed: _handleBackButton,
       ),
       body: KeyboardActions(
         config: _buildKeyboardActionsConfig(context),

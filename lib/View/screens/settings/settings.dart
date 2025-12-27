@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import '../../../Model/widgets/common_app_bar.dart';
+import 'package:japanese_history_app/Model/Color/app_colors.dart';
 import 'package:japanese_history_app/Model/ era/ eras.dart';
 import '../../../ViewModel/settings/settings.dart';
 import '../../../providers/user_provider.dart';
@@ -60,15 +61,27 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CommonAppBar(
-        title: '設定',
-        leadingIconPath: 'assets/arrow_back_ios.svg',
-        onLeadingPressed: () => _handleBackButton(
-          context,
-          _countController,
-          nullCount,
-          eraController: _eraController,
-          originalEra: _eraController.text,
+        icon: SizedBox(
+          width: 40,
+          height: 40,
+          child: IconButton(
+            icon: Icon(
+              Icons.chevron_left,
+              size: 32,
+              color: AppColors().primaryRed,
+            ),
+            onPressed: () {
+              _handleBackButton(
+                context,
+                _countController,
+                nullCount,
+                eraController: _eraController,
+                originalEra: _eraController.text,
+              );
+            },
+          ),
         ),
+        title: '設定',
       ),
       body: Column(
         children: [

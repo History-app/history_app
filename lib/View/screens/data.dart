@@ -98,9 +98,6 @@ class _DataScreenState extends ConsumerState<DataScreen> {
         backgroundColor: Colors.white,
         appBar: CommonAppBar(
           title: 'データ',
-          onLeadingPressed: () {
-            // 左アイコンタップ時の処理
-          },
           onActionPressed: () {
             // 右アイコンタップ時の処理
           },

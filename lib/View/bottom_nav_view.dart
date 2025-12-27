@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../ViewModel/bottom_nav_notifier.dart'; // bottomNavProvider を含む
 import 'package:flutter_svg/flutter_svg.dart';
 import '../Model/Color/app_colors.dart';
-import './screens/home_screen.dart'; // ← 追加（ホーム画面をインポート）
-import './screens/profile_screen.dart'; // ← 追加（プロフィール画面をインポート）
+import './screens/home_screen.dart';
+import './screens/profile_screen.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import './screens/data.dart';
 
 class BottomNavView extends ConsumerWidget {
@@ -52,31 +53,30 @@ class BottomNavView extends ConsumerWidget {
               },
               items: [
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    'assets/Mask.svg',
-                    color: state.selectedIndex == 0
-                        ? AppColors().primaryRed
-                        : AppColors().grey,
+                  icon: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: Icon(
+                      Icons.home,
+                      size: 32,
+                      color: state.selectedIndex == 0 ? AppColors().primaryRed : AppColors().grey,
+                    ),
                   ),
-                  label: "ホーム",
+                  label: Strings.home,
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/data.svg',
-                    color: state.selectedIndex == 1
-                        ? AppColors().primaryRed
-                        : AppColors().grey,
+                    color: state.selectedIndex == 1 ? AppColors().primaryRed : AppColors().grey,
                   ),
-                  label: "データ",
+                  label: Strings.data,
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/tab_usericon.svg',
-                    color: state.selectedIndex == 2
-                        ? AppColors().primaryRed
-                        : AppColors().grey,
+                    color: state.selectedIndex == 2 ? AppColors().primaryRed : AppColors().grey,
                   ),
-                  label: "プロフィール",
+                  label: Strings.profile,
                 ),
               ],
             ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../Model/widgets/common_app_bar.dart';
+import 'package:japanese_history_app/Model/color/app_colors.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
+import '../../model/widgets/common_app_bar.dart';
 
 class StudyingNotePage extends StatelessWidget {
   final String noteId; // 遷移元から渡されるパラメータ
@@ -13,11 +15,21 @@ class StudyingNotePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CommonAppBar(
-        title: 'これだけ日本史',
-        leadingIconPath: 'assets/arrow_back_ios.svg',
-        onLeadingPressed: () {
-          Navigator.pop(context);
-        },
+        title: Strings.title,
+        icon: SizedBox(
+          width: 40,
+          height: 40,
+          child: IconButton(
+            icon: Icon(
+              Icons.chevron_left,
+              size: 32,
+              color: AppColors().primaryRed,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

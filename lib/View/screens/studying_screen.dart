@@ -140,19 +140,23 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
       appBar: duecard.isNotEmpty
           ? CommonAppBar(
               title: 'これだけ日本史',
-              leadingIconPath: 'assets/Mask.svg',
               actionIconPath: 'assets/note.svg',
               // exleadingIconPath: 'assets/add_to_home_screen.svg',
               // exactionIconPath: 'assets/tab_search.svg',
-              onLeadingPressed: () {
-                Navigator.pop(context); // 前のページに戻る
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => HomeScreen(),
-                //   ),
-                // );
-              },
+              icon: SizedBox(
+                width: 40,
+                height: 40,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.chevron_left,
+                    size: 32,
+                    color: AppColors().primaryRed,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
               onActionPressed: () {
                 Navigator.push(
                   context,
@@ -169,10 +173,20 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
             )
           : CommonAppBar(
               title: 'これだけ日本史',
-              leadingIconPath: 'assets/Mask.svg',
-              onLeadingPressed: () {
-                Navigator.pop(context);
-              },
+              icon: SizedBox(
+                width: 40,
+                height: 40,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.chevron_left,
+                    size: 32,
+                    color: AppColors().primaryRed,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
             ),
       body: duecard.isNotEmpty
           ? GestureDetector(
