@@ -4,6 +4,7 @@ import 'package:keyboard_actions/keyboard_actions.dart';
 import '../../../Model/widgets/common_app_bar.dart';
 import 'package:japanese_history_app/Model/Color/app_colors.dart';
 import 'package:japanese_history_app/Model/ era/ eras.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import '../../../ViewModel/settings/settings.dart';
 import '../../../providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -114,7 +115,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        '一日の新規学習カード',
+                        Strings.dailyNewLearningCards,
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(
@@ -166,7 +167,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      '新規カードの時代',
+                      Strings.newCardEra,
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(
@@ -210,7 +211,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                               Navigator.pop(context);
                                             },
                                             child: const Text(
-                                              '完了',
+                                              Strings.completedLabel,
                                               style: TextStyle(
                                                 color: Colors.blue,
                                                 fontWeight: FontWeight.bold,

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import '../../Model/Color/app_colors.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
 
-import '../widgets/EraQuizHeader.dart';
+import '../widgets/era_quiz_header.dart';
 
 import '../../providers/card_provider.dart';
 import '../widgets/svg_container_list.dart';
-import '../widgets/EraNoteHeader.dart';
+import '../widgets/era_note_header.dart';
 import '../widgets/svg_container_note_list.dart';
 import '../screens/studying_screen.dart';
 // インポートの代わりに
@@ -97,7 +98,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: CommonAppBar(
-          title: 'データ',
+          title: Strings.data,
           onActionPressed: () {
             // 右アイコンタップ時の処理
           },
@@ -141,9 +142,8 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                 children: [
                                   Gap(4),
                                   Text(
-                                    'カード枚数',
-                                    style:
-                                        AppTextStyles.sfProSemibold24.copyWith(
+                                    Strings.cardCount,
+                                    style: AppTextStyles.sfProSemibold24.copyWith(
                                       fontSize: 20,
                                       height: 1.0, // 行の高さはフォントサイズの1.0倍
                                     ),
@@ -170,7 +170,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                     color: Colors.blue,
                                     value: NewCard / totalCards,
                                     titlePositionPercentageOffset: 0.7,
-                                    title: "新規",
+                                    title: Strings.newCard,
                                     titleStyle: TextStyle(fontSize: 10),
                                     radius: 100),
                                 PieChartSectionData(
@@ -178,13 +178,13 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                                     value: LearningCard / totalCards,
                                     titlePositionPercentageOffset: 0.8,
                                     titleStyle: TextStyle(fontSize: 10),
-                                    title: "学習中",
+                                    title: Strings.isLearning,
                                     radius: 100),
                                 PieChartSectionData(
                                     color: Colors.green,
                                     value: ReviewCard / totalCards,
                                     titlePositionPercentageOffset: 0.5,
-                                    title: "復習",
+                                    title: Strings.review,
                                     titleStyle: TextStyle(fontSize: 10),
                                     radius: 100),
                               ],
@@ -206,7 +206,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                               ),
                               Gap(23),
                               Text(
-                                '新規',
+                                Strings.newCard,
                                 style: AppTextStyles.sfProSemibold24.copyWith(
                                   fontSize: 10,
                                   height: 1.0, // 行の高さはフォントサイズの1.0倍
@@ -254,7 +254,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                               ),
                               Gap(23),
                               Text(
-                                '習得中',
+                                Strings.isLearning,
                                 style: AppTextStyles.sfProSemibold24.copyWith(
                                   fontSize: 10,
                                   height: 1.0, // 行の高さはフォントサイズの1.0倍
@@ -302,7 +302,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                               ),
                               Gap(23),
                               Text(
-                                '復習',
+                                Strings.review,
                                 style: AppTextStyles.sfProSemibold24.copyWith(
                                   fontSize: 10,
                                   height: 1.0, // 行の高さはフォントサイズの1.0倍
@@ -349,7 +349,7 @@ class _DataScreenState extends ConsumerState<DataScreen> {
                               ),
                               Gap(23),
                               Text(
-                                '合計',
+                                Strings.sum,
                                 style: AppTextStyles.sfProSemibold24.copyWith(
                                   fontSize: 10,
                                   height: 1.0, // 行の高さはフォントサイズの1.0倍

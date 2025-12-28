@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japanese_history_app/util/number_formatter.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -9,7 +10,7 @@ import 'dart:convert';
 import '../../repositories/card_repository.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:gap/gap.dart';
-import '../widgets/EraNoteHeader.dart';
+import '../widgets/era_note_header.dart';
 import '../widgets/svg_container_note_list.dart';
 import '../../ViewModel/random_text_viewmodel.dart';
 import '../../providers/user_provider.dart';
@@ -148,14 +149,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       child: Column(
                         children: [
                           Text(
-                            'データ読み込み中...', // 表示するテキスト
+                            Strings.isLoading, // 表示するテキスト
                             style: AppTextStyles.hiraginoW6.copyWith(
                               fontSize: 24,
                               color: AppColors().primaryRed,
                             ),
                           ),
                           Text(
-                            '初回起動時は時間がかかります', // 表示するテキスト
+                            Strings.firstLaunchTakesTimeMessage, // 表示するテキスト
                             style: AppTextStyles.hiraginoW6.copyWith(
                               fontSize: 24,
                               color: AppColors().primaryRed,
@@ -186,7 +187,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       children: [
                         const Gap(16),
                         Text(
-                          '続きから学習',
+                          Strings.resumeLearning,
                           style: AppTextStyles.hiraginoW6.copyWith(fontSize: 20),
                         ),
                       ],

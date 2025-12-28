@@ -55,7 +55,7 @@ class _EditCardState extends ConsumerState<EditCard> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      '変更を破棄しますか？',
+                      Strings.confirmDiscardChanges,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         decoration: TextDecoration.none,
@@ -79,7 +79,7 @@ class _EditCardState extends ConsumerState<EditCard> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              '編集を続ける',
+                              Strings.continueEditing,
                               style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 16,
@@ -100,7 +100,7 @@ class _EditCardState extends ConsumerState<EditCard> {
                             ),
                             child: Center(
                               child: Text(
-                                '破棄',
+                                Strings.discardChanges,
                                 style: TextStyle(
                                   decoration: TextDecoration.none,
                                   fontSize: 16,
@@ -157,14 +157,13 @@ class _EditCardState extends ConsumerState<EditCard> {
                     _isEditingMemo = false;
                   });
 
-                  print('メモが保存されました: ${_memoController.text}');
                   node.unfocus();
                 },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Text(
-                    "完了",
+                    Strings.completedLabel,
                     style: TextStyle(
                       color: AppColors().primaryRed,
                       fontWeight: FontWeight.bold,
@@ -241,7 +240,7 @@ class _EditCardState extends ConsumerState<EditCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '問題文',
+                              Strings.questionText,
                               style: AppTextStyles.sfProSemibold24.copyWith(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w700,
@@ -288,7 +287,7 @@ class _EditCardState extends ConsumerState<EditCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '答え',
+                              Strings.answer,
                               style: AppTextStyles.sfProSemibold24.copyWith(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w700,

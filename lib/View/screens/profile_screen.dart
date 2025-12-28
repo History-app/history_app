@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import 'package:gap/gap.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import '../../Model/Color/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CommonAppBar(
-        title: 'マイページ',
+        title: Strings.myPageTitle,
       ),
       body: Container(
         color: Colors.white,
@@ -72,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                               children: <Widget>[
                                 Gap(12),
                                 Text(
-                                  'アラン',
+                                  Strings.alan,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -81,8 +82,7 @@ class ProfileScreen extends StatelessWidget {
                                 Gap(8),
                                 Text(
                                   // '無料会員',
-
-                                  'ﾏｽｺｯﾄﾉｱﾗﾝﾃﾞｽﾖ!',
+                                  Strings.mascotAlanMessage,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -251,8 +251,7 @@ class ProfileScreen extends StatelessWidget {
                       // ここを修正：LaunchMode.externalApplicationを明示的に使用
                       if (!await launchUrl(
                         url,
-                        mode: LaunchMode
-                            .externalApplication, // 内部ブラウザではなく外部ブラウザを開く
+                        mode: LaunchMode.externalApplication, // 内部ブラウザではなく外部ブラウザを開く
                       )) {
                         // if (context.mounted) {
                         //   // コンテキストが有効か確認
@@ -278,7 +277,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           Gap(12),
                           Text(
-                            'お問い合わせ',
+                            Strings.contactForm,
                           ),
                         ],
                       ),
@@ -336,13 +335,12 @@ class ProfileScreen extends StatelessWidget {
                       // ここを修正：LaunchMode.externalApplicationを明示的に使用
                       if (!await launchUrl(
                         url,
-                        mode: LaunchMode
-                            .externalApplication, // 内部ブラウザではなく外部ブラウザを開く
+                        mode: LaunchMode.externalApplication, // 内部ブラウザではなく外部ブラウザを開く
                       )) {
                         if (context.mounted) {
                           // コンテキストが有効か確認
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('URLを開けませんでした')),
+                            const SnackBar(content: Text(Strings.failedToOpenUrlMessage)),
                           );
                         }
                       }
@@ -351,7 +349,7 @@ class ProfileScreen extends StatelessWidget {
                       width: 108,
                       height: 40,
                       child: Text(
-                        '利用規約',
+                        Strings.termsOfService,
                         style: TextStyle(
                           color: Colors.black, // リンクであることを示す
                           decoration: TextDecoration.underline, // 下線を追加
@@ -375,7 +373,7 @@ class ProfileScreen extends StatelessWidget {
                       )) {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('URLを開けませんでした')),
+                            const SnackBar(content: Text(Strings.failedToOpenUrlMessage)),
                           );
                         }
                       }
@@ -384,7 +382,7 @@ class ProfileScreen extends StatelessWidget {
                       width: 139,
                       height: 40,
                       child: Text(
-                        'プライバシーポリシー',
+                        Strings.privacyPolicyTitle,
                         style: TextStyle(
                           color: Colors.black,
                           decoration: TextDecoration.underline, // リンクであることを示す下線

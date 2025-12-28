@@ -4,6 +4,7 @@ import '../../ViewModel/studying_screen/studying_screen.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Model/Color/app_colors.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import '../../Model/text_styles.dart';
 import '../widgets/question_card.dart';
 import '../widgets/answer_card.dart';
@@ -293,7 +294,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                                       ],
                                     ),
                                     child: Center(
-                                      child: Text('ノート検索',
+                                      child: Text(Strings.noteSearch,
                                           style: AppTextStyles.sfProSemibold24
                                               .copyWith(fontSize: 13, color: Colors.white)),
                                     )),
@@ -318,7 +319,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                   Gap(30),
                   Center(
                     child: Text(
-                      'おめでとうございます！\n本日の学習を全て達成しました!',
+                      Strings.congratulationsMessage,
                       style: TextStyle(
                         fontFamily: 'HiraginoSans',
                         fontWeight: FontWeight.w600,

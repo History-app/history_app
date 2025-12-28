@@ -28,7 +28,7 @@ KeyboardActionsConfig _buildKeyboardActionsConfig(
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Text(
-                  '完了',
+                  Strings.completedLabel,
                   style: TextStyle(
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../Model/text_styles.dart';
 import 'package:gap/gap.dart';
 // スタイルのインポート（適宜変更）
+import 'package:japanese_history_app/constant/app_strings.dart';
 import '../../Model/Color/app_colors.dart';
 import '../screens/modal.dart';
 
@@ -21,7 +22,7 @@ class EraNoteHeader extends StatelessWidget {
             height: 56,
             padding: EdgeInsets.only(top: 24, left: 16),
             child: Text(
-              '時代別ノート',
+              Strings.eraNotes,
               style: AppTextStyles.notoSansDisplay.copyWith(fontSize: 16),
             ),
           ),

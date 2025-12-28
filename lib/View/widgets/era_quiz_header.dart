@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../Model/text_styles.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import 'package:gap/gap.dart';
 import '../../Model/Color/app_colors.dart';
 import '../screens/modal.dart';
@@ -20,7 +21,7 @@ class EraQuizHeader extends StatelessWidget {
             height: 56,
             padding: EdgeInsets.only(top: 24, left: 16),
             child: Text(
-              '時代別一問一答',
+              Strings.eraQuiz,
               style: AppTextStyles.notoSansDisplay.copyWith(fontSize: 16),
             ),
           ),
