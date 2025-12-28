@@ -5,6 +5,9 @@ import '../../Model/Color/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../screens/modal.dart';
+import 'package:japanese_history_app/View/widgets/promotion_card.dart';
+import 'package:japanese_history_app/constants/app_strings.dart';
+import 'package:japanese_history_app/common/ui_helper.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -44,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       child: Row(
                         children: <Widget>[
-                          Gap(25),
+                          horizontalSpaceMedium,
                           Container(
                             width: 80,
                             height: 80,
@@ -70,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Gap(12),
+                                verticalSpaceMediumSmall,
                                 Text(
                                   'アラン',
                                   style: TextStyle(
@@ -78,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Gap(8),
+                                verticalSpaceSmall,
                                 Text(
                                   // '無料会員',
 
@@ -104,7 +107,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Gap(29),
+                verticalSpaceLarge,
                 // Container(
                 //   padding: EdgeInsets.only(left: 34, right: 34),
                 //   height: 40,
@@ -276,7 +279,7 @@ class ProfileScreen extends StatelessWidget {
                               size: 30,
                             ),
                           ),
-                          Gap(12),
+                          horizontalSpaceMediumSmall,
                           Text(
                             'お問い合わせ',
                           ),
@@ -293,6 +296,13 @@ class ProfileScreen extends StatelessWidget {
                     padding: EdgeInsets.only(left: 15, right: 15),
                     child: Row(
                       children: [
+                        FeaturePromotionCard(
+                          backgroundColor: AppColors().preRed,
+                          title: Strings.aiGeneratedQuestion,
+                          description: Strings.aiQuestionAutoSwitchDescription,
+                          imageAssetPath: "assets/alan_noble.png",
+                        ),
+                        horizontalSpace,
                         GestureDetector(
                           onTap: () {
                             // タップ時の処理
@@ -307,7 +317,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Gap(15),
+                        horizontalSpace,
                         GestureDetector(
                           onTap: () {
                             // タップ時の処理
