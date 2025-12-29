@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:japanese_history_app/constant/app_strings.dart';
+import 'package:japanese_history_app/View/widgets/promotion_card.dart';
 import '../../Model/Color/app_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:japanese_history_app/common/ui_helper.dart';
 import '../screens/modal.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -292,6 +295,20 @@ class ProfileScreen extends StatelessWidget {
                     padding: EdgeInsets.only(left: 15, right: 15),
                     child: Row(
                       children: [
+                        FeaturePromotionCard(
+                          backgroundColor: AppColors().primaryRed,
+                          title: Text(
+                            Strings.learningHint,
+                            style: GoogleFonts.notoSansJp(
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                          description: Strings.dailyStudyMessage,
+                          imageAssetPath: "assets/alan_good.png",
+                        ),
+                        horizontalSpace,
                         GestureDetector(
                           onTap: () {
                             // タップ時の処理
@@ -307,20 +324,6 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         Gap(15),
-                        GestureDetector(
-                          onTap: () {
-                            // タップ時の処理
-                            // AccountDeletedModal.show(context);
-                          },
-                          child: SizedBox(
-                            width: 186,
-                            height: 92,
-                            child: Image.asset(
-                              'assets/Frame 42 .png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),

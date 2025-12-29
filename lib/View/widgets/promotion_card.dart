@@ -10,7 +10,7 @@ class FeaturePromotionCard extends StatelessWidget {
     this.onTap,
   });
 
-  final String title;
+  final Widget title;
   final String description;
   final Color backgroundColor;
   final String? imageAssetPath;
@@ -36,15 +36,7 @@ class FeaturePromotionCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    height: 1,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
+                title,
                 const SizedBox(height: 15),
                 Text(
                   description,
@@ -59,7 +51,7 @@ class FeaturePromotionCard extends StatelessWidget {
             Positioned(
               right: 0,
               bottom: 0,
-              child: Container(
+              child: SizedBox(
                 width: 55,
                 height: 52,
                 child: imageAssetPath != null

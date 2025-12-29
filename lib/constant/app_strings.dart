@@ -57,6 +57,10 @@ class Strings {
   static const eraNotes = '時代別ノート';
   static const eraQuiz = '時代別一問一答';
   static const questionCard = '問題カード';
+  static const learningHint = '学習のヒント';
+  static const authorCreditText = 'by Alan';
+
+  static const dailyStudyMessage = '一日のノルマを\n毎日こなすだけで相当な\n学力を身につけられるぞ！';
 
   static const confirmDiscardSearch = '検索内容を破棄しますか？';
   static const featureNotImplementedMessage = 'この機能はまだ実装されていません。\n今後のアップデートをお待ちください。';
@@ -77,6 +81,7 @@ class Strings {
   static const startTodayLearningMessage = '今日の学習を始めましょう！';
   static const todayLearningButtonDescriptionMessage =
       'このボタンをタップすると、今日学習すべきカードが表示されます。新規カード、学習中のカード、復習カードの順に表示されます。';
+  static const dailyLearningMessage = '毎日ログインして学習することが大事\n千里の道も一歩から！';
 
   // my_page
 

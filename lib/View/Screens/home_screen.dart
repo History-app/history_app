@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:japanese_history_app/util/number_formatter.dart';
 import 'package:japanese_history_app/constant/app_strings.dart';
+import 'package:japanese_history_app/view/widgets/premium_card.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
 import '../../repositories/card_repository.dart';
 import 'package:rive/rive.dart' as rive;
@@ -195,11 +197,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     const Gap(6),
                     CustomCard(),
                     const Gap(18),
-                    GestureDetector(
-                      onTap: () {},
-                      child: SizedBox(
-                        height: 120,
-                        child: Image.asset('assets/premium.png'),
+                    FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: PremiumCard(
+                        title: Text(
+                          Strings.dailyLearningMessage,
+                          maxLines: 2,
+                          style: GoogleFonts.notoSansJp(
+                            fontSize: 17,
+                            height: 1.3,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        backgroundColor: AppColors().primaryRed,
+                        imageAssetPath: 'assets/alan_posing.png',
                       ),
                     ),
                     const Gap(10),
