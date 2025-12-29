@@ -350,8 +350,6 @@ class CardRepository {
       for (var doc in querySnapshot.docs) {
         await doc.reference.update(updateData);
       }
-
-      print('カードを更新しました: noteRef=$noteRef, 次回復習日=${dueDate.toDate()}');
     } catch (e) {
       print('Error updating learnedCards data: $e');
     }

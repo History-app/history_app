@@ -16,6 +16,7 @@ dependencies:
   url_launcher: ^6.1.10
   tutorial_coach_mark: ^1.2.11
   percent_indicator: ^4.2.5
+  google_fonts: ^6.1.0
 
   fl_chart: ^0.71.0
   flutter:

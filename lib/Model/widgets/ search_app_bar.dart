@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Color/app_colors.dart';
+import '../color/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 
 // StatelessWidgetからStatefulWidgetに変更
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -61,7 +62,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      '検索内容を破棄しますか？',
+                      Strings.confirmDiscardSearch,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors().primaryRed,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 
 class AccountDeletedModal extends StatelessWidget {
   const AccountDeletedModal({super.key});
@@ -25,7 +26,7 @@ class AccountDeletedModal extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'この機能はまだ実装されていません。\n今後のアップデートをお待ちください。',
+              Strings.featureNotImplementedMessage,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -55,7 +56,7 @@ class AccountDeletedModal extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'トップに戻る',
+                  Strings.backToTopLabel,
                   style: TextStyle(
                     color: Color(0xFF768D8F),
                     fontWeight: FontWeight.bold,

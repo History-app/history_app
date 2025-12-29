@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import '../../Model/Color/app_colors.dart';
 import '../../Model/text_styles.dart';
 
@@ -37,7 +38,7 @@ class MemoCard extends StatelessWidget {
                       Gap(8),
                       Padding(
                         padding: const EdgeInsets.only(left: 30.0),
-                        child: Text(('メモ'),
+                        child: Text(Strings.memo,
                             style: AppTextStyles.sourceSansProBold24.copyWith(
                               fontSize: 24,
                               height: 1.0,

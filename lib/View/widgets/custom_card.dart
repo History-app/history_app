@@ -100,7 +100,7 @@ class CustomCard extends ConsumerWidget {
                             SizedBox(
                               height: 18,
                               child: Text(
-                                '日本史探究 一問一答',
+                                Strings.japaneseHistoryQuiz,
                                 style: AppTextStyles.hiraginoW7.copyWith(
                                   fontSize: 14,
                                 ),
@@ -111,7 +111,7 @@ class CustomCard extends ConsumerWidget {
                               child: Row(
                                 children: [
                                   Text(
-                                    '新規',
+                                    Strings.newCard,
                                     style: AppTextStyles.hiraginoW6.copyWith(
                                       fontSize: 14,
                                       color: AppColors().menu_Grey,
@@ -125,7 +125,7 @@ class CustomCard extends ConsumerWidget {
                                     ),
                                   ),
                                   Text(
-                                    '習得中',
+                                    Strings.isLearning,
                                     style: AppTextStyles.hiraginoW6.copyWith(
                                       fontSize: 14,
                                       color: AppColors().menu_Grey,
@@ -139,7 +139,7 @@ class CustomCard extends ConsumerWidget {
                                     ),
                                   ),
                                   Text(
-                                    '復習',
+                                    Strings.review,
                                     style: AppTextStyles.hiraginoW6.copyWith(
                                       fontSize: 14,
                                       color: AppColors().menu_Grey,
@@ -178,7 +178,7 @@ class CustomCard extends ConsumerWidget {
                           ),
                           child: Center(
                             child: Text(
-                              '学習',
+                              Strings.learning,
                               style: AppTextStyles.hiraginoW7.copyWith(
                                 fontSize: 16,
                                 color: Colors.white,

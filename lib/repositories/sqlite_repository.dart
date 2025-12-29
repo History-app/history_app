@@ -30,7 +30,6 @@ class SQLiteRepository {
     // バージョンが違うなら既存DB削除
     if (savedDbVersion != currentDbVersion) {
       final exists = await databaseExists(path);
-      print('バージョンが違う');
       if (exists) {
         await deleteDatabase(path);
       }

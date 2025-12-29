@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../Color/app_colors.dart';
+import '../color/app_colors.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
-  final VoidCallback? onLeadingPressed;
+
   final VoidCallback? exLeadingPressed;
   final VoidCallback? onActionPressed;
   final VoidCallback? exActionPressed;
-  final String? leadingIconPath;
+
   final String? actionIconPath;
   final String? exleadingIconPath;
   final String? exactionIconPath;
+  final Widget? icon;
 
   const CommonAppBar({
     super.key,
     this.title,
-    this.leadingIconPath,
+    this.icon,
     this.exLeadingPressed,
     this.exActionPressed,
     this.actionIconPath,
-    this.onLeadingPressed,
     this.onActionPressed,
     this.exleadingIconPath,
     this.exactionIconPath,
@@ -35,12 +35,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Row(
         children: [
           // メインのleadingアイコン
-          if (leadingIconPath != null)
-            IconButton(
-              icon: SvgPicture.asset(leadingIconPath!),
-              iconSize: 24,
-              onPressed: onLeadingPressed,
-            ),
+          if (icon != null) icon!,
           // 追加のleadingアイコン
           if (exleadingIconPath != null)
             IconButton(
