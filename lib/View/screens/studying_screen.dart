@@ -267,40 +267,52 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                                 onTap: () {
                                   final noteId = duecard[0]['hnref'].toString();
 
-                                  if (noteId != "null") {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => StudyingNotePage(noteId: noteId),
+                                      if (noteId != "null") {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => StudyingNotePage(noteId: noteId),
+                                          ),
+                                        );
+                                      } else {
+                                        CommonsModal.show(
+                                          context,
+                                          title: Strings.featureNotImplementedMessage,
+                                          onPressed: () => Navigator.pop(context),
+                                        );
+                                      }
+                                    },
+
+                                    child: Container(
+                                      width: 80,
+                                      height: 36,
+                                      decoration: BoxDecoration(
+                                        color: AppColors().paleRed,
+                                        borderRadius: BorderRadius.circular(40),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.25),
+                                            offset: Offset(0, 2),
+                                            blurRadius: 1,
+                                            spreadRadius: 0,
+                                          ),
+                                        ],
                                       ),
-                                    );
-                                  } else {
-                                    AccountDeletedModal.show(context);
-                                  }
-                                },
-                                child: Container(
-                                    width: 80,
-                                    height: 36,
-                                    decoration: BoxDecoration(
-                                      color: AppColors().paleRed,
-                                      borderRadius: BorderRadius.circular(40),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.25),
-                                          offset: Offset(0, 2),
-                                          blurRadius: 1,
-                                          spreadRadius: 0,
+                                      child: Center(
+                                        child: Text(
+                                          Strings.noteSearch,
+                                          style: AppTextStyles.sfProSemibold24.copyWith(
+                                            fontSize: 13,
+                                            color: Colors.white,
+                                          ),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                    child: Center(
-                                      child: Text(Strings.noteSearch,
-                                          style: AppTextStyles.sfProSemibold24
-                                              .copyWith(fontSize: 13, color: Colors.white)),
-                                    )),
-                              )
-                            ]),
-                          ]),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ] else ...[
                         Container(
