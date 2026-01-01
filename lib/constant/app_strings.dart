@@ -38,7 +38,9 @@ class Strings {
   static const myPageTitle = 'マイページ';
   static const privacyPolicyTitle = 'プライバシーポリシー';
   static const alan = 'アラン';
-  static const mascotAlanMessage = 'ﾏｽｺｯﾄﾉｱﾗﾝﾃﾞｽﾖ!';
+  static const alphabetAlan = 'Alan';
+  static const mascotAlanMessage = 'ﾏｽｺｯﾄﾉﾒﾝｽﾞｺーﾁﾃﾞｽﾖ!';
+  static const know = 'を知る';
   static const termsOfService = '利用規約';
   static const resumeLearning = '続きから学習';
   static const isLoading = 'データ読み込み中...';
@@ -58,9 +60,10 @@ class Strings {
   static const eraQuiz = '時代別一問一答';
   static const questionCard = '問題カード';
   static const learningHint = '学習のヒント';
-  static const authorCreditText = 'by Alan';
+  static const authorCreditText = 'by Alanメンズコーチ';
 
   static const dailyStudyMessage = '一日のノルマを\n毎日こなすだけで相当な\n学力を身につけられるぞ！';
+  static const alanRiotsIntroMessage = '彼の名はAlanメンズコーチ\n皆をサポートしてくれるぞ!';
 
   static const confirmDiscardSearch = '検索内容を破棄しますか？';
   static const featureNotImplementedMessage = 'この機能はまだ実装されていません。\n今後のアップデートをお待ちください。';
