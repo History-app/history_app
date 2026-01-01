@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../Model/ era/ eras.dart';
 
@@ -352,6 +353,16 @@ class CardRepository {
       }
     } catch (e) {
       print('Error updating learnedCards data: $e');
+    }
+  }
+
+  Future<String> fetchNoteImageUrl(String noteId) async {
+    try {
+      final ref = FirebaseStorage.instance.ref().child('$noteId.png');
+      return await ref.getDownloadURL();
+    } catch (e) {
+      print('Error fetching note image url: $e');
+      rethrow;
     }
   }
 }

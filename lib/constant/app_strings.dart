@@ -82,6 +82,7 @@ class Strings {
   static const todayLearningButtonDescriptionMessage =
       'このボタンをタップすると、今日学習すべきカードが表示されます。新規カード、学習中のカード、復習カードの順に表示されます。';
   static const dailyLearningMessage = '毎日ログインして学習することが大事\n千里の道も一歩から！';
+  static const imageLoadErrorMessage = '通信エラーのため画像を表示できません\nアプリを再起動して、もう一度お試しください。';
 
   // my_page
 
