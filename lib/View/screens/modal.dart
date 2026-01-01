@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:japanese_history_app/constant/app_strings.dart';
 
-class AccountDeletedModal extends StatelessWidget {
-  const AccountDeletedModal({super.key});
+class CommonsModal extends StatelessWidget {
+  final String title;
+  final VoidCallback onPressed;
+  const CommonsModal({super.key, required this.title, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +27,10 @@ class AccountDeletedModal extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              Strings.featureNotImplementedMessage,
+            Text(
+              title,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             Container(
@@ -40,27 +39,19 @@ class AccountDeletedModal extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Color(0xFFA4B6B8),
-                  width: 1,
-                ),
+                border: Border.all(color: Color(0xFFA4B6B8), width: 1),
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  onPressed();
                 },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 100),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
                 child: const Text(
                   Strings.backToTopLabel,
-                  style: TextStyle(
-                    color: Color(0xFF768D8F),
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(color: Color(0xFF768D8F), fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -71,11 +62,11 @@ class AccountDeletedModal extends StatelessWidget {
   }
 
   // 呼び出し用
-  static void show(BuildContext context) {
+  static void show(BuildContext context, {required String title, required VoidCallback onPressed}) {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const AccountDeletedModal(),
+      builder: (context) => CommonsModal(title: title, onPressed: onPressed),
     );
   }
 }
