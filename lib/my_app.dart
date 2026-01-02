@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:japanese_history_app/model/color/app_colors.dart';
 import '/View/bottom_nav_view.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.red,
+        progressIndicatorTheme: ProgressIndicatorThemeData(color: AppColors().primaryRed),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const BottomNavView(),

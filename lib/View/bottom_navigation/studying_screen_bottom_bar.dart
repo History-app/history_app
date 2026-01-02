@@ -140,9 +140,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                   if ([2002, 1001, null]
                                       .contains(carddata[0]['left']))
                                     Text(
-                                      '1分',
-                                      style: AppTextStyles.sfProSemibold24
-                                          .copyWith(
+                                      Strings.oneMinute,
+                                      style: AppTextStyles.sfProSemibold24.copyWith(
                                         fontSize: 14,
                                         height: 1.0,
                                         color: Colors.white,
@@ -151,9 +150,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                   else if ([2001, 0, null]
                                       .contains(carddata[0]['left']))
                                     Text(
-                                      '10分',
-                                      style: AppTextStyles.sfProSemibold24
-                                          .copyWith(
+                                      Strings.tenMinutes,
+                                      style: AppTextStyles.sfProSemibold24.copyWith(
                                         fontSize: 14,
                                         height: 1.0,
                                         color: Colors.white,
@@ -163,9 +161,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                   // 必要に応じて SizedBox で間隔を追加
 
                                   Text(
-                                    'もう一度',
-                                    style:
-                                        AppTextStyles.sfProSemibold24.copyWith(
+                                    Strings.onRetry,
+                                    style: AppTextStyles.sfProSemibold24.copyWith(
                                       fontSize: 14,
                                       height: 1.0,
                                       color: Colors.white,
@@ -276,9 +273,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     if ([2002, null]
                                         .contains(carddata[0]['left']))
                                       Text(
-                                        '10分',
-                                        style: AppTextStyles.sfProSemibold24
-                                            .copyWith(
+                                        Strings.tenMinutes,
+                                        style: AppTextStyles.sfProSemibold24.copyWith(
                                           fontSize: 14,
                                           height: 1.0,
                                           color: Colors.white,
@@ -287,9 +283,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     else if ([1001, 2001]
                                         .contains(carddata[0]['left']))
                                       Text(
-                                        '18時間',
-                                        style: AppTextStyles.sfProSemibold24
-                                            .copyWith(
+                                        Strings.eighteenHours,
+                                        style: AppTextStyles.sfProSemibold24.copyWith(
                                           fontSize: 14,
                                           height: 1.0,
                                           color: Colors.white,
@@ -320,9 +315,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                         );
                                       })(),
                                     Text(
-                                      '難しい',
-                                      style: AppTextStyles.sfProSemibold24
-                                          .copyWith(
+                                      Strings.hard,
+                                      style: AppTextStyles.sfProSemibold24.copyWith(
                                         fontSize: 14,
                                         height: 1.0,
                                         color: Colors.white,
@@ -420,9 +414,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     if ([2002, null]
                                         .contains(carddata[0]['left']))
                                       Text(
-                                        '10分',
-                                        style: AppTextStyles.sfProSemibold24
-                                            .copyWith(
+                                        Strings.tenMinutes,
+                                        style: AppTextStyles.sfProSemibold24.copyWith(
                                           fontSize: 14,
                                           height: 1.0,
                                           color: Colors.white,
@@ -431,9 +424,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     else if ([1001, 2001]
                                         .contains(carddata[0]['left']))
                                       Text(
-                                        '1日',
-                                        style: AppTextStyles.sfProSemibold24
-                                            .copyWith(
+                                        Strings.oneDay,
+                                        style: AppTextStyles.sfProSemibold24.copyWith(
                                           fontSize: 14,
                                           height: 1.0,
                                           color: Colors.white,
@@ -456,9 +448,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                         );
                                       })(),
                                     Text(
-                                      '正解',
-                                      style: AppTextStyles.sfProSemibold24
-                                          .copyWith(
+                                      Strings.correct,
+                                      style: AppTextStyles.sfProSemibold24.copyWith(
                                         fontSize: 14,
                                         height: 1.0,
                                         color: Colors.white,
@@ -538,9 +529,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     if ([2002, null, 1001, 2001]
                                         .contains(carddata[0]['left']))
                                       Text(
-                                        '4日',
-                                        style: AppTextStyles.sfProSemibold24
-                                            .copyWith(
+                                        Strings.fourDays,
+                                        style: AppTextStyles.sfProSemibold24.copyWith(
                                           fontSize: 14,
                                           height: 1.0,
                                           color: Colors.white,
@@ -566,9 +556,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                         );
                                       })(),
                                     Text(
-                                      '簡単',
-                                      style: AppTextStyles.sfProSemibold24
-                                          .copyWith(
+                                      Strings.easy,
+                                      style: AppTextStyles.sfProSemibold24.copyWith(
                                         fontSize: 14,
                                         height: 1.0,
                                         color: Colors.white,

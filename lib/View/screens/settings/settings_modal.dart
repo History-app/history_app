@@ -24,7 +24,7 @@ Future<bool> _showConfirmationDialog(BuildContext context) async {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    '変更を破棄しますか？',
+                    Strings.confirmDiscardChanges,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       decoration: TextDecoration.none,
@@ -48,7 +48,7 @@ Future<bool> _showConfirmationDialog(BuildContext context) async {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Text(
-                            '編集を続ける',
+                            Strings.continueEditing,
                             style: TextStyle(
                               decoration: TextDecoration.none,
                               fontSize: 16,
@@ -69,7 +69,7 @@ Future<bool> _showConfirmationDialog(BuildContext context) async {
                           ),
                           alignment: Alignment.center,
                           child: const Text(
-                            '破棄',
+                            Strings.discardChanges,
                             style: TextStyle(
                               decoration: TextDecoration.none,
                               fontSize: 16,

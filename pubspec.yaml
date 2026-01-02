@@ -3,10 +3,10 @@ description: "A new Flutter project."
 
 publish_to: "none"
 
-version: 1.2.3+29
+version: 1.2.3+42
 
 environment:
-  sdk: ^3.6.1
+  sdk: ^3.8.0
 
 dependencies:
   package_info_plus: ^8.3.0
@@ -16,6 +16,7 @@ dependencies:
   url_launcher: ^6.1.10
   tutorial_coach_mark: ^1.2.11
   percent_indicator: ^4.2.5
+  google_fonts: ^6.1.0
 
   fl_chart: ^0.71.0
   flutter:
@@ -23,8 +24,8 @@ dependencies:
   path: ^1.8.0
   flutter_riverpod: ^2.0.0
 
-  freezed_annotation: 2.2.0
-  json_annotation: ^4.8.1
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
   flutter_svg: ^2.1.0
   keyboard_actions: ^4.2.0
 
@@ -40,6 +41,8 @@ dependencies:
     git:
       url: https://github.com/Taniguchiyuto/RubyText.git
   flutter_native_splash: ^2.4.7
+  firebase_storage: ^12.4.10
+  cached_network_image: ^3.4.1
 
 flutter_launcher_icons:
   android: true
@@ -53,8 +56,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   gap: ^3.0.1
-  build_runner: ^2.4.8
-  freezed: 2.2.0
+  build_runner: ^2.5.4
+  freezed: ^2.5.7
   json_serializable: ^6.7.1
 
   flutter_lints: ^5.0.0

@@ -6,6 +6,7 @@ import '../../Model/Color/app_colors.dart';
 import '../../Model/text_styles.dart';
 import '../../Model/Tutorial/tutorial_model.dart';
 import '../../View/screens/studying_screen.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import 'dart:async';
 
 enum TutorialStep {
@@ -107,14 +108,14 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "問題カード",
+                      Strings.questionCard,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 20.0,
                         color: Colors.black,
                       ),
                     ),
                     Text(
-                      "ここに表示される問題を確認して、答えを思い出せるか考えてみましょう。",
+                      Strings.questionInstructionMessage,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 16.0,
                         color: Colors.black,
@@ -151,7 +152,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "解答確認",
+                      Strings.answerCheck,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 20.0,
                         color: Colors.black,
@@ -159,7 +160,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "思い出せたら、画面をタップして解答を確認しましょう。",
+                      Strings.answerCheckInstructionMessage,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 16.0,
                         color: Colors.black,
@@ -202,7 +203,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "ノート検索機能",
+                      Strings.noteSearchFeature,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 20.0,
                         color: Colors.black,
@@ -210,7 +211,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "カードに対応するまとめノートを開けます。\n一問一答に加え、背景知識を確認することで、より深く理解できます。",
+                      Strings.relatedNoteDescriptionMessage,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 16.0,
                         color: Colors.black,
@@ -247,7 +248,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "記憶に合わせて選べる4つの評価",
+                      Strings.memoryBasedRatingTitle,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 20.0,
                         color: Colors.black,
@@ -255,7 +256,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "覚えた度合いに応じてボタンを選び、効率よく復習できます。実際に、この日にち後に復習することができます。",
+                      Strings.spacedReviewDescriptionMessage,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 16.0,
                         color: Colors.black,
@@ -337,7 +338,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "今日の学習を始めましょう！",
+                      Strings.startTodayLearningMessage,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 20.0,
                         color: Colors.black,
@@ -345,7 +346,7 @@ class TutorialNotifier extends StateNotifier<TutorialState> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "このボタンをタップすると、今日学習すべきカードが表示されます。新規カード、学習中のカード、復習カードの順に表示されます。",
+                      Strings.todayLearningButtonDescriptionMessage,
                       style: AppTextStyles.hiraginoW6.copyWith(
                         fontSize: 16.0,
                         color: Colors.black,

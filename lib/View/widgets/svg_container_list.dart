@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import '../screens/modal.dart';
 
 class SvgContainerList extends StatelessWidget {
@@ -10,7 +11,11 @@ class SvgContainerList extends StatelessWidget {
       {bool isSvg = false}) {
     return GestureDetector(
       onTap: () {
-        AccountDeletedModal.show(context);
+        CommonsModal.show(
+          context,
+          title: Strings.featureNotImplementedMessage,
+          onPressed: () => Navigator.pop(context),
+        );
       },
       child: SizedBox(
         width: 100,

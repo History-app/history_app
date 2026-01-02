@@ -4,6 +4,7 @@ import '../../ViewModel/studying_screen/studying_screen.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../Model/Color/app_colors.dart';
+import 'package:japanese_history_app/constant/app_strings.dart';
 import '../../Model/text_styles.dart';
 import '../widgets/question_card.dart';
 import '../widgets/answer_card.dart';
@@ -140,19 +141,23 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
       appBar: duecard.isNotEmpty
           ? CommonAppBar(
               title: 'これだけ日本史',
-              leadingIconPath: 'assets/Mask.svg',
               actionIconPath: 'assets/note.svg',
               // exleadingIconPath: 'assets/add_to_home_screen.svg',
               // exactionIconPath: 'assets/tab_search.svg',
-              onLeadingPressed: () {
-                Navigator.pop(context); // 前のページに戻る
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => HomeScreen(),
-                //   ),
-                // );
-              },
+              icon: SizedBox(
+                width: 40,
+                height: 40,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.chevron_left,
+                    size: 32,
+                    color: AppColors().primaryRed,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
               onActionPressed: () {
                 Navigator.push(
                   context,
@@ -169,10 +174,20 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
             )
           : CommonAppBar(
               title: 'これだけ日本史',
-              leadingIconPath: 'assets/Mask.svg',
-              onLeadingPressed: () {
-                Navigator.pop(context);
-              },
+              icon: SizedBox(
+                width: 40,
+                height: 40,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.chevron_left,
+                    size: 32,
+                    color: AppColors().primaryRed,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
             ),
       body: duecard.isNotEmpty
           ? GestureDetector(
@@ -252,40 +267,52 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                                 onTap: () {
                                   final noteId = duecard[0]['hnref'].toString();
 
-                                  if (noteId != "null") {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => StudyingNotePage(noteId: noteId),
+                                      if (noteId != "null") {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => StudyingNotePage(noteId: noteId),
+                                          ),
+                                        );
+                                      } else {
+                                        CommonsModal.show(
+                                          context,
+                                          title: Strings.featureNotImplementedMessage,
+                                          onPressed: () => Navigator.pop(context),
+                                        );
+                                      }
+                                    },
+
+                                    child: Container(
+                                      width: 80,
+                                      height: 36,
+                                      decoration: BoxDecoration(
+                                        color: AppColors().paleRed,
+                                        borderRadius: BorderRadius.circular(40),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.25),
+                                            offset: Offset(0, 2),
+                                            blurRadius: 1,
+                                            spreadRadius: 0,
+                                          ),
+                                        ],
                                       ),
-                                    );
-                                  } else {
-                                    AccountDeletedModal.show(context);
-                                  }
-                                },
-                                child: Container(
-                                    width: 80,
-                                    height: 36,
-                                    decoration: BoxDecoration(
-                                      color: AppColors().paleRed,
-                                      borderRadius: BorderRadius.circular(40),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.25),
-                                          offset: Offset(0, 2),
-                                          blurRadius: 1,
-                                          spreadRadius: 0,
+                                      child: Center(
+                                        child: Text(
+                                          Strings.noteSearch,
+                                          style: AppTextStyles.sfProSemibold24.copyWith(
+                                            fontSize: 13,
+                                            color: Colors.white,
+                                          ),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                    child: Center(
-                                      child: Text('ノート検索',
-                                          style: AppTextStyles.sfProSemibold24
-                                              .copyWith(fontSize: 13, color: Colors.white)),
-                                    )),
-                              )
-                            ]),
-                          ]),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ] else ...[
                         Container(
@@ -304,7 +331,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                   Gap(30),
                   Center(
                     child: Text(
-                      'おめでとうございます！\n本日の学習を全て達成しました!',
+                      Strings.congratulationsMessage,
                       style: TextStyle(
                         fontFamily: 'HiraginoSans',
                         fontWeight: FontWeight.w600,
