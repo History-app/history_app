@@ -13,7 +13,7 @@ part 'settings_modal.dart';
 part 'settings_keyboard.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
@@ -37,7 +37,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     _eraFocusNode = FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _countFocusNode.requestFocus();
-      final user = await ref.read(userProvider.future);
+      final user = ref.read(userModelProvider);
       if (mounted) _countController.text = user.nullCount.toString();
       if (mounted) _eraController.text = user.startEra;
       print('コレが新時代');
@@ -66,11 +66,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           width: 40,
           height: 40,
           child: IconButton(
-            icon: Icon(
-              Icons.chevron_left,
-              size: 32,
-              color: AppColors().primaryRed,
-            ),
+            icon: Icon(Icons.chevron_left, size: 32, color: AppColors().primaryRed),
             onPressed: () {
               _handleBackButton(
                 context,
@@ -89,12 +85,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           SizedBox(
             height: 103,
             child: KeyboardActions(
-              config: _buildKeyboardActionsConfig(
-                _countFocusNode,
-                _countController,
-                context,
-                ref,
-              ),
+              config: _buildKeyboardActionsConfig(_countFocusNode, _countController, context, ref),
               child: Container(
                 color: Colors.white,
                 padding: const EdgeInsets.all(24),
@@ -104,20 +95,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 4,
-                        offset: Offset(0, 2),
-                      ),
+                      BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
                     ],
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        Strings.dailyNewLearningCards,
-                        style: TextStyle(fontSize: 16),
-                      ),
+                      const Text(Strings.dailyNewLearningCards, style: TextStyle(fontSize: 16)),
                       SizedBox(
                         width: 50,
                         height: 36,
@@ -156,20 +140,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
-                    ),
+                    BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
                   ],
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      Strings.newCardEra,
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    const Text(Strings.newCardEra, style: TextStyle(fontSize: 16)),
                     SizedBox(
                       width: 80,
                       height: 36,
@@ -177,8 +154,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         borderRadius: BorderRadius.circular(8),
                         onTap: () async {
                           final eras = kEras;
-                          final currentValue =
-                              _eraController.text.isNotEmpty ? _eraController.text : eras[0];
+                          final currentValue = _eraController.text.isNotEmpty
+                              ? _eraController.text
+                              : eras[0];
                           int selectedIndex = eras.indexOf(currentValue);
                           final result = await showCupertinoModalPopup<String>(
                             context: context,
@@ -190,23 +168,29 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 6,
+                                      ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           CupertinoButton(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 12, vertical: 6),
+                                              horizontal: 12,
+                                              vertical: 6,
+                                            ),
                                             onPressed: () async {
                                               final chosen = eras[tempIndex];
                                               await ref
                                                   .read(settingsNotifierProvider.notifier)
                                                   .updateStartEra(chosen);
-                                              final notifier =
-                                                  ref.read(settingsNotifierProvider.notifier);
+                                              final notifier = ref.read(
+                                                settingsNotifierProvider.notifier,
+                                              );
                                               await notifier.updateTodaysEra(
-                                                  int.parse(_countController.text));
+                                                int.parse(_countController.text),
+                                              );
                                               Navigator.of(ctx).pop(chosen);
                                               Navigator.pop(context);
                                             },
@@ -225,8 +209,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                     Expanded(
                                       child: CupertinoPicker(
                                         itemExtent: 32,
-                                        scrollController:
-                                            FixedExtentScrollController(initialItem: selectedIndex),
+                                        scrollController: FixedExtentScrollController(
+                                          initialItem: selectedIndex,
+                                        ),
                                         onSelectedItemChanged: (i) => tempIndex = i,
                                         children: eras.map((e) => Center(child: Text(e))).toList(),
                                       ),

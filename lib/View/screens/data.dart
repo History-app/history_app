@@ -90,297 +90,289 @@ class _DataScreenState extends ConsumerState<DataScreen> {
     final ReviewCard = cardStats.reviewCardCount;
     final totalCards = cardStats.totalCardCount;
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: CommonAppBar(
-          title: Strings.data,
-          onActionPressed: () {
-            // 右アイコンタップ時の処理
-          },
-        ),
-        body: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              Gap(42),
-              Center(
-                child: Container(
-                  height: 391,
-                  width: 332,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: AppColors().grey,
-                      width: 1.0,
+      backgroundColor: Colors.white,
+      appBar: CommonAppBar(
+        title: Strings.data,
+        onActionPressed: () {
+          // 右アイコンタップ時の処理
+        },
+      ),
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Gap(42),
+            Center(
+              child: Container(
+                height: 391,
+                width: 332,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: AppColors().grey, width: 1.0),
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3), // 影の色と透明度
+                      spreadRadius: 2, // 影の広がり
+                      blurRadius: 8, // 影のぼかし具合
+                      offset: Offset(0, 3), // 影の位置 (x, y)
                     ),
-                    borderRadius: BorderRadius.circular(10.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3), // 影の色と透明度
-                        spreadRadius: 2, // 影の広がり
-                        blurRadius: 8, // 影のぼかし具合
-                        offset: Offset(0, 3), // 影の位置 (x, y)
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Gap(10),
-                      SizedBox(
-                          width: 300,
-                          height: 38,
-                          child: Column(
-                            children: [
-                              Gap(10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Gap(4),
-                                  Text(
-                                    Strings.cardCount,
-                                    style: AppTextStyles.sfProSemibold24.copyWith(
-                                      fontSize: 20,
-                                      height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Gap(6),
-                              Divider(
-                                color: AppColors().grey,
-                                thickness: 0.5,
-                                height: 0.5, // dividerの上下のスペースも含めた全体の高さ
-                              )
-                            ],
-                          )),
-                      Gap(22),
-                      SizedBox(
-                          width: 214,
-                          height: 214,
-                          child: PieChart(
-                            PieChartData(
-                              startDegreeOffset: 270,
-                              sections: [
-                                PieChartSectionData(
-                                    color: Colors.blue,
-                                    value: NewCard / totalCards,
-                                    titlePositionPercentageOffset: 0.7,
-                                    title: Strings.newCard,
-                                    titleStyle: TextStyle(fontSize: 10),
-                                    radius: 100),
-                                PieChartSectionData(
-                                    color: Colors.orange,
-                                    value: LearningCard / totalCards,
-                                    titlePositionPercentageOffset: 0.8,
-                                    titleStyle: TextStyle(fontSize: 10),
-                                    title: Strings.isLearning,
-                                    radius: 100),
-                                PieChartSectionData(
-                                    color: Colors.green,
-                                    value: ReviewCard / totalCards,
-                                    titlePositionPercentageOffset: 0.5,
-                                    title: Strings.review,
-                                    titleStyle: TextStyle(fontSize: 10),
-                                    radius: 100),
-                              ],
-                              sectionsSpace: 0,
-                              centerSpaceRadius: 0,
-                            ),
-                          )),
-                      Gap(12),
-                      SizedBox(
-                          width: 184,
-                          height: 16,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 10,
-                                height: 10,
-                                color: Colors.blue,
-                              ),
-                              Gap(23),
-                              Text(
-                                Strings.newCard,
-                                style: AppTextStyles.sfProSemibold24.copyWith(
-                                  fontSize: 10,
-                                  height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                ),
-                              ),
-                              Gap(30),
-                              SizedBox(
-                                width: 30,
-                                child: Text(
-                                  '$NewCard',
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.sfProSemibold24.copyWith(
-                                    fontSize: 10,
-                                    height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                  ),
-                                ),
-                              ),
-                              Gap(30),
-                              SizedBox(
-                                width: 40,
-                                child: Text(
-                                  totalCards > 0
-                                      ? '${((NewCard / totalCards) * 100).toStringAsFixed(1)}%'
-                                      : '0%',
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.sfProSemibold24.copyWith(
-                                    fontSize: 10,
-                                    height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      Gap(1),
-                      SizedBox(
-                          width: 184,
-                          height: 16,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 10,
-                                height: 10,
-                                color: Colors.orange,
-                              ),
-                              Gap(23),
-                              Text(
-                                Strings.isLearning,
-                                style: AppTextStyles.sfProSemibold24.copyWith(
-                                  fontSize: 10,
-                                  height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                ),
-                              ),
-                              Gap(20),
-                              SizedBox(
-                                width: 30,
-                                child: Text(
-                                  '$LearningCard',
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.sfProSemibold24.copyWith(
-                                    fontSize: 10,
-                                    height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                  ),
-                                ),
-                              ),
-                              Gap(30),
-                              SizedBox(
-                                width: 40,
-                                child: Text(
-                                  totalCards > 0
-                                      ? '${((LearningCard / totalCards) * 100).toStringAsFixed(1)}%'
-                                      : '0%',
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.sfProSemibold24.copyWith(
-                                    fontSize: 10,
-                                    height: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      Gap(1),
-                      SizedBox(
-                          width: 184,
-                          height: 16,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 10,
-                                height: 10,
-                                color: Colors.green,
-                              ),
-                              Gap(23),
-                              Text(
-                                Strings.review,
-                                style: AppTextStyles.sfProSemibold24.copyWith(
-                                  fontSize: 10,
-                                  height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                ),
-                              ),
-                              Gap(30),
-                              SizedBox(
-                                width: 30,
-                                child: Text(
-                                  '$ReviewCard',
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.sfProSemibold24.copyWith(
-                                    fontSize: 10,
-                                    height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                  ),
-                                ),
-                              ),
-                              Gap(30),
-                              SizedBox(
-                                width: 40,
-                                child: Text(
-                                  totalCards > 0
-                                      ? '${((ReviewCard / totalCards) * 100).toStringAsFixed(1)}%'
-                                      : '0%',
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.sfProSemibold24.copyWith(
-                                    fontSize: 10,
-                                    height: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      Gap(1),
-                      SizedBox(
-                          width: 184,
-                          height: 16,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 10,
-                                height: 10,
-                              ),
-                              Gap(23),
-                              Text(
-                                Strings.sum,
-                                style: AppTextStyles.sfProSemibold24.copyWith(
-                                  fontSize: 10,
-                                  height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                ),
-                              ),
-                              Gap(30),
-                              SizedBox(
-                                width: 30,
-                                child: Text(
-                                  '$totalCards',
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.sfProSemibold24.copyWith(
-                                    fontSize: 10,
-                                    height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                  ),
-                                ),
-                              ),
-                              Gap(30),
-                              SizedBox(
-                                width: 40,
-                                child: Text(
-                                  '',
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.sfProSemibold24.copyWith(
-                                    fontSize: 10,
-                                    height: 1.0, // 行の高さはフォントサイズの1.0倍
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                    ],
-                  ),
+                  ],
                 ),
-              )
-            ],
-          ),
-        ));
+                child: Column(
+                  children: [
+                    Gap(10),
+                    SizedBox(
+                      width: 300,
+                      height: 38,
+                      child: Column(
+                        children: [
+                          Gap(10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Gap(4),
+                              Text(
+                                Strings.cardCount,
+                                style: AppTextStyles.sfProSemibold24.copyWith(
+                                  fontSize: 20,
+                                  height: 1.0, // 行の高さはフォントサイズの1.0倍
+                                ),
+                              ),
+                            ],
+                          ),
+                          Gap(6),
+                          Divider(
+                            color: AppColors().grey,
+                            thickness: 0.5,
+                            height: 0.5, // dividerの上下のスペースも含めた全体の高さ
+                          ),
+                        ],
+                      ),
+                    ),
+                    Gap(22),
+                    SizedBox(
+                      width: 214,
+                      height: 214,
+                      child: PieChart(
+                        PieChartData(
+                          startDegreeOffset: 270,
+                          sections: [
+                            PieChartSectionData(
+                              color: Colors.blue,
+                              value: NewCard / totalCards,
+                              titlePositionPercentageOffset: 0.7,
+                              title: Strings.newCard,
+                              titleStyle: TextStyle(fontSize: 10),
+                              radius: 100,
+                            ),
+                            PieChartSectionData(
+                              color: Colors.orange,
+                              value: LearningCard / totalCards,
+                              titlePositionPercentageOffset: 0.8,
+                              titleStyle: TextStyle(fontSize: 10),
+                              title: Strings.isLearning,
+                              radius: 100,
+                            ),
+                            PieChartSectionData(
+                              color: Colors.green,
+                              value: ReviewCard / totalCards,
+                              titlePositionPercentageOffset: 0.5,
+                              title: Strings.review,
+                              titleStyle: TextStyle(fontSize: 10),
+                              radius: 100,
+                            ),
+                          ],
+                          sectionsSpace: 0,
+                          centerSpaceRadius: 0,
+                        ),
+                      ),
+                    ),
+                    Gap(12),
+                    SizedBox(
+                      width: 184,
+                      height: 16,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(width: 10, height: 10, color: Colors.blue),
+                          Gap(23),
+                          Text(
+                            Strings.newCard,
+                            style: AppTextStyles.sfProSemibold24.copyWith(
+                              fontSize: 10,
+                              height: 1.0, // 行の高さはフォントサイズの1.0倍
+                            ),
+                          ),
+                          Gap(30),
+                          SizedBox(
+                            width: 30,
+                            child: Text(
+                              '$NewCard',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.sfProSemibold24.copyWith(
+                                fontSize: 10,
+                                height: 1.0, // 行の高さはフォントサイズの1.0倍
+                              ),
+                            ),
+                          ),
+                          Gap(30),
+                          SizedBox(
+                            width: 40,
+                            child: Text(
+                              totalCards > 0
+                                  ? '${((NewCard / totalCards) * 100).toStringAsFixed(1)}%'
+                                  : '0%',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.sfProSemibold24.copyWith(
+                                fontSize: 10,
+                                height: 1.0, // 行の高さはフォントサイズの1.0倍
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Gap(1),
+                    SizedBox(
+                      width: 184,
+                      height: 16,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(width: 10, height: 10, color: Colors.orange),
+                          Gap(23),
+                          Text(
+                            Strings.isLearning,
+                            style: AppTextStyles.sfProSemibold24.copyWith(
+                              fontSize: 10,
+                              height: 1.0, // 行の高さはフォントサイズの1.0倍
+                            ),
+                          ),
+                          Gap(20),
+                          SizedBox(
+                            width: 30,
+                            child: Text(
+                              '$LearningCard',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.sfProSemibold24.copyWith(
+                                fontSize: 10,
+                                height: 1.0, // 行の高さはフォントサイズの1.0倍
+                              ),
+                            ),
+                          ),
+                          Gap(30),
+                          SizedBox(
+                            width: 40,
+                            child: Text(
+                              totalCards > 0
+                                  ? '${((LearningCard / totalCards) * 100).toStringAsFixed(1)}%'
+                                  : '0%',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.sfProSemibold24.copyWith(
+                                fontSize: 10,
+                                height: 1.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Gap(1),
+                    SizedBox(
+                      width: 184,
+                      height: 16,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(width: 10, height: 10, color: Colors.green),
+                          Gap(23),
+                          Text(
+                            Strings.review,
+                            style: AppTextStyles.sfProSemibold24.copyWith(
+                              fontSize: 10,
+                              height: 1.0, // 行の高さはフォントサイズの1.0倍
+                            ),
+                          ),
+                          Gap(30),
+                          SizedBox(
+                            width: 30,
+                            child: Text(
+                              '$ReviewCard',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.sfProSemibold24.copyWith(
+                                fontSize: 10,
+                                height: 1.0, // 行の高さはフォントサイズの1.0倍
+                              ),
+                            ),
+                          ),
+                          Gap(30),
+                          SizedBox(
+                            width: 40,
+                            child: Text(
+                              totalCards > 0
+                                  ? '${((ReviewCard / totalCards) * 100).toStringAsFixed(1)}%'
+                                  : '0%',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.sfProSemibold24.copyWith(
+                                fontSize: 10,
+                                height: 1.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Gap(1),
+                    SizedBox(
+                      width: 184,
+                      height: 16,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 10, height: 10),
+                          Gap(23),
+                          Text(
+                            Strings.sum,
+                            style: AppTextStyles.sfProSemibold24.copyWith(
+                              fontSize: 10,
+                              height: 1.0, // 行の高さはフォントサイズの1.0倍
+                            ),
+                          ),
+                          Gap(30),
+                          SizedBox(
+                            width: 30,
+                            child: Text(
+                              '$totalCards',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.sfProSemibold24.copyWith(
+                                fontSize: 10,
+                                height: 1.0, // 行の高さはフォントサイズの1.0倍
+                              ),
+                            ),
+                          ),
+                          Gap(30),
+                          SizedBox(
+                            width: 40,
+                            child: Text(
+                              '',
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.sfProSemibold24.copyWith(
+                                fontSize: 10,
+                                height: 1.0, // 行の高さはフォントサイズの1.0倍
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

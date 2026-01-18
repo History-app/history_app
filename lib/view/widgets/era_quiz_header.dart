@@ -31,7 +31,11 @@ class EraQuizHeader extends StatelessWidget {
                 Gap(20),
                 GestureDetector(
                   onTap: () {
-                    AccountDeletedModal.show(context);
+                    CommonsModal.show(
+                      context,
+                      title: Strings.featureNotImplementedMessage,
+                      onPressed: () => Navigator.pop(context),
+                    );
                   },
                   child: Row(
                     children: [
