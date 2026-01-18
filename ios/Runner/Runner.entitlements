@@ -2,9 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LastAccessedDate</key>
-	<date>2026-01-17T08:59:31Z</date>
-	<key>WorkspacePath</key>
-	<string>/Users/taniguchitomoto/history_app-1/macos/Runner.xcworkspace</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:japanesehistoryapp.onelink.me</string>
+	</array>
 </dict>
 </plist>
