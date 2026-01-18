@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../repositories/user_repository.dart';
-import '../../Model/user/user.dart';
+import '../../model/user/user.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/card_provider.dart';
 import '../../ViewModel/home_screen/home_screen.dart';

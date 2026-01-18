@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../Model/Color/app_colors.dart';
 import 'package:japanese_history_app/constant/app_strings.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../../Model/widgets/common_app_bar.dart';
 import '../../Model/text_styles.dart';
 
-import '../widgets/era_quiz_header.dart';
-
 import '../../providers/card_provider.dart';
-import '../widgets/svg_container_list.dart';
-import '../widgets/era_note_header.dart';
-import '../widgets/svg_container_note_list.dart';
-import '../screens/studying_screen.dart';
+// import '../widgets/era_note_header.dart';
 // インポートの代わりに
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
