@@ -34,11 +34,7 @@ class EraNoteHeader extends StatelessWidget {
                 Gap(20),
                 GestureDetector(
                   onTap: () {
-                    CommonsModal.show(
-                      context,
-                      title: Strings.featureNotImplementedMessage,
-                      onPressed: () => Navigator.pop(context),
-                    );
+                    AccountDeletedModal.show(context);
                   },
                   child: Row(
                     //ここの全てみる機能は一旦実装しない
