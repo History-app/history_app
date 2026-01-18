@@ -1,1 +1,76 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"history-app-fa0c5","appId":"1:121798228921:android:9227b5ddef861d7c511468","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"history-app-fa0c5","appId":"1:121798228921:ios:95e37205b9edaa1e511468","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"history-app-fa0c5","appId":"1:121798228921:ios:95e37205b9edaa1e511468","uploadDebugSymbols":false,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"history-app-fa0c5","configurations":{"android":"1:121798228921:android:9227b5ddef861d7c511468","ios":"1:121798228921:ios:95e37205b9edaa1e511468","macos":"1:121798228921:ios:95e37205b9edaa1e511468","web":"1:121798228921:web:730e12da039fcdf4511468","windows":"1:121798228921:web:2585beb48e30f731511468"}},"lib/firebase_options_dev.dart":{"projectId":"history-app-dev-fce4a","configurations":{"android":"1:492249576098:android:f8dc64884ee5a22d631dfb","ios":"1:492249576098:ios:030b476d4a153556631dfb","web":"1:492249576098:web:21b2e3cbf2042089631dfb"}},"lib/firebase_options_prod.dart":{"projectId":"history-app-fa0c5","configurations":{"android":"1:121798228921:android:9227b5ddef861d7c511468","ios":"1:121798228921:ios:95e37205b9edaa1e511468","web":"1:121798228921:web:730e12da039fcdf4511468"}}}}},"functions":[{"source":"functions","codebase":"default","ignore":["node_modules",".git","firebase-debug.log","firebase-debug.*.log","*.local"],"predeploy":["npm --prefix \"$RESOURCE_DIR\" run build"]}],"firestore":{"rules":"firestore.rules","indexes":"firestore.indexes.json"}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "history-app-fa0c5",
+          "appId": "1:121798228921:android:9227b5ddef861d7c511468",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "history-app-fa0c5",
+          "appId": "1:121798228921:ios:95e37205b9edaa1e511468",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "history-app-fa0c5",
+          "appId": "1:121798228921:ios:95e37205b9edaa1e511468",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      }
+    },
+    "dart": {
+      "lib/firebase_options.dart": {
+        "projectId": "history-app-fa0c5",
+        "configurations": {
+          "android": "1:121798228921:android:9227b5ddef861d7c511468",
+          "ios": "1:121798228921:ios:95e37205b9edaa1e511468",
+          "macos": "1:121798228921:ios:95e37205b9edaa1e511468",
+          "web": "1:121798228921:web:730e12da039fcdf4511468",
+          "windows": "1:121798228921:web:2585beb48e30f731511468"
+        }
+      },
+      "lib/firebase_options_dev.dart": {
+        "projectId": "history-app-dev-fce4a",
+        "configurations": {
+          "android": "1:492249576098:android:f8dc64884ee5a22d631dfb",
+          "ios": "1:492249576098:ios:030b476d4a153556631dfb",
+          "web": "1:492249576098:web:21b2e3cbf2042089631dfb"
+        }
+      },
+      "lib/firebase_options_prod.dart": {
+        "projectId": "history-app-fa0c5",
+        "configurations": {
+          "android": "1:121798228921:android:9227b5ddef861d7c511468",
+          "ios": "1:121798228921:ios:95e37205b9edaa1e511468",
+          "web": "1:121798228921:web:730e12da039fcdf4511468"
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "runtime": "nodejs20",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"]
+    }
+  ],
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}
