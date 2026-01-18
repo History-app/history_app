@@ -20,6 +20,7 @@ mixin _$AppColors {
   Color get primaryRed => throw _privateConstructorUsedError;
   Color get primaryBlack => throw _privateConstructorUsedError;
   Color get paleRed => throw _privateConstructorUsedError;
+  Color get black => throw _privateConstructorUsedError;
   Color get paleGrey => throw _privateConstructorUsedError;
   Color get grey => throw _privateConstructorUsedError;
   Color get preRed => throw _privateConstructorUsedError;
@@ -31,7 +32,10 @@ mixin _$AppColors {
   Color get accentYellow => throw _privateConstructorUsedError;
   Color get menu_Grey => throw _privateConstructorUsedError;
   Color get pale_profile_grey => throw _privateConstructorUsedError;
+  Color get accent => throw _privateConstructorUsedError;
   Color get skyBlue => throw _privateConstructorUsedError;
+  Color get outlineColor => throw _privateConstructorUsedError;
+  Color get white => throw _privateConstructorUsedError;
 
   /// Create a copy of AppColors
   /// with the given fields replaced by the non-null parameter values.
@@ -49,6 +53,7 @@ abstract class $AppColorsCopyWith<$Res> {
     Color primaryRed,
     Color primaryBlack,
     Color paleRed,
+    Color black,
     Color paleGrey,
     Color grey,
     Color preRed,
@@ -60,7 +65,10 @@ abstract class $AppColorsCopyWith<$Res> {
     Color accentYellow,
     Color menu_Grey,
     Color pale_profile_grey,
+    Color accent,
     Color skyBlue,
+    Color outlineColor,
+    Color white,
   });
 }
 
@@ -82,6 +90,7 @@ class _$AppColorsCopyWithImpl<$Res, $Val extends AppColors>
     Object? primaryRed = null,
     Object? primaryBlack = null,
     Object? paleRed = null,
+    Object? black = null,
     Object? paleGrey = null,
     Object? grey = null,
     Object? preRed = null,
@@ -93,7 +102,10 @@ class _$AppColorsCopyWithImpl<$Res, $Val extends AppColors>
     Object? accentYellow = null,
     Object? menu_Grey = null,
     Object? pale_profile_grey = null,
+    Object? accent = null,
     Object? skyBlue = null,
+    Object? outlineColor = null,
+    Object? white = null,
   }) {
     return _then(
       _value.copyWith(
@@ -108,6 +120,10 @@ class _$AppColorsCopyWithImpl<$Res, $Val extends AppColors>
             paleRed: null == paleRed
                 ? _value.paleRed
                 : paleRed // ignore: cast_nullable_to_non_nullable
+                      as Color,
+            black: null == black
+                ? _value.black
+                : black // ignore: cast_nullable_to_non_nullable
                       as Color,
             paleGrey: null == paleGrey
                 ? _value.paleGrey
@@ -153,9 +169,21 @@ class _$AppColorsCopyWithImpl<$Res, $Val extends AppColors>
                 ? _value.pale_profile_grey
                 : pale_profile_grey // ignore: cast_nullable_to_non_nullable
                       as Color,
+            accent: null == accent
+                ? _value.accent
+                : accent // ignore: cast_nullable_to_non_nullable
+                      as Color,
             skyBlue: null == skyBlue
                 ? _value.skyBlue
                 : skyBlue // ignore: cast_nullable_to_non_nullable
+                      as Color,
+            outlineColor: null == outlineColor
+                ? _value.outlineColor
+                : outlineColor // ignore: cast_nullable_to_non_nullable
+                      as Color,
+            white: null == white
+                ? _value.white
+                : white // ignore: cast_nullable_to_non_nullable
                       as Color,
           )
           as $Val,
@@ -176,6 +204,7 @@ abstract class _$$AppColorsImplCopyWith<$Res>
     Color primaryRed,
     Color primaryBlack,
     Color paleRed,
+    Color black,
     Color paleGrey,
     Color grey,
     Color preRed,
@@ -187,7 +216,10 @@ abstract class _$$AppColorsImplCopyWith<$Res>
     Color accentYellow,
     Color menu_Grey,
     Color pale_profile_grey,
+    Color accent,
     Color skyBlue,
+    Color outlineColor,
+    Color white,
   });
 }
 
@@ -208,6 +240,7 @@ class __$$AppColorsImplCopyWithImpl<$Res>
     Object? primaryRed = null,
     Object? primaryBlack = null,
     Object? paleRed = null,
+    Object? black = null,
     Object? paleGrey = null,
     Object? grey = null,
     Object? preRed = null,
@@ -219,7 +252,10 @@ class __$$AppColorsImplCopyWithImpl<$Res>
     Object? accentYellow = null,
     Object? menu_Grey = null,
     Object? pale_profile_grey = null,
+    Object? accent = null,
     Object? skyBlue = null,
+    Object? outlineColor = null,
+    Object? white = null,
   }) {
     return _then(
       _$AppColorsImpl(
@@ -234,6 +270,10 @@ class __$$AppColorsImplCopyWithImpl<$Res>
         paleRed: null == paleRed
             ? _value.paleRed
             : paleRed // ignore: cast_nullable_to_non_nullable
+                  as Color,
+        black: null == black
+            ? _value.black
+            : black // ignore: cast_nullable_to_non_nullable
                   as Color,
         paleGrey: null == paleGrey
             ? _value.paleGrey
@@ -279,9 +319,21 @@ class __$$AppColorsImplCopyWithImpl<$Res>
             ? _value.pale_profile_grey
             : pale_profile_grey // ignore: cast_nullable_to_non_nullable
                   as Color,
+        accent: null == accent
+            ? _value.accent
+            : accent // ignore: cast_nullable_to_non_nullable
+                  as Color,
         skyBlue: null == skyBlue
             ? _value.skyBlue
             : skyBlue // ignore: cast_nullable_to_non_nullable
+                  as Color,
+        outlineColor: null == outlineColor
+            ? _value.outlineColor
+            : outlineColor // ignore: cast_nullable_to_non_nullable
+                  as Color,
+        white: null == white
+            ? _value.white
+            : white // ignore: cast_nullable_to_non_nullable
                   as Color,
       ),
     );
@@ -295,6 +347,7 @@ class _$AppColorsImpl implements _AppColors {
     this.primaryRed = const Color(0xFFF24326),
     this.primaryBlack = const Color(0xFF302D58),
     this.paleRed = const Color(0xFFFC917F),
+    this.black = const Color(0xFF374142),
     this.paleGrey = const Color(0xFFFDFDFD),
     this.grey = const Color(0xFFD6D6D6),
     this.preRed = const Color(0xFFB41F06),
@@ -306,7 +359,10 @@ class _$AppColorsImpl implements _AppColors {
     this.accentYellow = const Color(0xFFF7C80C),
     this.menu_Grey = const Color(0x61222222),
     this.pale_profile_grey = const Color(0x66D6D6D6),
+    this.accent = const Color(0xFFF87951),
     this.skyBlue = const Color(0xFF32ADE6),
+    this.outlineColor = const Color(0xFFDBDBDB),
+    this.white = const Color(0xFFFFFFFF),
   });
 
   @override
@@ -318,6 +374,9 @@ class _$AppColorsImpl implements _AppColors {
   @override
   @JsonKey()
   final Color paleRed;
+  @override
+  @JsonKey()
+  final Color black;
   @override
   @JsonKey()
   final Color paleGrey;
@@ -353,11 +412,20 @@ class _$AppColorsImpl implements _AppColors {
   final Color pale_profile_grey;
   @override
   @JsonKey()
+  final Color accent;
+  @override
+  @JsonKey()
   final Color skyBlue;
+  @override
+  @JsonKey()
+  final Color outlineColor;
+  @override
+  @JsonKey()
+  final Color white;
 
   @override
   String toString() {
-    return 'AppColors(primaryRed: $primaryRed, primaryBlack: $primaryBlack, paleRed: $paleRed, paleGrey: $paleGrey, grey: $grey, preRed: $preRed, prePaleRed: $prePaleRed, preBlue: $preBlue, preGrey: $preGrey, blue: $blue, green: $green, accentYellow: $accentYellow, menu_Grey: $menu_Grey, pale_profile_grey: $pale_profile_grey, skyBlue: $skyBlue)';
+    return 'AppColors(primaryRed: $primaryRed, primaryBlack: $primaryBlack, paleRed: $paleRed, black: $black, paleGrey: $paleGrey, grey: $grey, preRed: $preRed, prePaleRed: $prePaleRed, preBlue: $preBlue, preGrey: $preGrey, blue: $blue, green: $green, accentYellow: $accentYellow, menu_Grey: $menu_Grey, pale_profile_grey: $pale_profile_grey, accent: $accent, skyBlue: $skyBlue, outlineColor: $outlineColor, white: $white)';
   }
 
   @override
@@ -370,6 +438,7 @@ class _$AppColorsImpl implements _AppColors {
             (identical(other.primaryBlack, primaryBlack) ||
                 other.primaryBlack == primaryBlack) &&
             (identical(other.paleRed, paleRed) || other.paleRed == paleRed) &&
+            (identical(other.black, black) || other.black == black) &&
             (identical(other.paleGrey, paleGrey) ||
                 other.paleGrey == paleGrey) &&
             (identical(other.grey, grey) || other.grey == grey) &&
@@ -386,15 +455,20 @@ class _$AppColorsImpl implements _AppColors {
                 other.menu_Grey == menu_Grey) &&
             (identical(other.pale_profile_grey, pale_profile_grey) ||
                 other.pale_profile_grey == pale_profile_grey) &&
-            (identical(other.skyBlue, skyBlue) || other.skyBlue == skyBlue));
+            (identical(other.accent, accent) || other.accent == accent) &&
+            (identical(other.skyBlue, skyBlue) || other.skyBlue == skyBlue) &&
+            (identical(other.outlineColor, outlineColor) ||
+                other.outlineColor == outlineColor) &&
+            (identical(other.white, white) || other.white == white));
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     runtimeType,
     primaryRed,
     primaryBlack,
     paleRed,
+    black,
     paleGrey,
     grey,
     preRed,
@@ -406,8 +480,11 @@ class _$AppColorsImpl implements _AppColors {
     accentYellow,
     menu_Grey,
     pale_profile_grey,
+    accent,
     skyBlue,
-  );
+    outlineColor,
+    white,
+  ]);
 
   /// Create a copy of AppColors
   /// with the given fields replaced by the non-null parameter values.
@@ -423,6 +500,7 @@ abstract class _AppColors implements AppColors {
     final Color primaryRed,
     final Color primaryBlack,
     final Color paleRed,
+    final Color black,
     final Color paleGrey,
     final Color grey,
     final Color preRed,
@@ -434,7 +512,10 @@ abstract class _AppColors implements AppColors {
     final Color accentYellow,
     final Color menu_Grey,
     final Color pale_profile_grey,
+    final Color accent,
     final Color skyBlue,
+    final Color outlineColor,
+    final Color white,
   }) = _$AppColorsImpl;
 
   @override
@@ -443,6 +524,8 @@ abstract class _AppColors implements AppColors {
   Color get primaryBlack;
   @override
   Color get paleRed;
+  @override
+  Color get black;
   @override
   Color get paleGrey;
   @override
@@ -466,7 +549,13 @@ abstract class _AppColors implements AppColors {
   @override
   Color get pale_profile_grey;
   @override
+  Color get accent;
+  @override
   Color get skyBlue;
+  @override
+  Color get outlineColor;
+  @override
+  Color get white;
 
   /// Create a copy of AppColors
   /// with the given fields replaced by the non-null parameter values.
