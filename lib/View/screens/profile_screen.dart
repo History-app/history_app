@@ -356,17 +356,42 @@ class ProfileScreen extends HookConsumerWidget {
                             imageAssetPath: "assets/alan_good.png",
                           ),
                           horizontalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              // タップ時の処理
-                              // AccountDeletedModal.show(context);
-                            },
-                            child: SizedBox(
-                              width: 186,
-                              height: 92,
-                              child: Image.asset('assets/Frame 44.png', fit: BoxFit.cover),
+                          FeaturePromotionCard(
+                            backgroundColor: AppColors().blue,
+                            title: Row(
+                              children: [
+                                Text(
+                                  Strings.alphabetAlan,
+                                  style: GoogleFonts.seymourOne(
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  Strings.know,
+                                  style: GoogleFonts.notoSansJp(
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ),
+                            description: Strings.alanRiotsIntroMessage,
+                            imageAssetPath: "assets/alan_nod.png",
                           ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     // タップ時の処理
+                          //     // AccountDeletedModal.show(context);
+                          //   },
+                          //   child: SizedBox(
+                          //     width: 186,
+                          //     height: 92,
+                          //     child: Image.asset('assets/Frame 44.png', fit: BoxFit.cover),
+                          //   ),
+                          // ),
                           Gap(15),
                         ],
                       ),

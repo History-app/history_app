@@ -113,7 +113,7 @@ class AuthModel extends AsyncNotifier<AuthState> {
         //   NavigationService.showModal(ModalRoutes.flaseAuthEmailModal);
         // }
       }
-    } on Exception catch (e, s) {
+    } on Exception catch (e) {
       // await _crashlyticsService.recordError(e, s, 'authModelProvider _onDeepLink');
       emailNotifier.setErrorMessage('予期せぬエラーが発生しました。しばらくしてから再度お試しください。');
       // final isDoneTutorial = ref.read(userProvider).isDoneTutorial;
@@ -136,7 +136,7 @@ class AuthModel extends AsyncNotifier<AuthState> {
       print('result,${result.data}');
       final ok = (result.data as Map)['success'] as bool? ?? false;
       return ok ? null : 'user_not_exists';
-    } catch (e, s) {
+    } catch (e) {
       return 'unknown_error';
     }
   }

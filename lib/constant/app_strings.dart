@@ -40,6 +40,8 @@ class Strings {
   static const correct = '正解';
   static const hard = '難しい';
   static const backToTopLabel = 'トップに戻る';
+  static const goToNext = '次へ';
+
   static const onRetry = 'もう一度';
   static const cardCount = 'カード枚数';
   static const sum = '合計';

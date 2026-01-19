@@ -150,7 +150,7 @@ class DeletedAccountLoadingModal extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Text(
-                        Strings.accountDeletedModalReturnTopButton,
+                        Strings.goToNext,
                         style: TextStyle(
                           color: AppColor.gray.shade400,
                           fontSize: 16,
