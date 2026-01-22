@@ -10,7 +10,6 @@ import '../widgets/question_card.dart';
 import '../widgets/answer_card.dart';
 import '../widgets/memo_card.dart';
 
-import '../../providers/user_provider.dart';
 import '../../providers/card_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/studying_note.dart';
@@ -48,10 +47,9 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
       ref.read(tutorialProvider.notifier).checkTutorialCompleted().then((completed) async {
         if (!completed) {
           await Future.delayed(Duration(seconds: 1));
-          ref.read(tutorialProvider.notifier).showStudyingTutorial(
-                context,
-                revealCallback: _revealAnswerSection,
-              );
+          ref
+              .read(tutorialProvider.notifier)
+              .showStudyingTutorial(context, revealCallback: _revealAnswerSection);
         }
       });
     });
@@ -148,11 +146,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                 width: 40,
                 height: 40,
                 child: IconButton(
-                  icon: Icon(
-                    Icons.chevron_left,
-                    size: 32,
-                    color: AppColors().primaryRed,
-                  ),
+                  icon: Icon(Icons.chevron_left, size: 32, color: AppColors().primaryRed),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -178,11 +172,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                 width: 40,
                 height: 40,
                 child: IconButton(
-                  icon: Icon(
-                    Icons.chevron_left,
-                    size: 32,
-                    color: AppColors().primaryRed,
-                  ),
+                  icon: Icon(Icons.chevron_left, size: 32, color: AppColors().primaryRed),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -231,41 +221,42 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                       if (showAdditionalWidgets) ...[
                         Gap(40),
                         Divider(
-                            height: 0.5,
-                            thickness: 0.5,
-                            color: AppColors().grey,
-                            indent: 8,
-                            endIndent: 8),
+                          height: 0.5,
+                          thickness: 0.5,
+                          color: AppColors().grey,
+                          indent: 8,
+                          endIndent: 8,
+                        ),
                         Gap(8),
                         Center(
                           child: AnswerCard(
-                              questionText: answerCardQuestionText,
-                              starImagePath: 'assets/star_${duecard[0]['star']}.png',
-                              theme: duecard[0]['theme']),
-                        ),
-                        Gap(36),
-                        Center(
-                          child: MemoCard(
-                            memoText: DueCards[0]['memo'],
+                            questionText: answerCardQuestionText,
+                            starImagePath: 'assets/star_${duecard[0]['star']}.png',
+                            theme: duecard[0]['theme'],
                           ),
                         ),
                         Gap(36),
+                        Center(child: MemoCard(memoText: DueCards[0]['memo'])),
+                        Gap(36),
                         Divider(
-                            height: 0.5,
-                            thickness: 0.5,
-                            color: AppColors().grey,
-                            indent: 8,
-                            endIndent: 8),
+                          height: 0.5,
+                          thickness: 0.5,
+                          color: AppColors().grey,
+                          indent: 8,
+                          endIndent: 8,
+                        ),
                         SizedBox(
                           height: 300,
-                          child: Column(children: [
-                            Gap(20),
-                            Row(children: [
-                              Gap(25.5),
-                              GestureDetector(
-                                key: ref.read(tutorialProvider.notifier).noteSearchKey,
-                                onTap: () {
-                                  final noteId = duecard[0]['hnref'].toString();
+                          child: Column(
+                            children: [
+                              Gap(20),
+                              Row(
+                                children: [
+                                  Gap(25.5),
+                                  GestureDetector(
+                                    key: ref.read(tutorialProvider.notifier).noteSearchKey,
+                                    onTap: () {
+                                      final noteId = duecard[0]['hnref'].toString();
 
                                       if (noteId != "null") {
                                         Navigator.push(
@@ -316,7 +307,9 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                         ),
                       ] else ...[
                         Container(
-                            key: answerCardKey, height: MediaQuery.of(context).size.height - 330),
+                          key: answerCardKey,
+                          height: MediaQuery.of(context).size.height - 330,
+                        ),
                       ],
                     ],
                   ),

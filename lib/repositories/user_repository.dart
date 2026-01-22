@@ -40,7 +40,7 @@ class UserRepository {
           return user; // 何もしない
         }
 
-        return user.copyWith(email: email!);
+        return user.copyWith(email: email);
       });
     } catch (e) {
       rethrow;
@@ -165,7 +165,7 @@ class UserRepository {
           'updatedAt': Timestamp.now(),
         }, SetOptions(merge: true));
       }
-    } on Exception catch (e, s) {
+    } on Exception catch (e) {
       // await _crashlyticsService.recordError(e, s, 'userRepository updateUser');
       rethrow;
     }

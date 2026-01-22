@@ -6,7 +6,7 @@
 	<integer>11</integer>
 	<key>logs</key>
 	<dict>
-		<key>6D01931F-967C-4689-A26C-22670E6CF4A4</key>
+		<key>336963FC-8F5D-4872-9C90-386F77DA8CA5</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>6D01931F-967C-4689-A26C-22670E6CF4A4.xcactivitylog</string>
+			<string>336963FC-8F5D-4872-9C90-386F77DA8CA5.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -34,21 +34,21 @@
 			<key>schemeIdentifier-containerName</key>
 			<string>Runner project</string>
 			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
+			<string>Flutter Assemble</string>
 			<key>schemeIdentifier-sharedScheme</key>
 			<integer>1</integer>
 			<key>signature</key>
-			<string>Cleaning workspace Runner with scheme Runner</string>
+			<string>Cleaning workspace Runner with scheme Flutter Assemble</string>
 			<key>timeStartedRecording</key>
-			<real>790637185.481866</real>
+			<real>790635117.46436</real>
 			<key>timeStoppedRecording</key>
-			<real>790637185.70859802</real>
+			<real>790635117.69239902</real>
 			<key>title</key>
-			<string>Cleaning workspace Runner with scheme Runner</string>
+			<string>Cleaning workspace Runner with scheme Flutter Assemble</string>
 			<key>uniqueIdentifier</key>
-			<string>6D01931F-967C-4689-A26C-22670E6CF4A4</string>
+			<string>336963FC-8F5D-4872-9C90-386F77DA8CA5</string>
 		</dict>
-		<key>7A215087-ED0A-4012-A28A-FB76E6A46CB8</key>
+		<key>F8822F91-CA8C-46F5-A7B2-C120AC49F07F</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -57,7 +57,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>7A215087-ED0A-4012-A28A-FB76E6A46CB8.xcactivitylog</string>
+			<string>F8822F91-CA8C-46F5-A7B2-C120AC49F07F.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -82,13 +82,13 @@
 			<key>signature</key>
 			<string>Cleaning workspace Runner with scheme Runner</string>
 			<key>timeStartedRecording</key>
-			<real>790638229.33518803</real>
+			<real>790634990.47911894</real>
 			<key>timeStoppedRecording</key>
-			<real>790638229.57790399</real>
+			<real>790634990.784356</real>
 			<key>title</key>
 			<string>Cleaning workspace Runner with scheme Runner</string>
 			<key>uniqueIdentifier</key>
-			<string>7A215087-ED0A-4012-A28A-FB76E6A46CB8</string>
+			<string>F8822F91-CA8C-46F5-A7B2-C120AC49F07F</string>
 		</dict>
 	</dict>
 </dict>

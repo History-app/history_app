@@ -78,7 +78,6 @@ flutter:
 
   assets:
     - assets/
-    - assets/notes/
     - assets/db/jap_his.db
     - .env
 

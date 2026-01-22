@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../screens/modal.dart';
 import 'showing_note.dart';
 
 class SvgNoteList extends StatelessWidget {

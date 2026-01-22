@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:japanese_history_app/View/bottom_nav_view.dart';
 import 'package:japanese_history_app/util/animations/page_transitions_theme.dart';
 import 'package:japanese_history_app/view/widgets/over_lay_loading.dart';
-import 'package:japanese_history_app/view/screens/home_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:japanese_history_app/view/account_delete/account_delete_screen.dart';

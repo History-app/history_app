@@ -28,7 +28,7 @@ class UserModel extends StateNotifier<User> {
           state = user;
         }
       });
-    } on Exception catch (e, s) {}
+    } on Exception catch (e) {}
   }
 
   Future<bool> signInAnonymously() async {
@@ -45,7 +45,7 @@ class UserModel extends StateNotifier<User> {
       await _repository.deleteLocalData();
       await _repository.signOut();
       state = state.copyWith(uid: '');
-    } on Exception catch (e, s) {}
+    } on Exception catch (e) {}
   }
 
   /// userProvider の中で使える関数
@@ -64,7 +64,7 @@ class UserModel extends StateNotifier<User> {
     } on FirebaseFunctionsException catch (e) {
       print('エラー,$e');
       return false;
-    } catch (e, s) {
+    } catch (e) {
       return false;
     }
   }
@@ -75,7 +75,7 @@ class UserModel extends StateNotifier<User> {
       ref.read(emailAccountViewModelProvider.notifier).setIsSended(false);
 
       return true;
-    } on Exception catch (e, s) {
+    } on Exception catch (e) {
       // await _crashlyticsService.recordError(e, s, 'userProvider signUpWithEmailLink');
       return false;
     }
@@ -95,7 +95,7 @@ class UserModel extends StateNotifier<User> {
         return true;
       }
       return false;
-    } on Exception catch (e, s) {
+    } on Exception catch (e) {
       // await _crashlyticsService.recordError(e, s, 'userProvider signUpWithEmailLink');
       return false;
     }
@@ -108,7 +108,7 @@ class UserModel extends StateNotifier<User> {
 
       print('ここも実行中');
       state = state.copyWith(uid: '');
-    } on Exception catch (e, s) {
+    } on Exception catch (e) {
       // await _crashlyticsService.recordError(e, s, 'userProvider deleteAccount');
     }
   }
@@ -118,7 +118,7 @@ class UserModel extends StateNotifier<User> {
       print('setEmail:$value');
       state = state.copyWith(email: value);
       await _repository.updateUser('email', value);
-    } on Exception catch (e, s) {
+    } on Exception catch (e) {
       // await _crashlyticsService.recordError(e, s, 'userProvider setEmail');
     }
   }
@@ -140,7 +140,7 @@ class UserModel extends StateNotifier<User> {
       ref.read(emailAccountViewModelProvider.notifier).setIsSucceededUpdateEmail(true);
       ref.read(emailAccountViewModelProvider.notifier).setIsSended(false);
       return true;
-    } on Exception catch (e, s) {
+    } on Exception catch (e) {
       // await _crashlyticsService.recordError(e, s, 'userProvider signUpWithEmailLink');
       return false;
     }
