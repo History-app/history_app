@@ -343,6 +343,20 @@ class ProfileScreen extends HookConsumerWidget {
                       child: Row(
                         children: [
                           FeaturePromotionCard(
+                            backgroundColor: AppColors().preRed,
+                            title: Text(
+                              Strings.aiGeneratedQuestion,
+                              style: GoogleFonts.notoSansJp(
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                            description: Strings.aiQuestionAutoSwitchDescription,
+                            imageAssetPath: "assets/alan_noble.png",
+                          ),
+                          horizontalSpace,
+                          FeaturePromotionCard(
                             backgroundColor: AppColors().primaryRed,
                             title: Text(
                               Strings.learningHint,
@@ -381,6 +395,7 @@ class ProfileScreen extends HookConsumerWidget {
                             description: Strings.alanRiotsIntroMessage,
                             imageAssetPath: "assets/alan_nod.png",
                           ),
+
                           // GestureDetector(
                           //   onTap: () {
                           //     // タップ時の処理
@@ -392,32 +407,7 @@ class ProfileScreen extends HookConsumerWidget {
                           //     child: Image.asset('assets/Frame 44.png', fit: BoxFit.cover),
                           //   ),
                           // ),
-                          Gap(15),
-                          FeaturePromotionCard(
-                            backgroundColor: AppColors().preRed,
-                            title: Text(
-                              Strings.aiGeneratedQuestion,
-                              style: GoogleFonts.notoSansJp(
-                                fontWeight: FontWeight.w800,
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                            description: Strings.aiQuestionAutoSwitchDescription,
-                            imageAssetPath: "assets/alan_noble.png",
-                          ),
                           horizontalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              // タップ時の処理
-                              // AccountDeletedModal.show(context);
-                            },
-                            child: SizedBox(
-                              width: 186,
-                              height: 92,
-                              child: Image.asset('assets/Frame 44.png', fit: BoxFit.cover),
-                            ),
-                          ),
                         ],
                       ),
                     ),
