@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../repositories/user_repository.dart';
-import '../../Model/user/user.dart';
+import '../../model/user/user.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/card_provider.dart';
 import '../../ViewModel/home_screen/home_screen.dart';
@@ -18,7 +18,7 @@ class SettingsStateNotifier extends StateNotifier<User> {
   }
   Future<void> _init() async {
     try {
-      final user = await ref.watch(userProvider.future);
+      final user = ref.watch(userModelProvider);
       state = user;
     } catch (e) {}
   }
@@ -42,7 +42,7 @@ class SettingsStateNotifier extends StateNotifier<User> {
     } catch (error) {}
   }
 
-//こっちは新時代のUpdateの方
+  //こっちは新時代のUpdateの方
 
   Future<void> updateTodaysEra(nullCount) async {
     try {

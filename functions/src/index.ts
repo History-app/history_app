@@ -36,3 +36,5 @@ export {
   seedNotesToChapter9,
   seedNotesToChapter10,
 };
+
+export * from "./modules/auth";
