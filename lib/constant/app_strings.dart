@@ -87,6 +87,8 @@ class Strings {
   static const questionCard = '問題カード';
   static const learningHint = '学習のヒント';
   static const authorCreditText = 'by Alanメンズコーチ';
+  static const aiGeneratedQuestion = 'AIによる問題生成';
+  static const aiQuestionAutoSwitchDescription = '学習状況に応じて、\nAI生成の問題と元の問題が\n切り替わります';
 
   static const dailyStudyMessage = '一日のノルマを\n毎日こなすだけで相当な\n学力を身につけられるぞ！';
   static const alanRiotsIntroMessage = '彼の名はAlanメンズコーチ\n皆をサポートしてくれるぞ!';

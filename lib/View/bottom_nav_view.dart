@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../ViewModel/bottom_nav_notifier.dart'; // bottomNavProvider を含む
 import 'package:flutter_svg/flutter_svg.dart';
 import '../Model/Color/app_colors.dart';
-import './screens/home_screen.dart';
-import './screens/profile_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/profile_screen.dart';
 import 'package:japanese_history_app/constant/app_strings.dart';
-import './screens/data.dart';
+import 'screens/data.dart';
 
 class BottomNavView extends ConsumerWidget {
   const BottomNavView({super.key});
@@ -17,22 +17,14 @@ class BottomNavView extends ConsumerWidget {
     final state = ref.watch(bottomNavProvider);
 
     // 一度だけインスタンスを作るように保持
-    final List<Widget> screens = [
-      HomeScreen(),
-      DataScreen(),
-      ProfileScreen(),
-    ];
+    final List<Widget> screens = [HomeScreen(), DataScreen(), ProfileScreen()];
 
     return Scaffold(
-      body: IndexedStack(
-        index: state.selectedIndex,
-        children: screens,
-      ),
+      body: IndexedStack(index: state.selectedIndex, children: screens),
       bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
+        data: Theme.of(
+          context,
+        ).copyWith(splashColor: Colors.transparent, highlightColor: Colors.transparent),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

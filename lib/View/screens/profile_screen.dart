@@ -393,6 +393,31 @@ class ProfileScreen extends HookConsumerWidget {
                           //   ),
                           // ),
                           Gap(15),
+                          FeaturePromotionCard(
+                            backgroundColor: AppColors().preRed,
+                            title: Text(
+                              Strings.aiGeneratedQuestion,
+                              style: GoogleFonts.notoSansJp(
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                            description: Strings.aiQuestionAutoSwitchDescription,
+                            imageAssetPath: "assets/alan_noble.png",
+                          ),
+                          horizontalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              // タップ時の処理
+                              // AccountDeletedModal.show(context);
+                            },
+                            child: SizedBox(
+                              width: 186,
+                              height: 92,
+                              child: Image.asset('assets/Frame 44.png', fit: BoxFit.cover),
+                            ),
+                          ),
                         ],
                       ),
                     ),
