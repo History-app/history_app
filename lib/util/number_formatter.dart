@@ -1,5 +1,6 @@
 /// 利用する場合は以下を記載
 /// import 'package:japanese_history_app/util/number_formatter.dart';
+library;
 
 extension IntExt on int {
   int toPercent() => this;

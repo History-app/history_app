@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../Model/text_styles.dart';
 import 'package:japanese_history_app/constant/app_strings.dart';
 import 'package:gap/gap.dart';
-import '../../Model/Color/app_colors.dart';
 import '../screens/modal.dart';
 
 class EraQuizHeader extends StatelessWidget {

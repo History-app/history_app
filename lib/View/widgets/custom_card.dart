@@ -11,18 +11,15 @@ class CustomCard extends ConsumerWidget {
         (distribution[2001] ?? 0) + (distribution[1001] ?? 0) + (distribution[2002] ?? 0);
     final reviewCount = distribution[0] ?? 0;
     final studyButtonKey = ref.watch(tutorialProvider.notifier).getStudyButtonKey();
-    final asyncUser = ref.watch(userProvider);
-    final user = asyncUser.value;
-    final int total = user?.nullCount ?? 5;
+    final user = ref.watch(userModelProvider);
+    final int total = user.nullCount ?? 5;
     final int part = nullCount;
 
     return SizedBox(
       width: 370,
       child: Card(
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Column(
           children: [
@@ -53,8 +50,10 @@ class CustomCard extends ConsumerWidget {
                                 child: Center(
                                   child: Text(
                                     DateFormat('M/d').format(DateTime.now()),
-                                    style:
-                                        TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -82,10 +81,12 @@ class CustomCard extends ConsumerWidget {
                         lineWidth: 6.0,
                         percent: part.toPercentOf(total),
                         animation: true,
-                        center: new Text(
+                        center: Text(
                           "$nullCount",
-                          style: AppTextStyles.hiraginoW7
-                              .copyWith(fontSize: 14, color: AppColors().primaryRed),
+                          style: AppTextStyles.hiraginoW7.copyWith(
+                            fontSize: 14,
+                            color: AppColors().primaryRed,
+                          ),
                         ),
                         progressColor: AppColors().primaryRed,
                         backgroundColor: AppColors().grey,
@@ -101,9 +102,7 @@ class CustomCard extends ConsumerWidget {
                               height: 18,
                               child: Text(
                                 Strings.japaneseHistoryQuiz,
-                                style: AppTextStyles.hiraginoW7.copyWith(
-                                  fontSize: 14,
-                                ),
+                                style: AppTextStyles.hiraginoW7.copyWith(fontSize: 14),
                               ),
                             ),
                             SizedBox(
@@ -164,9 +163,7 @@ class CustomCard extends ConsumerWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => StudyingScreen(),
-                            ),
+                            MaterialPageRoute(builder: (context) => StudyingScreen()),
                           );
                         },
                         child: Container(
@@ -189,10 +186,10 @@ class CustomCard extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  Gap(16)
+                  Gap(16),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

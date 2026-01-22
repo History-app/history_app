@@ -21,9 +21,10 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  String get uid => throw _privateConstructorUsedError;
+  String? get uid => throw _privateConstructorUsedError;
   int get nullCount => throw _privateConstructorUsedError;
   String get startEra => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
 
   /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +40,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String uid, int nullCount, String startEra});
+  $Res call({String? uid, int nullCount, String startEra, String email});
 }
 
 /// @nodoc
@@ -57,16 +58,17 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = null,
+    Object? uid = freezed,
     Object? nullCount = null,
     Object? startEra = null,
+    Object? email = null,
   }) {
     return _then(
       _value.copyWith(
-            uid: null == uid
+            uid: freezed == uid
                 ? _value.uid
                 : uid // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as String?,
             nullCount: null == nullCount
                 ? _value.nullCount
                 : nullCount // ignore: cast_nullable_to_non_nullable
@@ -74,6 +76,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
             startEra: null == startEra
                 ? _value.startEra
                 : startEra // ignore: cast_nullable_to_non_nullable
+                      as String,
+            email: null == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
                       as String,
           )
           as $Val,
@@ -89,7 +95,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   ) = __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid, int nullCount, String startEra});
+  $Res call({String? uid, int nullCount, String startEra, String email});
 }
 
 /// @nodoc
@@ -104,16 +110,17 @@ class __$$UserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = null,
+    Object? uid = freezed,
     Object? nullCount = null,
     Object? startEra = null,
+    Object? email = null,
   }) {
     return _then(
       _$UserImpl(
-        uid: null == uid
+        uid: freezed == uid
             ? _value.uid
             : uid // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as String?,
         nullCount: null == nullCount
             ? _value.nullCount
             : nullCount // ignore: cast_nullable_to_non_nullable
@@ -122,36 +129,43 @@ class __$$UserImplCopyWithImpl<$Res>
             ? _value.startEra
             : startEra // ignore: cast_nullable_to_non_nullable
                   as String,
+        email: null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String,
       ),
     );
   }
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
-class _$UserImpl implements _User {
+@JsonSerializable()
+class _$UserImpl extends _User {
   const _$UserImpl({
-    required this.uid,
+    this.uid,
     this.nullCount = 5,
     this.startEra = "旧石器",
-  });
+    this.email = '',
+  }) : super._();
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
 
   @override
-  final String uid;
+  final String? uid;
   @override
   @JsonKey()
   final int nullCount;
   @override
   @JsonKey()
   final String startEra;
+  @override
+  @JsonKey()
+  final String email;
 
   @override
   String toString() {
-    return 'User(uid: $uid, nullCount: $nullCount, startEra: $startEra)';
+    return 'User(uid: $uid, nullCount: $nullCount, startEra: $startEra, email: $email)';
   }
 
   @override
@@ -163,12 +177,13 @@ class _$UserImpl implements _User {
             (identical(other.nullCount, nullCount) ||
                 other.nullCount == nullCount) &&
             (identical(other.startEra, startEra) ||
-                other.startEra == startEra));
+                other.startEra == startEra) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, nullCount, startEra);
+  int get hashCode => Object.hash(runtimeType, uid, nullCount, startEra, email);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -184,21 +199,25 @@ class _$UserImpl implements _User {
   }
 }
 
-abstract class _User implements User {
+abstract class _User extends User {
   const factory _User({
-    required final String uid,
+    final String? uid,
     final int nullCount,
     final String startEra,
+    final String email,
   }) = _$UserImpl;
+  const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
-  String get uid;
+  String? get uid;
   @override
   int get nullCount;
   @override
   String get startEra;
+  @override
+  String get email;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.

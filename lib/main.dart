@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options_dev.dart' as dev;
 import 'firebase_options_prod.dart' as prod;
@@ -11,6 +12,7 @@ const String flavor = String.fromEnvironment('FLAVOR', defaultValue: 'prod');
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   FirebaseOptions options;
 
@@ -32,8 +34,13 @@ Future<void> main() async {
   final app = Firebase.app();
 
   try {
-    final userCredential = await FirebaseAuth.instance.signInAnonymously();
+    final auth = FirebaseAuth.instance;
+
     // _forceResetAuth();
+
+    if (auth.currentUser == null) {
+      await auth.signInAnonymously();
+    }
   } catch (e) {}
 
   runApp(const ProviderScope(child: MyApp()));

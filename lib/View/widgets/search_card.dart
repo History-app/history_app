@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../Model/widgets/ search_app_bar.dart'; // 新しいファイルをインポート
-import '../../Model/Color/app_colors.dart';
 import 'package:gap/gap.dart';
 
 class SearchAppBarPage extends StatelessWidget {

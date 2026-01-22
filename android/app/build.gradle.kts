@@ -80,6 +80,9 @@ android {
         create("prod") {
             dimension = "env"
         }
+        create("dev") {
+            dimension = "env"
+        }
     }
 }
 

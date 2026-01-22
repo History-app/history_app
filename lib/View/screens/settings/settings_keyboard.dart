@@ -17,12 +17,12 @@ KeyboardActionsConfig _buildKeyboardActionsConfig(
             return GestureDetector(
               onTap: () async {
                 final notifier = ref.read(settingsNotifierProvider.notifier);
-                final controller_text = int.parse(controller.text);
+                final controllerText = int.parse(controller.text);
 
-                await notifier.updateTodayCard(controller_text);
+                await notifier.updateTodayCard(controllerText);
                 node.unfocus();
 
-                await notifier.updateNullCount(controller_text);
+                await notifier.updateNullCount(controllerText);
                 Navigator.pop(context);
               },
               child: const Padding(
@@ -59,7 +59,7 @@ void _handleBackButton(
     if (!shouldDiscard) return;
 
     if (isCountChanged) controller.clear();
-    if (isEraChanged) eraController!.clear();
+    if (isEraChanged) eraController.clear();
   }
 
   Navigator.pop(context);

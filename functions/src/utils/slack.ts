@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
-import * as functions from "firebase-functions";
+import * as functions from "firebase-functions/v1";
 
-const WEBHOOK_URL = functions.config().slack.webhook_url;
+const WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL!;
 
 export async function sendSlackNotification(message: string) {
   try {
