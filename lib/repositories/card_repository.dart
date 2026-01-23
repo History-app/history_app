@@ -19,26 +19,29 @@ class CardRepository {
         return [];
       }
 
-      final col =
-          FirebaseFirestore.instance.collection('users').doc(uid).collection('learnedCards');
+      final col = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('learnedCards');
       final snap = await col.snapshots().firstWhere((s) => s.docs.isNotEmpty);
 
       final results = snap.docs.map((doc) {
         final data = doc.data();
-            data['id'] = doc.id;
-            return data;
-          }).toList();
+        data['id'] = doc.id;
+        return data;
+      }).toList();
 
-
-      
       return results;
     } catch (e) {
       return [];
     }
   }
 
-  Future<List<Map<String, dynamic>>> getUsersCardsData(
-      {List<Map<String, dynamic>>? allLearnedCards, required int nullCount, startEraLabel}) async {
+  Future<List<Map<String, dynamic>>> getUsersCardsData({
+    List<Map<String, dynamic>>? allLearnedCards,
+    required int nullCount,
+    startEraLabel,
+  }) async {
     try {
       //ここの時点で、cardsを篩にかける(いつの時代からそのcardsを勉強しているかで篩にかける)
 
@@ -56,8 +59,9 @@ class CardRepository {
           .collection('settings')
           .doc('cardLimits');
 
-      return await FirebaseFirestore.instance
-          .runTransaction<List<Map<String, dynamic>>>((transaction) async {
+      return await FirebaseFirestore.instance.runTransaction<List<Map<String, dynamic>>>((
+        transaction,
+      ) async {
         final limitsDoc = await transaction.get(limitsRef);
         final today = DateTime.now().toIso8601String().substring(0, 10);
 
@@ -153,8 +157,9 @@ class CardRepository {
             final startId = minIdStringForEraByMapping(cards, startEraLabel);
             if (startId != null) {
               final startNum = _extractNumber(startId);
-              orderedNullLeft
-                  .sort((a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])));
+              orderedNullLeft.sort(
+                (a, b) => _extractNumber(a['id']).compareTo(_extractNumber(b['id'])),
+              );
               final high = orderedNullLeft
                   .where((c) => _extractNumber(c['id'].toString()) >= startNum)
                   .toList();
@@ -186,7 +191,7 @@ class CardRepository {
             'lastFetchDate': today,
             'todayFetchCount': todayFetchCount + fetchCount,
             'todaysNullCardIds': updatedCardIds,
-            'updatedAt': FieldValue.serverTimestamp()
+            'updatedAt': FieldValue.serverTimestamp(),
           });
         }
 
@@ -234,16 +239,14 @@ class CardRepository {
           .collection('settings')
           .doc('cardLimits');
 
-      await limitsRef.set({
-        'lastFetchDate': '',
-      }, SetOptions(merge: true));
+      await limitsRef.set({'lastFetchDate': ''}, SetOptions(merge: true));
     } catch (e) {
       // 必要ならエラーハンドリングを追加
       print('resetLastFetchDate error: $e');
     }
   }
 
-//　時代別に始める
+  //　時代別に始める
   int _startPurposeEra(Map<String, dynamic> a, Map<String, dynamic> b) {
     final idA = a['id']?.toString() ?? '';
     final idB = b['id']?.toString() ?? '';
@@ -299,10 +302,7 @@ class CardRepository {
     return n >= start && n < nextStart;
   }
 
-  Future<void> saveMemoToFirestore({
-    required String cardId,
-    required String memo,
-  }) async {
+  Future<void> saveMemoToFirestore({required String cardId, required String memo}) async {
     if (uid == null) {
       throw Exception('ユーザーがログインしていません');
     }
@@ -313,18 +313,23 @@ class CardRepository {
         .collection('learnedCards')
         .doc(cardId);
 
-    await cardRef.update({
-      'memo': memo,
-      'updatedAt': FieldValue.serverTimestamp(),
-    });
+    await cardRef.update({'memo': memo, 'updatedAt': FieldValue.serverTimestamp()});
   }
 
   Map<String, dynamic> removeNullFields(Map<String, dynamic> data) {
     return data..removeWhere((key, value) => value == null);
   }
 
-  Future<void> updateLearnedCardsData(String noteRef, int newQueue, int newType,
-      {Timestamp? dueTimestamp, int? left, int? factor, dynamic newivl}) async {
+  Future<void> updateLearnedCardsData(
+    String noteRef,
+    int newQueue,
+    int newType, {
+    Timestamp? dueTimestamp,
+    int? left,
+    int? factor,
+    dynamic newivl,
+    String? aiText,
+  }) async {
     try {
       final querySnapshot = await FirebaseFirestore.instance
           .collection('users')
@@ -345,6 +350,7 @@ class CardRepository {
         'left': left,
         'factor': factor,
         'ivl': newivl,
+        'aiText': aiText,
       });
 
       // 各ドキュメントを更新
