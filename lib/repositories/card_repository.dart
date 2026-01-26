@@ -14,27 +14,19 @@ class CardRepository {
   void initState() {}
 
   Future<List<Map<String, dynamic>>> getAllUserLearnedCards() async {
-    try {
-      if (uid == null) {
-        return [];
-      }
-
-      final col = FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('learnedCards');
-      final snap = await col.snapshots().firstWhere((s) => s.docs.isNotEmpty);
-
-      final results = snap.docs.map((doc) {
-        final data = doc.data();
-        data['id'] = doc.id;
-        return data;
-      }).toList();
-
-      return results;
-    } catch (e) {
+    if (uid == null) {
       return [];
     }
+
+    final col = FirebaseFirestore.instance.collection('users').doc(uid).collection('learnedCards');
+
+    final snap = await col.get();
+
+    return snap.docs.map((doc) {
+      final data = doc.data();
+      data['id'] = doc.id;
+      return data;
+    }).toList();
   }
 
   Future<List<Map<String, dynamic>>> getUsersCardsData({
