@@ -1,12 +1,14 @@
 part of '../screens/studying_screen.dart';
 
 extension StudyingScreenBottomBarExtension on _StudyingScreenState {
-  Widget _buildBottomNavigationBar() {
+  Widget buildBottomNavigationBar(List<String> answerCardQuestionText, String era) {
     final nullCount = leftValueDistribution[null] ?? 0;
-    final learningCount = (leftValueDistribution[2001] ?? 0) +
+    final learningCount =
+        (leftValueDistribution[2001] ?? 0) +
         (leftValueDistribution[1001] ?? 0) +
         (leftValueDistribution[2002] ?? 0);
     final reviewCount = leftValueDistribution[0] ?? 0;
+    print('answerCardQuestionText,$answerCardQuestionText');
 
     return !showAdditionalWidgets
         ? Container(
@@ -21,24 +23,28 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('$nullCount',
-                          style: AppTextStyles.sfProSemibold24
-                              .copyWith(fontSize: 24, color: AppColors().blue)),
-                      Text('+',
-                          style: AppTextStyles.sfProSemibold24
-                              .copyWith(fontSize: 24)),
+                      Text(
+                        '$nullCount',
+                        style: AppTextStyles.sfProSemibold24.copyWith(
+                          fontSize: 24,
+                          color: AppColors().blue,
+                        ),
+                      ),
+                      Text('+', style: AppTextStyles.sfProSemibold24.copyWith(fontSize: 24)),
                       Text(
                         '$learningCount',
                         style: AppTextStyles.sfProSemibold24.copyWith(
-                            fontSize: 24, color: AppColors().primaryRed),
+                          fontSize: 24,
+                          color: AppColors().primaryRed,
+                        ),
                       ),
-                      Text('+',
-                          style: AppTextStyles.sfProSemibold24
-                              .copyWith(fontSize: 24)),
+                      Text('+', style: AppTextStyles.sfProSemibold24.copyWith(fontSize: 24)),
                       Text(
                         '$reviewCount',
-                        style: AppTextStyles.sfProSemibold24
-                            .copyWith(fontSize: 24, color: AppColors().green),
+                        style: AppTextStyles.sfProSemibold24.copyWith(
+                          fontSize: 24,
+                          color: AppColors().green,
+                        ),
                       ),
                     ],
                   ),
@@ -60,13 +66,23 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        //もう一度ボタン
                         GestureDetector(
-                          onTap: () {
-                            if ([2002, 1001, null]
-                                .contains(carddata[0]['left'])) {
+                          onTap: () async {
+                            String? aiText;
+                            if ([2002, 1001, null].contains(carddata[0]['left'])) {
                               // 1分後のタイムスタンプを作成
                               final timestamp1Min = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(minutes: 1)));
+                                DateTime.now().add(Duration(minutes: 1)),
+                              );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -76,12 +92,22 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     dueTimestamp: timestamp1Min,
                                     left: 2002,
+                                    aiText: aiText,
                                   );
                             }
                             if ([2001].contains(carddata[0]['left'])) {
                               // 1分後のタイムスタンプを作成
                               final timestamp10Min = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(minutes: 10)));
+                                DateTime.now().add(Duration(minutes: 10)),
+                              );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -91,33 +117,46 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     dueTimestamp: timestamp10Min,
                                     left: 2001,
+                                    aiText: aiText,
                                   );
                             }
                             if (carddata[0]['left'] == 0) {
                               final timestamp10Min = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(minutes: 10)));
+                                DateTime.now().add(Duration(minutes: 10)),
+                              );
 
                               final factor = duecards[0]['factor'];
                               final newfactor = factor - 200;
+
+                              if (newfactor >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
+
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
-                                      duecards[0]['noteRef'], 3, 1,
-                                      left: 2001,
-                                      dueTimestamp: timestamp10Min,
-                                      factor: newfactor);
+                                    duecards[0]['noteRef'],
+                                    3,
+                                    1,
+                                    left: 2001,
+                                    dueTimestamp: timestamp10Min,
+                                    factor: newfactor,
+                                    aiText: aiText,
+                                  );
                             }
                             ref
                                 .read(cardsDataNewNotifierProvider.notifier)
-                                .moveCardBetweenCategories(
-                                    carddata[0]['type'], 1);
+                                .moveCardBetweenCategories(carddata[0]['type'], 1);
 
                             ref
                                 .read(cardsDataNewNotifierProvider.notifier)
                                 .decrementLeftValueCount(carddata[0]['left']);
-                            ref
-                                .read(cardsDataNewNotifierProvider.notifier)
-                                .removeFirstCard();
+                            ref.read(cardsDataNewNotifierProvider.notifier).removeFirstCard();
 
                             setState(() {
                               print(carddata);
@@ -137,8 +176,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                 // または Row、Stack などを使用
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  if ([2002, 1001, null]
-                                      .contains(carddata[0]['left']))
+                                  if ([2002, 1001, null].contains(carddata[0]['left']))
                                     Text(
                                       Strings.oneMinute,
                                       style: AppTextStyles.sfProSemibold24.copyWith(
@@ -147,8 +185,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                         color: Colors.white,
                                       ),
                                     )
-                                  else if ([2001, 0, null]
-                                      .contains(carddata[0]['left']))
+                                  else if ([2001, 0, null].contains(carddata[0]['left']))
                                     Text(
                                       Strings.tenMinutes,
                                       style: AppTextStyles.sfProSemibold24.copyWith(
@@ -157,8 +194,6 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                         color: Colors.white,
                                       ),
                                     ),
-
-                                  // 必要に応じて SizedBox で間隔を追加
 
                                   Text(
                                     Strings.onRetry,
@@ -173,11 +208,22 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                             ),
                           ),
                         ),
+                        //難しいボタン
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            String? aiText;
                             if ([2002, null].contains(carddata[0]['left'])) {
                               final timestamp10Min = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(minutes: 10)));
+                                DateTime.now().add(Duration(minutes: 10)),
+                              );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -187,17 +233,26 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     left: 1001,
                                     dueTimestamp: timestamp10Min,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
-                                  .moveCardBetweenCategories(
-                                      carddata[0]['type'], 1);
+                                  .moveCardBetweenCategories(carddata[0]['type'], 1);
 
                               _loadNoteData();
                             }
                             if ([1001, 2001].contains(carddata[0]['left'])) {
                               final timestamp18Hours = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(hours: 18)));
+                                DateTime.now().add(Duration(hours: 18)),
+                              );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -207,11 +262,11 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     2,
                                     left: 0,
                                     dueTimestamp: timestamp18Hours,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
-                                  .moveCardBetweenCategories(
-                                      carddata[0]['type'], 2);
+                                  .moveCardBetweenCategories(carddata[0]['type'], 2);
                             }
 
                             if (carddata[0]['left'] == 0) {
@@ -225,33 +280,43 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final double newivlDays2 = ivl + 1;
 
                               // 大きい方を抽出
-                              final double maxNewIvlDays =
-                                  newivlDays > newivlDays2
-                                      ? newivlDays
-                                      : newivlDays2;
+                              final double maxNewIvlDays = newivlDays > newivlDays2
+                                  ? newivlDays
+                                  : newivlDays2;
 
                               final dueTimestamp = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(
-                                      hours: (maxNewIvlDays * 24)
-                                          .toInt() // 日数を時間に変換
-                                      )));
+                                DateTime.now().add(
+                                  Duration(
+                                    hours: (maxNewIvlDays * 24).toInt(), // 日数を時間に変換
+                                  ),
+                                ),
+                              );
+                              if (newfactor >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
-                                      duecards[0]['noteRef'], 2, 2,
-                                      left: 0,
-                                      dueTimestamp: dueTimestamp,
-                                      ivl: newivl,
-                                      factor: newfactor);
+                                    duecards[0]['noteRef'],
+                                    2,
+                                    2,
+                                    left: 0,
+                                    dueTimestamp: dueTimestamp,
+                                    ivl: newivl,
+                                    factor: newfactor,
+                                    aiText: aiText,
+                                  );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
-                                  .moveCardBetweenCategories(
-                                      carddata[0]['type'], 2);
+                                  .moveCardBetweenCategories(carddata[0]['type'], 2);
                             }
-                            ref
-                                .read(cardsDataNewNotifierProvider.notifier)
-                                .removeFirstCard();
+                            ref.read(cardsDataNewNotifierProvider.notifier).removeFirstCard();
                             setState(() {
                               // duecard.removeAt(0);
                               showAdditionalWidgets = false;
@@ -260,77 +325,84 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                             _loadNoteData();
                           },
                           child: Container(
-                              width: 80,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: Colors.yellow,
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if ([2002, null]
-                                        .contains(carddata[0]['left']))
-                                      Text(
-                                        Strings.tenMinutes,
-                                        style: AppTextStyles.sfProSemibold24.copyWith(
-                                          fontSize: 14,
-                                          height: 1.0,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    else if ([1001, 2001]
-                                        .contains(carddata[0]['left']))
-                                      Text(
-                                        Strings.eighteenHours,
-                                        style: AppTextStyles.sfProSemibold24.copyWith(
-                                          fontSize: 14,
-                                          height: 1.0,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    else if (carddata[0]['left'] == 0)
-                                      (() {
-                                        final ivl =
-                                            duecards[0]['ivl'].toDouble();
-
-                                        final double newivlDays = ivl * 1.2;
-
-                                        final double newivlDays2 = ivl + 1;
-
-                                        final double maxNewIvlDays =
-                                            newivlDays > newivlDays2
-                                                ? newivlDays
-                                                : newivlDays2;
-
-                                        return Text(
-                                          '${maxNewIvlDays.toStringAsFixed(1)}日',
-                                          style: AppTextStyles.sfProSemibold24
-                                              .copyWith(
-                                            fontSize: 14,
-                                            height: 1.0,
-                                            color: Colors.white,
-                                          ),
-                                        );
-                                      })(),
+                            width: 80,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if ([2002, null].contains(carddata[0]['left']))
                                     Text(
-                                      Strings.hard,
+                                      Strings.tenMinutes,
                                       style: AppTextStyles.sfProSemibold24.copyWith(
                                         fontSize: 14,
                                         height: 1.0,
                                         color: Colors.white,
                                       ),
+                                    )
+                                  else if ([1001, 2001].contains(carddata[0]['left']))
+                                    Text(
+                                      Strings.eighteenHours,
+                                      style: AppTextStyles.sfProSemibold24.copyWith(
+                                        fontSize: 14,
+                                        height: 1.0,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  else if (carddata[0]['left'] == 0)
+                                    (() {
+                                      final ivl = duecards[0]['ivl'].toDouble();
+
+                                      final double newivlDays = ivl * 1.2;
+
+                                      final double newivlDays2 = ivl + 1;
+
+                                      final double maxNewIvlDays = newivlDays > newivlDays2
+                                          ? newivlDays
+                                          : newivlDays2;
+
+                                      return Text(
+                                        '${maxNewIvlDays.toStringAsFixed(1)}日',
+                                        style: AppTextStyles.sfProSemibold24.copyWith(
+                                          fontSize: 14,
+                                          height: 1.0,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    })(),
+                                  Text(
+                                    Strings.hard,
+                                    style: AppTextStyles.sfProSemibold24.copyWith(
+                                      fontSize: 14,
+                                      height: 1.0,
+                                      color: Colors.white,
                                     ),
-                                  ],
-                                ),
-                              )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
+                        //正解ボタン
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            String? aiText;
                             if ([2002, null].contains(carddata[0]['left'])) {
                               final timestamp10Min = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(minutes: 10)));
+                                DateTime.now().add(Duration(minutes: 10)),
+                              );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -340,16 +412,26 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     left: 1001,
                                     dueTimestamp: timestamp10Min,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
-                                  .moveCardBetweenCategories(
-                                      carddata[0]['type'], 1);
+                                  .moveCardBetweenCategories(carddata[0]['type'], 1);
                               _loadNoteData();
                             }
                             if ([1001, 2001].contains(carddata[0]['left'])) {
                               final timestamp18Hours = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(hours: 24)));
+                                DateTime.now().add(Duration(hours: 24)),
+                              );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
+
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
@@ -358,11 +440,11 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     2,
                                     left: 0,
                                     dueTimestamp: timestamp18Hours,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
-                                  .moveCardBetweenCategories(
-                                      carddata[0]['type'], 2);
+                                  .moveCardBetweenCategories(carddata[0]['type'], 2);
                             }
 
                             if (carddata[0]['left'] == 0) {
@@ -370,29 +452,39 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
 
                               final newivl = ivl * duecards[0]['factor'] / 1000;
 
-                              final double newivlDays =
-                                  ivl * duecards[0]['factor'] / 1000;
+                              final double newivlDays = ivl * duecards[0]['factor'] / 1000;
 
                               final dueTimestamp = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(
-                                      hours: (newivlDays * 24).toInt())));
+                                DateTime.now().add(Duration(hours: (newivlDays * 24).toInt())),
+                              );
+
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
-                                      duecards[0]['noteRef'], 2, 2,
-                                      left: 0,
-                                      dueTimestamp: dueTimestamp,
-                                      ivl: newivl);
+                                    duecards[0]['noteRef'],
+                                    2,
+                                    2,
+                                    left: 0,
+                                    dueTimestamp: dueTimestamp,
+                                    ivl: newivl,
+
+                                    aiText: aiText,
+                                  );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
-                                  .moveCardBetweenCategories(
-                                      carddata[0]['type'], 2);
+                                  .moveCardBetweenCategories(carddata[0]['type'], 2);
                             }
 
-                            ref
-                                .read(cardsDataNewNotifierProvider.notifier)
-                                .removeFirstCard();
+                            ref.read(cardsDataNewNotifierProvider.notifier).removeFirstCard();
                             setState(() {
                               print(carddata);
                               showAdditionalWidgets = false;
@@ -401,71 +493,81 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                             _loadNoteData();
                           },
                           child: Container(
-                              width: 80,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: AppColors().green,
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if ([2002, null]
-                                        .contains(carddata[0]['left']))
-                                      Text(
-                                        Strings.tenMinutes,
-                                        style: AppTextStyles.sfProSemibold24.copyWith(
-                                          fontSize: 14,
-                                          height: 1.0,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    else if ([1001, 2001]
-                                        .contains(carddata[0]['left']))
-                                      Text(
-                                        Strings.oneDay,
-                                        style: AppTextStyles.sfProSemibold24.copyWith(
-                                          fontSize: 14,
-                                          height: 1.0,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    else if (carddata[0]['left'] == 0)
-                                      (() {
-                                        final ivl = duecards[0]['ivl'];
-
-                                        final double newivlDays =
-                                            ivl * duecards[0]['factor'] / 1000;
-                                        return Text(
-                                          '${newivlDays.toStringAsFixed(1)}日',
-                                          style: AppTextStyles.sfProSemibold24
-                                              .copyWith(
-                                            fontSize: 14,
-                                            height: 1.0,
-                                            color: Colors.white,
-                                          ),
-                                        );
-                                      })(),
+                            width: 80,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: AppColors().green,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if ([2002, null].contains(carddata[0]['left']))
                                     Text(
-                                      Strings.correct,
+                                      Strings.tenMinutes,
                                       style: AppTextStyles.sfProSemibold24.copyWith(
                                         fontSize: 14,
                                         height: 1.0,
                                         color: Colors.white,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            if ([2002, null, 1001, 2001]
-                                .contains(carddata[0]['left'])) {
-                              final timestamp4Days = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(days: 4)));
+                                    )
+                                  else if ([1001, 2001].contains(carddata[0]['left']))
+                                    Text(
+                                      Strings.oneDay,
+                                      style: AppTextStyles.sfProSemibold24.copyWith(
+                                        fontSize: 14,
+                                        height: 1.0,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  else if (carddata[0]['left'] == 0)
+                                    (() {
+                                      final ivl = duecards[0]['ivl'];
 
+                                      final double newivlDays = ivl * duecards[0]['factor'] / 1000;
+                                      return Text(
+                                        '${newivlDays.toStringAsFixed(1)}日',
+                                        style: AppTextStyles.sfProSemibold24.copyWith(
+                                          fontSize: 14,
+                                          height: 1.0,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    })(),
+                                  Text(
+                                    Strings.correct,
+                                    style: AppTextStyles.sfProSemibold24.copyWith(
+                                      fontSize: 14,
+                                      height: 1.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        //簡単ボタン
+                        GestureDetector(
+                          onTap: () async {
+                            String? aiText;
+                            if ([2002, null, 1001, 2001].contains(carddata[0]['left'])) {
+                              final timestamp4Days = Timestamp.fromDate(
+                                DateTime.now().add(Duration(days: 4)),
+                              );
+                              final newfactor = duecards[0]['factor'] + 200;
+                              print('newfactor,$newfactor');
+
+                              ///AIコメントを自動生成
+                              if (newfactor >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
@@ -474,11 +576,12 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     left: 0,
                                     dueTimestamp: timestamp4Days,
+                                    factor: newfactor,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
-                                  .moveCardBetweenCategories(
-                                      carddata[0]['type'], 2);
+                                  .moveCardBetweenCategories(carddata[0]['type'], 2);
                             }
 
                             if (carddata[0]['left'] == 0) {
@@ -486,28 +589,38 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
 
                               final newivl = ivl * duecards[0]['factor'] / 1000;
 
-                              final double newivlDays =
-                                  ivl * duecards[0]['factor'] / 1000 * 1.3;
+                              final double newivlDays = ivl * duecards[0]['factor'] / 1000 * 1.3;
 
                               final dueTimestamp = Timestamp.fromDate(
-                                  DateTime.now().add(Duration(
-                                      hours: (newivlDays * 24).toInt())));
-
+                                DateTime.now().add(Duration(hours: (newivlDays * 24).toInt())),
+                              );
+                              final newfactor = duecards[0]['factor'] + 200;
+                              print('newfactor,$newfactor');
+                              if (newfactor >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
-                                      duecards[0]['noteRef'], 2, 2,
-                                      left: 0,
-                                      dueTimestamp: dueTimestamp,
-                                      ivl: newivl);
+                                    duecards[0]['noteRef'],
+                                    2,
+                                    2,
+                                    left: 0,
+                                    dueTimestamp: dueTimestamp,
+                                    ivl: newivl,
+                                    factor: newfactor,
+                                    aiText: aiText,
+                                  );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
-                                  .moveCardBetweenCategories(
-                                      carddata[0]['type'], 2);
+                                  .moveCardBetweenCategories(carddata[0]['type'], 2);
                             }
-                            ref
-                                .read(cardsDataNewNotifierProvider.notifier)
-                                .removeFirstCard();
+                            ref.read(cardsDataNewNotifierProvider.notifier).removeFirstCard();
                             setState(() {
                               print(carddata);
                               showAdditionalWidgets = false;
@@ -516,56 +629,52 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                             _loadNoteData();
                           },
                           child: Container(
-                              width: 80,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: AppColors().blue,
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if ([2002, null, 1001, 2001]
-                                        .contains(carddata[0]['left']))
-                                      Text(
-                                        Strings.fourDays,
-                                        style: AppTextStyles.sfProSemibold24.copyWith(
-                                          fontSize: 14,
-                                          height: 1.0,
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    else if (carddata[0]['left'] == 0)
-                                      (() {
-                                        final ivl = duecards[0]['ivl'];
-
-                                        final newivl = ivl *
-                                            duecards[0]['factor'] /
-                                            1000 *
-                                            1.3;
-
-                                        return Text(
-                                          '${newivl.toStringAsFixed(1)}日',
-                                          style: AppTextStyles.sfProSemibold24
-                                              .copyWith(
-                                            fontSize: 14,
-                                            height: 1.0,
-                                            color: Colors.white,
-                                          ),
-                                        );
-                                      })(),
+                            width: 80,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: AppColors().blue,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if ([2002, null, 1001, 2001].contains(carddata[0]['left']))
                                     Text(
-                                      Strings.easy,
+                                      Strings.fourDays,
                                       style: AppTextStyles.sfProSemibold24.copyWith(
                                         fontSize: 14,
                                         height: 1.0,
                                         color: Colors.white,
                                       ),
+                                    )
+                                  else if (carddata[0]['left'] == 0)
+                                    (() {
+                                      final ivl = duecards[0]['ivl'];
+
+                                      final newivl = ivl * duecards[0]['factor'] / 1000 * 1.3;
+
+                                      return Text(
+                                        '${newivl.toStringAsFixed(1)}日',
+                                        style: AppTextStyles.sfProSemibold24.copyWith(
+                                          fontSize: 14,
+                                          height: 1.0,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    })(),
+                                  Text(
+                                    Strings.easy,
+                                    style: AppTextStyles.sfProSemibold24.copyWith(
+                                      fontSize: 14,
+                                      height: 1.0,
+                                      color: Colors.white,
                                     ),
-                                  ],
-                                ),
-                              )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),

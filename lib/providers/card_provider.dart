@@ -9,8 +9,9 @@ final currentUser = FirebaseAuth.instance.currentUser;
 
 final userId = currentUser?.uid;
 
-final cardsDataNewNotifierProvider =
-    NotifierProvider<CardsDataNotifier, CardsDataState>(CardsDataNotifier.new);
+final cardsDataNewNotifierProvider = NotifierProvider<CardsDataNotifier, CardsDataState>(
+  CardsDataNotifier.new,
+);
 
 class CardsDataNotifier extends Notifier<CardsDataState> {
   CardsDataState initialCardsDataState() => const CardsDataState();
@@ -29,11 +30,13 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
     final cardMap = {
       for (var card in allCards)
-        if (card['noteRef'] != null) card['noteRef']: card
+        if (card['noteRef'] != null) card['noteRef']: card,
     };
 
-    final orderedCards =
-        noteRefs.map((noteRef) => cardMap[noteRef]).whereType<Map<String, dynamic>>().toList();
+    final orderedCards = noteRefs
+        .map((noteRef) => cardMap[noteRef])
+        .whereType<Map<String, dynamic>>()
+        .toList();
 
     state = state.copyWith(usersMultipleCards: orderedCards);
   }
@@ -56,7 +59,10 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
 
     final cardRepository = ref.read(cardRepositoryProvider);
     final cardsData = await cardRepository.getUsersCardsData(
-        allLearnedCards: state.allLearnedCards, nullCount: nullCount, startEraLabel: startEraLabel);
+      allLearnedCards: state.allLearnedCards,
+      nullCount: nullCount,
+      startEraLabel: startEraLabel,
+    );
 
     state = state.copyWith(cards: cardsData);
     calculateCardStats();
@@ -70,7 +76,10 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
     await fetchAllLearnedCards();
     print('ここ');
     final cardsData = await cardRepository.getUsersCardsData(
-        allLearnedCards: state.allLearnedCards, nullCount: nullCount, startEraLabel: startEraLabel);
+      allLearnedCards: state.allLearnedCards,
+      nullCount: nullCount,
+      startEraLabel: startEraLabel,
+    );
 
     state = state.copyWith(cards: cardsData);
     calculateCardStats();
@@ -103,10 +112,11 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
     final totalCardCount = allCards.length;
 
     state = state.copyWith(
-        newCardCount: newCardCount,
-        learningCardCount: learningCardCount,
-        reviewCardCount: reviewCardCount,
-        totalCardCount: totalCardCount);
+      newCardCount: newCardCount,
+      learningCardCount: learningCardCount,
+      reviewCardCount: reviewCardCount,
+      totalCardCount: totalCardCount,
+    );
   }
 
   Future<void> fetchTodaysReviewNoteRefs() async {
@@ -225,8 +235,9 @@ class CardsDataNotifier extends Notifier<CardsDataState> {
   void removeFirstCard() {
     final updatedCards = List<Map<String, dynamic>>.from(state.cards.skip(1));
     final updatedtodaysReviewNoteRefs = List<String>.from(state.todaysReviewNoteRefs.skip(1));
-    final updatedUsersMultipleCards =
-        List<Map<String, dynamic>>.from(state.usersMultipleCards.skip(1));
+    final updatedUsersMultipleCards = List<Map<String, dynamic>>.from(
+      state.usersMultipleCards.skip(1),
+    );
     final updatedAllNotes = List<Map<String, dynamic>>.from(state.allNotes.skip(1));
     state = state.copyWith(cards: updatedCards);
     state = state.copyWith(todaysReviewNoteRefs: updatedtodaysReviewNoteRefs);

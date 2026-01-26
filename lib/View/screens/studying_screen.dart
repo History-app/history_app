@@ -9,6 +9,7 @@ import '../../Model/text_styles.dart';
 import '../widgets/question_card.dart';
 import '../widgets/answer_card.dart';
 import '../widgets/memo_card.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 import '../../providers/card_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,6 +35,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
   List<Map<String, dynamic>> carddata = [];
   List<Map<String, dynamic>> duecard = [];
   List<Map<String, dynamic>> duecards = [];
+
   Map<dynamic, int> leftValueDistribution = {};
   bool isLoading = true;
   @override
@@ -121,6 +123,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
     final answerCardKey = ref.read(tutorialProvider.notifier).getAnswerButtonKey();
 
     final List<String> answerCardQuestionText;
+    debugPrint('duecards, ${duecards.isNotEmpty ? duecards[0]['aiText'] : "null"}');
 
     if (duecard.isNotEmpty && duecard[0]['flds'] != null && duecard[0]['flds'] is List) {
       final flds = duecard[0]['flds'] as List;
@@ -212,8 +215,23 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                         alignment: Alignment.center,
                         key: questionCardKey,
                         child: QuestionCard(
-                          questionText: duecard.isNotEmpty && duecard[0]['flds'] != null
-                              ? duecard[0]['flds'][0].toString()
+                          isAiQuestion:
+                              duecard.isNotEmpty &&
+                              duecards[0]['factor'] != null &&
+                              duecards[0]['factor'] >= 2800 &&
+                              duecards[0]['aiText'] != null &&
+                              duecards[0]['aiText'].toString().isNotEmpty,
+                          questionText: duecard.isNotEmpty
+                              ? (duecards[0]['factor'] != null && duecards[0]['factor'] >= 2800
+                                    ? (duecards[0]['aiText'] != null &&
+                                              duecards[0]['aiText'].toString().isNotEmpty
+                                          ? duecards[0]['aiText'].toString()
+                                          : (duecard[0]['flds'] != null
+                                                ? duecard[0]['flds'][0].toString()
+                                                : 'No data'))
+                                    : (duecard[0]['flds'] != null
+                                          ? duecard[0]['flds'][0].toString()
+                                          : 'No data'))
                               : 'No data',
                           starImagePath: 'assets/star_${duecard[0]['star']}.png',
                         ),
@@ -366,7 +384,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
             ),
       bottomNavigationBar: KeyedSubtree(
         key: ref.read(tutorialProvider.notifier).bottomBarKey,
-        child: _buildBottomNavigationBar(),
+        child: buildBottomNavigationBar(answerCardQuestionText, duecard[0]['theme']),
       ),
     );
   }

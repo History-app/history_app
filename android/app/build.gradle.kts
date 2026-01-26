@@ -19,7 +19,7 @@ android {
     ndkVersion = "28.2.13676358"
     packaging {
         jniLibs {
-            // 16KB page-size 対応のための必須設定（AGP 8.1+）
+            // 16KB page-size 対応（必須）
             useLegacyPackaging = false
         }
     }
@@ -34,23 +34,18 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "io.github.yutotaniguchi.japanesehistoryapp"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
-        manifestPlaceholders["supportsLargeHeaps"] = "true"
-
-        
         targetSdk = flutter.targetSdkVersion
+
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        manifestPlaceholders["supportsLargeHeaps"] = "true"
+
         ndk {
             abiFilters += listOf("arm64-v8a")
-        
-
         }
-    
     }
 
     signingConfigs {
@@ -73,7 +68,7 @@ android {
             )
         }
     }
-    // ★★ ここから追加 ★★
+
     flavorDimensions += "env"
 
     productFlavors {
@@ -88,4 +83,10 @@ android {
 
 flutter {
     source = "../.."
+}
+
+/* ★★★★★ ここが重要（追加部分）★★★★★ */
+dependencies {
+    // Play Console の「16KB メモリページサイズ未対応」対策
+    implementation("androidx.core:core-ktx:1.16.0")
 }
