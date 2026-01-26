@@ -44,10 +44,8 @@ class StudyingScreenFunctions {
     );
   }
 
-  Future<String?> generateJapaneseHistoryQuestion(String answer) async {
+  Future<String?> generateJapaneseHistoryQuestion(String answer, String era) async {
     try {
-      print('実行 start');
-
       final uri = Uri.parse(
         'https://asia-northeast1-history-app-dev-fce4a.cloudfunctions.net/generateJapaneseHistoryQuestion',
       );
@@ -55,7 +53,7 @@ class StudyingScreenFunctions {
       final res = await http.post(
         uri,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'answer': answer}),
+        body: jsonEncode({'answer': answer, 'era': era}),
       );
 
       print('HTTP status: ${res.statusCode}');

@@ -215,8 +215,23 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
                         alignment: Alignment.center,
                         key: questionCardKey,
                         child: QuestionCard(
-                          questionText: duecard.isNotEmpty && duecard[0]['flds'] != null
-                              ? duecard[0]['flds'][0].toString()
+                          isAiQuestion:
+                              duecard.isNotEmpty &&
+                              duecards[0]['factor'] != null &&
+                              duecards[0]['factor'] >= 2800 &&
+                              duecards[0]['aiText'] != null &&
+                              duecards[0]['aiText'].toString().isNotEmpty,
+                          questionText: duecard.isNotEmpty
+                              ? (duecards[0]['factor'] != null && duecards[0]['factor'] >= 2800
+                                    ? (duecards[0]['aiText'] != null &&
+                                              duecards[0]['aiText'].toString().isNotEmpty
+                                          ? duecards[0]['aiText'].toString()
+                                          : (duecard[0]['flds'] != null
+                                                ? duecard[0]['flds'][0].toString()
+                                                : 'No data'))
+                                    : (duecard[0]['flds'] != null
+                                          ? duecard[0]['flds'][0].toString()
+                                          : 'No data'))
                               : 'No data',
                           starImagePath: 'assets/star_${duecard[0]['star']}.png',
                         ),
@@ -369,7 +384,7 @@ class _StudyingScreenState extends ConsumerState<StudyingScreen> {
             ),
       bottomNavigationBar: KeyedSubtree(
         key: ref.read(tutorialProvider.notifier).bottomBarKey,
-        child: buildBottomNavigationBar(answerCardQuestionText),
+        child: buildBottomNavigationBar(answerCardQuestionText, duecard[0]['theme']),
       ),
     );
   }

@@ -1,7 +1,7 @@
 part of '../screens/studying_screen.dart';
 
 extension StudyingScreenBottomBarExtension on _StudyingScreenState {
-  Widget buildBottomNavigationBar(List<String> answerCardQuestionText) {
+  Widget buildBottomNavigationBar(List<String> answerCardQuestionText, String era) {
     final nullCount = leftValueDistribution[null] ?? 0;
     final learningCount =
         (leftValueDistribution[2001] ?? 0) +
@@ -68,12 +68,21 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                       children: [
                         //もう一度ボタン
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            String? aiText;
                             if ([2002, 1001, null].contains(carddata[0]['left'])) {
                               // 1分後のタイムスタンプを作成
                               final timestamp1Min = Timestamp.fromDate(
                                 DateTime.now().add(Duration(minutes: 1)),
                               );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -83,6 +92,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     dueTimestamp: timestamp1Min,
                                     left: 2002,
+                                    aiText: aiText,
                                   );
                             }
                             if ([2001].contains(carddata[0]['left'])) {
@@ -90,6 +100,14 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final timestamp10Min = Timestamp.fromDate(
                                 DateTime.now().add(Duration(minutes: 10)),
                               );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -99,6 +117,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     dueTimestamp: timestamp10Min,
                                     left: 2001,
+                                    aiText: aiText,
                                   );
                             }
                             if (carddata[0]['left'] == 0) {
@@ -108,6 +127,16 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
 
                               final factor = duecards[0]['factor'];
                               final newfactor = factor - 200;
+
+                              if (newfactor >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
+
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
@@ -117,6 +146,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     left: 2001,
                                     dueTimestamp: timestamp10Min,
                                     factor: newfactor,
+                                    aiText: aiText,
                                   );
                             }
                             ref
@@ -180,11 +210,20 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                         ),
                         //難しいボタン
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            String? aiText;
                             if ([2002, null].contains(carddata[0]['left'])) {
                               final timestamp10Min = Timestamp.fromDate(
                                 DateTime.now().add(Duration(minutes: 10)),
                               );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -194,6 +233,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     left: 1001,
                                     dueTimestamp: timestamp10Min,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
@@ -205,6 +245,14 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final timestamp18Hours = Timestamp.fromDate(
                                 DateTime.now().add(Duration(hours: 18)),
                               );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -214,6 +262,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     2,
                                     left: 0,
                                     dueTimestamp: timestamp18Hours,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
@@ -242,6 +291,14 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                   ),
                                 ),
                               );
+                              if (newfactor >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -253,6 +310,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     dueTimestamp: dueTimestamp,
                                     ivl: newivl,
                                     factor: newfactor,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
@@ -331,11 +389,20 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                         ),
                         //正解ボタン
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            String? aiText;
                             if ([2002, null].contains(carddata[0]['left'])) {
                               final timestamp10Min = Timestamp.fromDate(
                                 DateTime.now().add(Duration(minutes: 10)),
                               );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
 
                               ref
                                   .read(studyingScreenProvider)
@@ -345,6 +412,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     1,
                                     left: 1001,
                                     dueTimestamp: timestamp10Min,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
@@ -355,6 +423,15 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               final timestamp18Hours = Timestamp.fromDate(
                                 DateTime.now().add(Duration(hours: 24)),
                               );
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
+
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
@@ -363,6 +440,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     2,
                                     left: 0,
                                     dueTimestamp: timestamp18Hours,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
@@ -380,6 +458,15 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                 DateTime.now().add(Duration(hours: (newivlDays * 24).toInt())),
                               );
 
+                              if (duecards[0]['factor'] >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
+
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
@@ -389,6 +476,8 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     left: 0,
                                     dueTimestamp: dueTimestamp,
                                     ivl: newivl,
+
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
@@ -462,6 +551,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                         //簡単ボタン
                         GestureDetector(
                           onTap: () async {
+                            String? aiText;
                             if ([2002, null, 1001, 2001].contains(carddata[0]['left'])) {
                               final timestamp4Days = Timestamp.fromDate(
                                 DateTime.now().add(Duration(days: 4)),
@@ -470,11 +560,14 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               print('newfactor,$newfactor');
 
                               ///AIコメントを自動生成
-                              // if (newfactor >= 2800) {
-                              // ref
-                              //     .read(studyingScreenProvider)
-                              //     .generateJapaneseHistoryQuestion(answerCardQuestionText[0]);
-                              // }
+                              if (newfactor >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
@@ -484,6 +577,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     left: 0,
                                     dueTimestamp: timestamp4Days,
                                     factor: newfactor,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
@@ -502,12 +596,14 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                               );
                               final newfactor = duecards[0]['factor'] + 200;
                               print('newfactor,$newfactor');
-                              // if (newfactor >= 2800) {
-                              // await ref
-                              //     .read(studyingScreenProvider)
-                              //     .generateJapaneseHistoryQuestion(answerCardQuestionText[0]);
-
-                              // }
+                              if (newfactor >= 2800) {
+                                aiText = await ref
+                                    .read(studyingScreenProvider)
+                                    .generateJapaneseHistoryQuestion(
+                                      answerCardQuestionText[0],
+                                      era,
+                                    );
+                              }
                               ref
                                   .read(studyingScreenProvider)
                                   .updateCardOnFirestore(
@@ -518,6 +614,7 @@ extension StudyingScreenBottomBarExtension on _StudyingScreenState {
                                     dueTimestamp: dueTimestamp,
                                     ivl: newivl,
                                     factor: newfactor,
+                                    aiText: aiText,
                                   );
                               ref
                                   .read(cardsDataNewNotifierProvider.notifier)
